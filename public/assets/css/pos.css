@@ -1,0 +1,417 @@
+/* POS System CSS */
+.pos-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Header styles */
+.pos-header {
+    background-color: #343a40;
+    color: white;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pos-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.pos-header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Main content area */
+.pos-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Product catalog styles */
+.pos-catalog {
+    flex: 7;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+}
+
+.pos-catalog-header {
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.pos-catalog-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+/* Product card styles */
+.pos-product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.pos-product {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.pos-product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.pos-product-image {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+}
+
+.pos-product-image img {
+    max-height: 100px;
+    max-width: 100px;
+    object-fit: contain;
+}
+
+.pos-product-info {
+    padding: 10px;
+}
+
+.pos-product-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    height: 40px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.pos-product-price {
+    color: #28a745;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.pos-product-stock {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+/* Category filter styles */
+.pos-categories {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.pos-category {
+    padding: 8px 15px;
+    background-color: #e9ecef;
+    border-radius: 20px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.pos-category:hover {
+    background-color: #dee2e6;
+}
+
+.pos-category.active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Cart styles */
+.pos-cart {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.pos-cart-header {
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+}
+
+.pos-cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.pos-cart-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #6c757d;
+}
+
+.pos-cart-empty i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.pos-cart-item {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.pos-cart-item-info {
+    flex: 1;
+}
+
+.pos-cart-item-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.pos-cart-item-price {
+    display: flex;
+    justify-content: space-between;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.pos-cart-item-actions {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.pos-cart-quantity {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.pos-quantity-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.pos-quantity-input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    margin: 0 5px;
+    padding: 2px 5px;
+}
+
+/* Cart totals styles */
+.pos-cart-footer {
+    padding: 15px;
+    border-top: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+}
+
+.pos-cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.pos-cart-total-row:last-child {
+    margin-bottom: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #dee2e6;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Payment methods styles */
+.pos-payment-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.pos-payment-method {
+    flex: 1;
+    min-width: 100px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.pos-payment-method:hover {
+    background-color: #f8f9fa;
+}
+
+.pos-payment-method.active {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.pos-payment-method i {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Checkout button */
+.pos-checkout-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Modal styles */
+.pos-modal-body {
+    padding: 20px;
+}
+
+.pos-modal-footer {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .pos-main {
+        flex-direction: column;
+    }
+    
+    .pos-catalog, .pos-cart {
+        flex: none;
+        width: 100%;
+    }
+    
+    .pos-catalog {
+        height: 50vh;
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .pos-cart {
+        height: 50vh;
+    }
+}
+
+/* Utility classes */
+.pos-text-success {
+    color: #28a745;
+}
+
+.pos-text-danger {
+    color: #dc3545;
+}
+
+.pos-text-warning {
+    color: #ffc107;
+}
+
+.pos-badge {
+    display: inline-block;
+    padding: 0.25em 0.6em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+}
+
+.pos-badge-success {
+    color: #fff;
+    background-color: #28a745;
+}
+
+.pos-badge-danger {
+    color: #fff;
+    background-color: #dc3545;
+}
+
+.pos-badge-warning {
+    color: #212529;
+    background-color: #ffc107;
+}
+
+/* Search bar styles */
+.pos-search-bar {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.pos-search-bar input {
+    padding-right: 40px;
+}
+
+.pos-search-bar button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: none;
+    border: none;
+    padding: 0 15px;
+    color: #6c757d;
+}
+
+/* Customer selection styles */
+.pos-customer-select {
+    margin-bottom: 15px;
+}
+
+.pos-customer-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+/* Barcode scanner styles */
+.pos-barcode-scanner {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.pos-barcode-scanner input {
+    padding-left: 40px;
+}
+
+.pos-barcode-scanner i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
