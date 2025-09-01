@@ -14,7 +14,7 @@ class Sales extends Model
         return $this->belongsTo(VoucherTypeModel::class, 'voucher_type_id');
     }
     // estados factura
-    public function state_types()
+    public function stateTypes()
     {
         return $this->belongsTo(StateTypeModel::class, 'state_type_id');
     }

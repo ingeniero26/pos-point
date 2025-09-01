@@ -232,9 +232,8 @@ class SalesController extends Controller
 
             // Generar número de factura
             // Generar número de factura con el formato correcto
-                $sale->invoice_no = $company->getFormattedConsecutive($nextConsecutive);
-                $sale->save();
-
+                 $sale->invoice_no = 'FV-' . str_pad($sale->id, 6, '0', STR_PAD_LEFT);
+            $sale->save();
             // Guardar los items de la venta
             if (isset($data['product_ids']) && is_array($data['product_ids'])) {
                 foreach ($data['product_ids'] as $index => $productId) {
@@ -459,7 +458,7 @@ class SalesController extends Controller
   {
       $query = Sales::with(['customers', 'company', 'voucherTypes', 'warehouses', 'currencies', 
           'users', 'sales_items.item', 'sales_items.tax',
-      'payment_form', 'payment_method', 'state_types'])
+      'payment_form', 'payment_method', 'stateTypes'])
           ->orderBy('id', 'desc');
       
       // Apply date from filter
@@ -504,7 +503,7 @@ public function exportExcel()
  */
     public function exportPdf(Request $request)
     {
-        $query = Sales::with(['customers', 'payment_form', 'payment_method', 'state_types'])
+        $query = Sales::with(['customers', 'payment_form', 'payment_method', 'stateTypes'])
             ->orderBy('id', 'desc');
         
         // Apply date from filter
@@ -537,7 +536,7 @@ public function exportExcel()
         $sale = Sales::with([
             'voucherTypes',
             'customers',
-            'state_types',
+            'stateTypes',
             'paymentTypes',
             'currencies',
             'payment_method',

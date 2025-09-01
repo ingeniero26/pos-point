@@ -1359,11 +1359,8 @@
                             <div>{{ Auth::user()->company->address ?? 'Dirección' }}</div>
                             <div>Tel: {{ Auth::user()->company->phone ?? 'Teléfono' }}</div>
                             <div>NIT: {{ Auth::user()->company->identification_number ?? 'NIT' }}</div>
-                            <div>Número de resolución DIAN: {{ Auth::user()->company->dian_resolution  ?? 'Número de resolución DIAN' }}</div>
-                            <div>Fecha de resolución: {{ Auth::user()->company->resolution_date ? Auth::user()->company->resolution_date->format('d/m/Y') : 'Fecha de resolución' }}</div>
-                            <div>Fecha de inicio: {{ Auth::user()->company->date_from ? Auth::user()->company->date_from->format('d/m/Y') : 'Fecha de inicio' }}</div>
-                            <div>Fecha de fin: {{ Auth::user()->company->date_to ? Auth::user()->company->date_to->format('d/m/Y') : 'Fecha de fin' }}</div>
-                            <div>Consecutivo: {{ Auth::user()->company->getNextConsecutive() }}</div>
+                            <div>Consecutivo: {{ $sale->company->getNextConsecutive() }}</div>
+                           
 
                         </div>
                         
