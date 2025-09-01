@@ -1295,7 +1295,7 @@
             let ticketContent = `
                 <html>
                 <head>
-                    <title>Factura #${sale.invoice_no || ''} ${sale.number || ''}</title>
+                    <title>Factura #${sale.invoice_no || $('#invoice_no').val() || ''} ${sale.number || $('#number').val() || ''}</title>
                     <style>
                         body {
                             font-family: 'Arial', sans-serif;
@@ -1359,7 +1359,7 @@
                             <div>{{ Auth::user()->company->address ?? 'Dirección' }}</div>
                             <div>Tel: {{ Auth::user()->company->phone ?? 'Teléfono' }}</div>
                             <div>NIT: {{ Auth::user()->company->identification_number ?? 'NIT' }}</div>
-                            <div>Consecutivo: {{ $sale->company->getNextConsecutive() }}</div>
+                            <div>Consecutivo: {{ Auth::user()->company->getNextConsecutive() }}</div>
                            
 
                         </div>

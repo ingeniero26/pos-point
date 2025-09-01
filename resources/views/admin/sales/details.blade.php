@@ -55,7 +55,7 @@
                                                 @if($sale->company && $sale->company->logo)
                                                 <div class="me-3">
                                                     <img src="{{ asset($sale->company->logo) }}" alt="{{ $sale->company->name }}" 
-                class="brand-image opacity-75 shadow"> 
+                                                 class="brand-image opacity-75 shadow"> 
                                                 </div>
                                                 @endif
                                                 <div>

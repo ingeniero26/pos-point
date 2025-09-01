@@ -140,10 +140,10 @@
                     <div>Tel: {{ $sale->company->phone }}</div>
                     <div>{{ $sale->company->email }}</div>
                     <div>NIT: {{ $sale->company->identification_number }}</div>
-                    <div>Resolución DIAN: {{ $sale->company->dian_resolution }}</div>
+                    {{-- <div>Resolución DIAN: {{ $sale->company->dian_resolution }}</div>
                     <div>Fecha Inicio DIAN: {{ $sale->company->date_from }}</div>
                     <div>Fecha Fin DIAN: {{ $sale->company->date_to }}</div>
-                    <div>Consecutivo: {{ $sale->company->getNextConsecutive() }}</div>
+                    <div>Consecutivo: {{ $sale->company->getNextConsecutive() }}</div> --}}
                     
 
                 @endif

@@ -169,7 +169,7 @@ class SalesController extends Controller
         $companyId = Auth::user()->company_id;
         
         // Obtener el objeto Company para generar el consecutivo
-        $company = Companies::findOrFail($companyId);
+      //  $company = Companies::findOrFail($companyId);
             
             // Validar los datos de entrada
             $request->validate([
@@ -194,10 +194,10 @@ class SalesController extends Controller
 
             $data = $request->all();
             // Generar el consecutivo ANTES de crear la venta
-            $nextConsecutive = $company->getNextConsecutive();
+            // $nextConsecutive = $company->getNextConsecutive();
             
-            // Generar la serie basada en el prefijo de la empresa
-            $series = $company->invoice_prefix ?? 'FV';
+            // // Generar la serie basada en el prefijo de la empresa
+            // $series = $company->invoice_prefix ?? 'FV';
             
             // Crear la venta
             $sale = new Sales();
@@ -209,8 +209,8 @@ class SalesController extends Controller
             $sale->date_of_issue = $data['date_of_issue'];
             $sale->date_of_due = $data['date_of_due'];
             $sale->time_of_issue = now()->format('H:i:s');
-             $sale->series = $series;
-            $sale->number = $nextConsecutive;
+            $sale->series = $data['series'];
+            $sale->number = $data['number'];
             $sale->currency_id = $data['currency_id'];
             $sale->payment_method_id = $data['payment_method_id'];
             $sale->total_subtotal = $data['total_subtotal'];
