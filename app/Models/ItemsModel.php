@@ -13,6 +13,12 @@ class ItemsModel extends Model
         'reference', 'category_id', 'description', 'brand_id', 'measure_id', 'cost_price',
     'selling_price','tax_id', 'price_total','created_by'];
 
+    protected $hidden = ['created_at', 'updated_at'];
+     protected $casts = [
+        'series_enabled' => 'boolean',
+        'batch_management' => 'boolean',
+    ];
+
     public function category()
     {
         return $this->belongsTo(CategoryModel::class, 'category_id');

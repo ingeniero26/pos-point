@@ -243,7 +243,7 @@
 
 
                           <div class="row">
-                              <div class="col-md-4">
+                              <div class="col-md-2">
                                 <label for="">Moneda</label>
                                  <select name="currency_id" id="currency_id" class="form-control">
                                      <option value="">Seleccione</option>
@@ -254,9 +254,25 @@
                                        @endforeach
                                     </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <label for="">Fecha Vencimiento</label>
                                  <input type="date" class="form-control" id="expiration_date" name="expiration_date">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="">Maneja Serie</label>
+                                <div class="form-check">
+                                     <input type="checkbox" class="form-check-input" id="series_enabled"
+                                      name="series_enabled" value="1" {{ old('series_enabled') == '1' ? 'checked' : '' }}>
+                                     <label class="form-check-label" for="series_enabled">Maneja Serie</label>
+                                 </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="">Maneja Lotes</label>
+                                <div class="form-check">
+                                     <input type="checkbox" class="form-check-input"
+                                      id="batch_management" name="batch_management" value="1" {{ old('batch_management') == '1' ? 'checked' : '' }}>
+                                     <label class="form-check-label" for="batch_management">Maneja Lotes</label>
+                                 </div>
                             </div>
                           </div>
                           <hr>
@@ -280,15 +296,7 @@
                           </div> --}}
                           </div>
                           <div class="row">
-                            <h3 class="text-center">Manejo de Inventario</h3>
-                            <div class="col-md-6">
-                                <label for=""> <b>Inventario</b> </label>
-                                 <div class="form-check">
-                                     <input type="checkbox" class="form-check-input" id="inventory_enabled" name="inventory_enabled">
-                                     <label class="form-check-label" for="inventory_enabled">Maneja Inventario</label>
-                                 </div>
-                            </div>
-                        </div>
+                        
                         
                             <hr>
                             <div class="row" id='inventory_hide'>

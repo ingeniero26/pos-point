@@ -139,6 +139,8 @@ class ItemsController extends Controller
             'product_name' => 'required|string|max:255',
 
             'category_id' => 'required|integer',
+            'series_enabled' => 'nullable|boolean',
+            'batch_management' => 'nullable|boolean',
 
         ]);
 
@@ -158,12 +160,16 @@ class ItemsController extends Controller
             $product->category_id = $request->category_id;
             $product->currency_id = $request->currency_id;
             $product->expiration_date = $request->expiration_date;
+            // si maneja series
+            $product->series_enabled = $request->has('series_enabled') ? 1 : 0; 
+            // si maneja lotes
+            $product->batch_management = $request->has('batch_management') ? 1 : 0;
             $product->description = $request->description;
             $product->short_description = $request->short_description;
             $product->aditional_information = $request->aditional_information;
             $product->shipping_returns = $request->shipping_returns;
             // maneja inventario
-            $product->inventory_enabled=$request->inventory_enabled;
+           // $product->inventory_enabled=$request->inventory_enabled;
             $product->brand_id = $request->brand_id;
             $product->measure_id = $request->measure_id;
             $product->invoice_group_id = $request->invoice_group_id; // Asegurarse de que este campo exista en el formulario
