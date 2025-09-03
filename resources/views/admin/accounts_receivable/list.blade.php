@@ -38,6 +38,12 @@
                                         <button type="button" class="btn btn-outline-success btn-sm" id="exportExcel">
                                             <i class="fas fa-file-excel me-1"></i> Exportar
                                         </button>
+                                        <button type="button" class="btn btn-outline-warning btn-sm" id="testData">
+                                            <i class="fas fa-bug me-1"></i> Test
+                                        </button>
+                                        <button type="button" class="btn btn-outline-info btn-sm" id="testSimple">
+                                            <i class="fas fa-list me-1"></i> Simple
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -69,6 +75,9 @@
                                 <div class="col-md-6">
                                     <small class="text-muted">
                                         <i class="fas fa-info-circle me-1"></i> Visualizando todas las facturas pendientes por cobrar
+                                        @if(isset($accountsCount))
+                                            <br><small class="text-info">Registros en BD: {{ $accountsCount }}</small>
+                                        @endif
                                     </small>
                                 </div>
                                 <div class="col-md-6 text-end">
@@ -225,7 +234,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="printPaymentHistory">
-                    <i class="fas fa-print me-1"></i>Imprimir
+                    <i class="fas fa-print me-1"></i>Imprimir Ticket
+                </button>
+                <button type="button" class="btn btn-info" id="printPaymentTicketPDF">
+                    <i class="fas fa-file-pdf me-1"></i>Ticket PDF
                 </button>
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     <i class="fas fa-times me-1"></i>Cerrar
@@ -236,13 +248,14 @@
 </div>
 
 @endsection
+
 @section('script')
 <script>
     $(document).ready(function() {
         // Inicializar DataTable
         var table = $('#tb_purchases').DataTable({
             language: {
-                 url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json'
+                url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json'
             },
             responsive: true,
             processing: true,
@@ -281,17 +294,29 @@
         
         // Función para cargar las cuentas por cobrar
         function loadAccountsReceivable() {
+            console.log('Loading accounts receivable...');
+            
             $.ajax({
-                url: '{{route('admin.accounts_receivable.fetch')}}',
+                url: '{{route("admin.accounts_receivable.fetch")}}',
                 method: 'GET',
                 dataType: 'json',
                 beforeSend: function() {
-                    // Mostrar indicador de carga
+                    console.log('Sending request to fetch accounts receivable');
                     $('#tb_purchases tbody').html('<tr><td colspan="9" class="text-center"><i class="fas fa-spinner fa-spin me-2"></i>Cargando datos...</td></tr>');
                 },
                 success: function(data) {
+                    console.log('Received data:', data);
+                    console.log('Data length:', data.length);
+                    
                     // Limpiar tabla
                     table.clear().draw();
+                    
+                    // Verificar si hay datos
+                    if (!data || data.length === 0) {
+                        $('#tb_purchases tbody').html('<tr><td colspan="9" class="text-center">No hay cuentas por cobrar registradas</td></tr>');
+                        $('#totalCount').text('0 registros');
+                        return;
+                    }
                     
                     // Actualizar contador
                     $('#totalCount').text(data.length + ' registros');
@@ -307,21 +332,21 @@
                         // Formatear fecha de vencimiento con indicador de estado
                         var dueDateFormatted = formatDate(account.date_of_due);
                         if (diffDays < 0) {
-                            dueDateFormatted = `<span class="text-danger">${dueDateFormatted} <span class="badge bg-danger">Vencido</span></span>`;
+                            dueDateFormatted = '<span class="text-danger">' + dueDateFormatted + ' <span class="badge bg-danger">Vencido</span></span>';
                         } else if (diffDays <= 5) {
-                            dueDateFormatted = `<span class="text-warning">${dueDateFormatted} <span class="badge bg-warning text-dark">Próximo</span></span>`;
+                            dueDateFormatted = '<span class="text-warning">' + dueDateFormatted + ' <span class="badge bg-warning text-dark">Próximo</span></span>';
                         }
                         
                         // Formatear estado
                         var statusBadge = '';
-                        if (account.account_states.name === 'Pendiente') {
+                        if (account.account_states && account.account_states.name === 'Pendiente') {
                             statusBadge = '<span class="badge bg-danger">Pendiente</span>';
-                        } else if (account.account_states.name === 'Parcial') {
+                        } else if (account.account_states && account.account_states.name === 'Parcial') {
                             statusBadge = '<span class="badge bg-warning text-dark">Parcial</span>';
-                        } else if (account.account_states.name === 'Pagado') {
+                        } else if (account.account_states && account.account_states.name === 'Pagado') {
                             statusBadge = '<span class="badge bg-success">Pagado</span>';
                         } else {
-                            statusBadge = '<span class="badge bg-secondary">' + account.account_states.name + '</span>';
+                            statusBadge = '<span class="badge bg-secondary">' + (account.account_states ? account.account_states.name : 'N/A') + '</span>';
                         }
                         
                         // Calcular el balance real
@@ -348,34 +373,46 @@
                             account.id,
                             formatDate(account.date_of_issue),
                             dueDateFormatted,
-                            account.customers.name,
-                            account.sales.invoice_no,
+                            account.customers ? account.customers.name : 'N/A',
+                            account.sales ? account.sales.invoice_no : 'N/A',
                             realStatus,
                             formatCurrency(account.total_amount),
                             formatCurrency(realBalance),
-                            `<div class="btn-group">
-                                <button class="btn btn-outline-primary btn-sm view-details" data-id="${account.id}" data-invoice="${account.sales.invoice_no}" 
-                                    data-amount="${account.total_amount}" data-balance="${realBalance}" data-customer="${account.customers.name}">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="btn btn-outline-success btn-sm payment-btn" data-id="${account.id}" data-invoice="${account.sales.invoice_no}" 
-                                    data-amount="${account.total_amount}" data-balance="${realBalance}" data-customer="${account.customers.name}"
-                                    ${realBalance <= 0 ? 'disabled' : ''}>
-                                    <i class="fas fa-money-bill-wave"></i>
-                                </button>
-                                <button class="btn btn-outline-info btn-sm print-pdf" data-id="${account.id}">
-                                    <i class="fas fa-print"></i>
-                                </button>
-                            </div>`
+                            '<div class="btn-group">' +
+                                '<button class="btn btn-outline-primary btn-sm view-details" data-id="' + account.id + '" data-invoice="' + (account.sales ? account.sales.invoice_no : 'N/A') + '" data-amount="' + account.total_amount + '" data-balance="' + realBalance + '" data-customer="' + (account.customers ? account.customers.name : 'N/A') + '">' +
+                                    '<i class="fas fa-eye"></i>' +
+                                '</button>' +
+                                '<button class="btn btn-outline-success btn-sm payment-btn" data-id="' + account.id + '" data-invoice="' + (account.sales ? account.sales.invoice_no : 'N/A') + '" data-amount="' + account.total_amount + '" data-balance="' + realBalance + '" data-customer="' + (account.customers ? account.customers.name : 'N/A') + '" ' + (realBalance <= 0 ? 'disabled' : '') + '>' +
+                                    '<i class="fas fa-money-bill-wave"></i>' +
+                                '</button>' +
+                                '<button class="btn btn-outline-info btn-sm print-pdf" data-id="' + account.id + '">' +
+                                    '<i class="fas fa-print"></i>' +
+                                '</button>' +
+                            '</div>'
                         ]).draw(false);
                     });
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error al obtener los datos:', error);
+                    console.error('AJAX Error:', {
+                        status: status,
+                        error: error,
+                        responseText: xhr.responseText,
+                        statusCode: xhr.status
+                    });
+                    
+                    var errorMessage = 'No se pudieron cargar los datos. Por favor, intente nuevamente.';
+                    
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+                    
+                    $('#tb_purchases tbody').html('<tr><td colspan="9" class="text-center text-danger">Error: ' + errorMessage + '</td></tr>');
+                    
                     Swal.fire({
                         icon: 'error',
-                        title: 'Error',
-                        text: 'No se pudieron cargar los datos. Por favor, intente nuevamente.'
+                        title: 'Error al cargar datos',
+                        text: errorMessage,
+                        footer: 'Status: ' + xhr.status + ' - ' + error
                     });
                 }
             });
@@ -400,6 +437,85 @@
         // Exportar a Excel
         $('#exportExcel').click(function() {
             table.button('.buttons-excel').trigger();
+        });
+        
+        // Test data button
+        $('#testData').click(function() {
+            $.ajax({
+                url: '{{route("admin.accounts_receivable.test")}}',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    console.log('Test data:', data);
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Datos de prueba',
+                        html: '<pre style="text-align: left; max-height: 400px; overflow-y: auto;">' + JSON.stringify(data, null, 2) + '</pre>',
+                        width: '80%'
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Test error:', xhr.responseText);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error en test',
+                        text: xhr.responseJSON ? xhr.responseJSON.error : error
+                    });
+                }
+            });
+        });
+        
+        // Test simple data button
+        $('#testSimple').click(function() {
+            $.ajax({
+                url: '{{route("admin.accounts_receivable.simple")}}',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    console.log('Simple data:', data);
+                    
+                    // Clear and populate table with simple data
+                    table.clear().draw();
+                    
+                    if (data && data.length > 0) {
+                        $.each(data, function(index, account) {
+                            table.row.add([
+                                account.id,
+                                account.date_of_issue,
+                                account.date_of_due,
+                                account.customers.name,
+                                account.sales.invoice_no,
+                                '<span class="badge bg-danger">' + account.account_states.name + '</span>',
+                                '$' + parseFloat(account.total_amount).toLocaleString(),
+                                '$' + parseFloat(account.balance).toLocaleString(),
+                                '<button class="btn btn-sm btn-info">Ver</button>'
+                            ]).draw(false);
+                        });
+                        
+                        $('#totalCount').text(data.length + ' registros (simple)');
+                        
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Datos simples cargados',
+                            text: 'Se cargaron ' + data.length + ' registros sin relaciones'
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Sin datos',
+                            text: 'No se encontraron registros'
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Simple test error:', xhr.responseText);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error en test simple',
+                        text: xhr.responseJSON ? xhr.responseJSON.message : error
+                    });
+                }
+            });
         });
         
         // Imprimir PDF
@@ -427,6 +543,9 @@
             var balance = $(this).data('balance');
             var customer = $(this).data('customer');
             
+            // Guardar el ID para uso posterior
+            $('#detailsModal').data('account-id', id);
+            
             // Llenar información básica
             $('#detail-customer').text(customer);
             $('#detail-invoice').text(invoice_no);
@@ -449,13 +568,13 @@
                         tableBody.html('<tr><td colspan="5" class="text-center">No hay pagos registrados</td></tr>');
                     } else {
                         $.each(data, function(index, payment) {
-                            var row = `<tr>
-                                <td>${formatDate(payment.payment_date)}</td>
-                                <td>${formatCurrency(payment.payment_amount)}</td>
-                                <td>${payment.payment_method.name}</td>
-                                <td>${payment.reference || 'N/A'}</td>
-                                <td>${payment.user.name}</td>
-                            </tr>`;
+                            var row = '<tr>' +
+                                '<td>' + formatDate(payment.payment_date) + '</td>' +
+                                '<td>' + formatCurrency(payment.payment_amount) + '</td>' +
+                                '<td>' + (payment.payment_method ? payment.payment_method.name : 'N/A') + '</td>' +
+                                '<td>' + (payment.reference || 'N/A') + '</td>' +
+                                '<td>' + (payment.user ? payment.user.name : 'N/A') + '</td>' +
+                            '</tr>';
                             tableBody.append(row);
                         });
                     }
@@ -484,7 +603,7 @@
             $('#invoice_number').val(invoice);
             $('#total_amount').val(formatCurrency(amount));
             $('#balance').val(formatCurrency(balance));
-            $('#payment_amount').val(balance).attr('max', balance); // Por defecto, sugerir el pago total
+            $('#payment_amount').val(balance).attr('max', balance);
             
             // Mostrar el modal
             $('#paymentModal').modal('show');
@@ -494,17 +613,15 @@
         $('#payment_amount').on('input', function() {
             var balanceText = $('#balance').val();
             
-            // Handle Colombian currency format (360.270,00 → 360270.00)
             var cleanBalance = balanceText
-                .replace(/\$/g, '')         // Remove currency symbol
-                .replace(/\./g, '')         // Remove thousand separators (periods in Colombian format)
-                .replace(/,/g, '.')         // Convert decimal separator from comma to period
-                .trim();                    // Remove any whitespace
+                .replace(/\$/g, '')
+                .replace(/\./g, '')
+                .replace(/,/g, '.')
+                .trim();
                 
             var balance = parseFloat(cleanBalance);
             var payment = parseFloat($(this).val()) || 0;
             
-            // Check for NaN values
             if (isNaN(balance)) {
                 console.error('Invalid balance value:', balanceText, 'Cleaned to:', cleanBalance);
                 balance = 0;
@@ -522,19 +639,17 @@
         
         // Manejar el envío del formulario de pago
         $('#savePayment').click(function() {
-            // Validar el formulario
             if (!$('#paymentForm')[0].checkValidity()) {
                 $('#paymentForm')[0].reportValidity();
                 return;
             }
             
-            // Validar monto de pago - Fix for Colombian currency format
             var balanceText = $('#balance').val();
             var cleanBalance = balanceText
-                .replace(/\$/g, '')         // Remove currency symbol
-                .replace(/\./g, '')         // Remove thousand separators (periods in Colombian format)
-                .replace(/,/g, '.')         // Convert decimal separator from comma to period
-                .trim();                    // Remove any whitespace
+                .replace(/\$/g, '')
+                .replace(/\./g, '')
+                .replace(/,/g, '.')
+                .trim();
                 
             var balance = parseFloat(cleanBalance);
             var payment = parseFloat($('#payment_amount').val());
@@ -548,7 +663,6 @@
                 return;
             }
             
-            // Obtener los datos del formulario
             var formData = {
                 account_receivable_id: $('#account_receivable_id').val(),
                 payment_amount: $('#payment_amount').val(),
@@ -558,9 +672,8 @@
                 _token: $('meta[name="csrf-token"]').attr('content')
             };
             
-            // Enviar los datos al servidor
             $.ajax({
-                url: '{{route('admin.payment_receivables.payment')}}',
+                url: '{{route("admin.payment_receivables.payment")}}',
                 method: 'POST',
                 dataType: 'json',
                 data: formData,
@@ -569,7 +682,6 @@
                 },
                 success: function(response) {
                     if (response.success) {
-                        // Mostrar mensaje de éxito
                         Swal.fire({
                             icon: 'success',
                             title: '¡Pago registrado!',
@@ -577,26 +689,23 @@
                             confirmButtonText: 'Aceptar'
                         });
                         
-                        // Cerrar el modal
                         $('#paymentModal').modal('hide');
-                        
-                        // Recargar la tabla
+                        $('#paymentForm')[0].reset();
                         loadAccountsReceivable();
                     } else {
-                        // Mostrar mensaje de error
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: response.message
+                            text: response.message || 'Error al procesar el pago'
                         });
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error al procesar el pago:', error);
+                    console.error('Error:', error);
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: 'Error al procesar el pago. Por favor, inténtelo de nuevo.'
+                        text: 'Error de conexión. Por favor, intente nuevamente.'
                     });
                 },
                 complete: function() {
@@ -605,66 +714,36 @@
             });
         });
         
-        // Imprimir historial de pagos
+        // Imprimir ticket de historial de pagos
         $('#printPaymentHistory').click(function() {
-            var printWindow = window.open('', '_blank');
-            
-            // Contenido a imprimir
-            var content = `
-                <html>
-                <head>
-                    <title>Historial de Pagos</title>
-                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-                    <style>
-                        body { font-size: 12px; padding: 20px; }
-                        .header { text-align: center; margin-bottom: 20px; }
-                        .table { width: 100%; margin-bottom: 20px; }
-                        .footer { text-align: center; font-size: 10px; margin-top: 30px; }
-                    </style>
-                </head>
-                <body>
-                    <div class="header">
-                        <h3>Historial de Pagos</h3>
-                        <p>Cliente: ${$('#detail-customer').text()}</p>
-                        <p>Factura: ${$('#detail-invoice').text()}</p>
-                    </div>
-                    
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Monto</th>
-                                <th>Método de Pago</th>
-                                <th>Referencia</th>
-                                <th>Usuario</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${$('#payments-table tbody').html()}
-                        </tbody>
-                    </table>
-                    
-                    <div class="summary">
-                        <p><strong>Monto Total:</strong> ${$('#detail-total').text()}</p>
-                        <p><strong>Saldo Pendiente:</strong> ${$('#detail-balance').text()}</p>
-                    </div>
-                    
-                    <div class="footer">
-                        <p>Documento generado el ${new Date().toLocaleString()}</p>
-                    </div>
-                </body>
-                </html>
-            `;
-            
-            printWindow.document.write(content);
-            printWindow.document.close();
-            
-            setTimeout(function() {
-                printWindow.print();
-            }, 500);
+            var accountId = $('#detailsModal').data('account-id');
+            if (accountId) {
+                var url = "{{ route('admin.accounts_receivable.ticket', ['id' => ':id']) }}".replace(':id', accountId);
+                window.open(url, '_blank');
+            }
+        });
+        
+        // Imprimir ticket PDF
+        $('#printPaymentTicketPDF').click(function() {
+            var accountId = $('#detailsModal').data('account-id');
+            if (accountId) {
+                var url = "{{ route('admin.accounts_receivable.ticket', ['id' => ':id']) }}".replace(':id', accountId);
+                window.open(url, '_blank');
+            }
+        });
+        
+        // Limpiar modal al cerrarse
+        $('#paymentModal').on('hidden.bs.modal', function() {
+            $('#paymentForm')[0].reset();
+            $('#payment_amount').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+        });
+        
+        // Limpiar modal de detalles al cerrarse
+        $('#detailsModal').on('hidden.bs.modal', function() {
+            $('#payments-table tbody').empty();
+            $(this).removeData('account-id');
         });
     });
 </script>
 @endsection
-  
-      

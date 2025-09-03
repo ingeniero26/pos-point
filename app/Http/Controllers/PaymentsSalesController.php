@@ -3,100 +3,82 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaymentsSales;
+use App\Models\AccountsReceivable;
+use App\Models\PaymentMethodModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class PaymentsSalesController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Store a new payment for accounts receivable
      */
     public function store(Request $request)
     {
-        //agrega y actualizar el balance en la cuenta por cobrar
         try {
-            // Validate the request data
+            // Validar los datos de entrada
             $request->validate([
                 'account_receivable_id' => 'required|exists:accounts_receivable,id',
                 'payment_amount' => 'required|numeric|min:0.01',
                 'payment_date' => 'required|date',
-                'payment_method_id' => 'required',
-                'reference' => 'nullable|string'
+                'payment_method_id' => 'required|exists:payment_method,id',
+                'reference' => 'nullable|string|max:255'
             ]);
 
-            // Begin transaction
-            \DB::beginTransaction();
+            DB::beginTransaction();
 
-            // Get the accounts receivable record
-            $accountReceivable = \App\Models\AccountsReceivable::findOrFail($request->account_receivable_id);
+            // Obtener la cuenta por cobrar
+            $accountReceivable = AccountsReceivable::findOrFail($request->account_receivable_id);
             
-            // Check if payment amount is valid
-            if ($request->payment_amount > $accountReceivable->balance) {
+            // Calcular el balance actual
+            $totalPaid = $accountReceivable->payments()->sum('payment_amount');
+            $currentBalance = $accountReceivable->total_amount - $totalPaid;
+            
+            // Validar que el monto no exceda el balance
+            if ($request->payment_amount > $currentBalance) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'El monto del pago no puede ser mayor que el saldo pendiente'
+                    'message' => 'El monto del pago no puede ser mayor al saldo pendiente'
                 ], 400);
             }
 
-            // Create new payment record
-            $payment = new PaymentsSales();
-            $payment->account_receivable_id = $request->account_receivable_id;
-            $payment->payment_amount = $request->payment_amount;
-            $payment->payment_date = $request->payment_date;
-            $payment->payment_method_id = $request->payment_method_id;
-            $payment->reference = $request->reference;
-            $payment->created_by = Auth::id();
-            $payment->company_id = Auth::user()->company_id;
-            $payment->is_delete = 0;
-            $payment->save();
-            // insertar el movimiento y actualizar el saldo de la caja si el pago es efectivo
-          
-            // actualizar el estado de la cuenta por pagar
-            $pagadoState = \App\Models\AccountStates::where('name', 'Pagado')->first(); // or use a unique code
+            // Crear el pago
+            $payment = PaymentsSales::create([
+                'account_receivable_id' => $request->account_receivable_id,
+                'payment_amount' => $request->payment_amount,
+                'payment_date' => $request->payment_date,
+                'payment_method_id' => $request->payment_method_id,
+                'reference' => $request->reference,
+                'created_by' => Auth::id(),
+                'company_id' => Auth::user()->company_id,
+                'is_delete' => 0
+            ]);
 
-            if ($pagadoState) {
-                // Check if balance is zero or less
-                if ($accountReceivable->balance <= 0) {
-                    $accountReceivable->account_statuses_id = $pagadoState->id;
-                } else {
-                    //If you want to update to a partially paid state.
-                    $parcialState = \App\Models\AccountStates::where('name', 'Parcialmente Pagado')->first();
-                    if($parcialState){
-                        $accountReceivable->account_statuses_id = $parcialState->id;
-                    }
-                }
+            // Actualizar el estado de la cuenta por cobrar
+            $newBalance = $currentBalance - $request->payment_amount;
+            
+            if ($newBalance <= 0) {
+                // Completamente pagado
+                $accountReceivable->update(['account_statuses_id' => 3]);
+            } elseif ($totalPaid + $request->payment_amount > 0) {
+                // Pago parcial
+                $accountReceivable->update(['account_statuses_id' => 2]);
             }
-          
-            $accountReceivable->save();
 
-            // Commit transaction
-            \DB::commit();
+            DB::commit();
 
             return response()->json([
                 'success' => true,
-                'message' => 'Pago registrado correctamente',
-                'payment_id' => $payment->id
+                'message' => 'Pago registrado exitosamente',
+                'payment' => $payment
             ]);
 
         } catch (\Exception $e) {
-            // Rollback transaction on error
-            \DB::rollBack();
+            DB::rollBack();
+            Log::error('Error storing payment: ' . $e->getMessage());
             
             return response()->json([
                 'success' => false,
@@ -105,61 +87,156 @@ class PaymentsSalesController extends Controller
         }
     }
 
-  /**
- * Get payment history for an account receivable
- * 
- * @param int $id Account receivable ID
- * @return \Illuminate\Http\JsonResponse
- */
-public function getPaymentHistory($id)
-{
-    try {
-        // Get all payments for this account receivable with related data
-        $payments = PaymentsSales::with(['payment_method', 'user'])
-            ->where('account_receivable_id', $id)
-            ->where('is_delete', 0)
-            ->orderBy('payment_date', 'desc')
-            ->get();
+    /**
+     * Get payment history for an account receivable
+     */
+    public function getPaymentHistory($id)
+    {
+        try {
+            $payments = PaymentsSales::with(['payment_method', 'user'])
+                ->where('account_receivable_id', $id)
+                ->where('is_delete', 0)
+                ->orderBy('payment_date', 'desc')
+                ->get();
+
+            return response()->json($payments);
+
+        } catch (\Exception $e) {
+            Log::error('Error fetching payment history: ' . $e->getMessage());
             
-        return response()->json($payments);
-    } catch (\Exception $e) {
-        return response()->json([
-            'error' => true,
-            'message' => 'Error fetching payment history: ' . $e->getMessage()
-        ], 500);
-    }
-}
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(PaymentsSales $paymentsSales)
-    {
-        //
+            return response()->json([
+                'error' => true,
+                'message' => 'Error al obtener el historial de pagos'
+            ], 500);
+        }
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Get all payments for a specific account receivable
      */
-    public function edit(PaymentsSales $paymentsSales)
+    public function getPaymentsByAccount($accountReceivableId)
     {
-        //
+        try {
+            $payments = PaymentsSales::with(['payment_method', 'user'])
+                ->where('account_receivable_id', $accountReceivableId)
+                ->where('is_delete', 0)
+                ->orderBy('payment_date', 'desc')
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'payments' => $payments
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error fetching payments by account: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al obtener los pagos'
+            ], 500);
+        }
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update payment
      */
-    public function update(Request $request, PaymentsSales $paymentsSales)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $request->validate([
+                'payment_amount' => 'required|numeric|min:0.01',
+                'payment_date' => 'required|date',
+                'payment_method_id' => 'required|exists:payment_methods,id',
+                'reference' => 'nullable|string|max:255'
+            ]);
+
+            DB::beginTransaction();
+
+            $payment = PaymentsSales::findOrFail($id);
+            $oldAmount = $payment->payment_amount;
+            
+            $payment->update([
+                'payment_amount' => $request->payment_amount,
+                'payment_date' => $request->payment_date,
+                'payment_method_id' => $request->payment_method_id,
+                'reference' => $request->reference,
+                'updated_by' => Auth::id()
+            ]);
+
+            // Recalcular el estado de la cuenta por cobrar
+            $accountReceivable = $payment->accountReceivable;
+            $totalPaid = $accountReceivable->payments()->sum('payment_amount');
+            $balance = $accountReceivable->total_amount - $totalPaid;
+            
+            if ($balance <= 0) {
+                $accountReceivable->update(['account_statuses_id' => 3]);
+            } elseif ($totalPaid > 0) {
+                $accountReceivable->update(['account_statuses_id' => 2]);
+            } else {
+                $accountReceivable->update(['account_statuses_id' => 1]);
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Pago actualizado exitosamente'
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error updating payment: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al actualizar el pago'
+            ], 500);
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete payment (soft delete)
      */
-    public function destroy(PaymentsSales $paymentsSales)
+    public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $payment = PaymentsSales::findOrFail($id);
+            $payment->update([
+                'is_delete' => 1,
+                'deleted_by' => Auth::id()
+            ]);
+
+            // Recalcular el estado de la cuenta por cobrar
+            $accountReceivable = $payment->accountReceivable;
+            $totalPaid = $accountReceivable->payments()->sum('payment_amount');
+            $balance = $accountReceivable->total_amount - $totalPaid;
+            
+            if ($balance <= 0) {
+                $accountReceivable->update(['account_statuses_id' => 3]);
+            } elseif ($totalPaid > 0) {
+                $accountReceivable->update(['account_statuses_id' => 2]);
+            } else {
+                $accountReceivable->update(['account_statuses_id' => 1]);
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Pago eliminado exitosamente'
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error deleting payment: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar el pago'
+            ], 500);
+        }
     }
 }

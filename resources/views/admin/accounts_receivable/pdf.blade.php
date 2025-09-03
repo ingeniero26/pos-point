@@ -3,253 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuenta por Cobrar - {{ $accountReceivable->invoice_no }}</title>
+    <title>Cuenta por Cobrar - {{ $accountReceivable->sales->invoice_no }}</title>
     <style>
         body {
-            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             font-size: 12px;
-            line-height: 1.5;
-            color: #333;
             margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 20px;
+            color: #333;
         }
         .header {
-            padding: 20px 0;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        .logo {
-            max-height: 80px;
-            max-width: 200px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 20px;
         }
         .company-info {
-            float: left;
-            width: 60%;
+            margin-bottom: 10px;
         }
-        .document-info {
-            float: right;
-            width: 35%;
-            text-align: right;
-        }
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-        .title {
+        .company-name {
             font-size: 18px;
             font-weight: bold;
-            color: #2c3e50;
-            margin: 20px 0;
-            text-align: center;
-            text-transform: uppercase;
+            color: #007bff;
         }
-        .subtitle {
-            font-size: 14px;
+        .document-title {
+            font-size: 16px;
             font-weight: bold;
-            color: #2c3e50;
-            margin: 15px 0;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
+            margin-top: 15px;
+            color: #333;
         }
         .info-section {
-            margin: 15px 0;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
+            margin-bottom: 20px;
         }
         .info-row {
-            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
         }
         .info-label {
             font-weight: bold;
-            display: inline-block;
             width: 150px;
         }
-        table {
+        .info-value {
+            flex: 1;
+        }
+        .table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin-bottom: 20px;
         }
-        th {
-            background-color: #2c3e50;
-            color: white;
-            font-weight: bold;
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: left;
-            padding: 8px;
         }
-        td {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
         }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .totals {
-            margin-top: 20px;
+        .table .text-right {
             text-align: right;
+        }
+        .table .text-center {
+            text-align: center;
+        }
+        .totals-section {
+            margin-top: 20px;
+            border-top: 2px solid #007bff;
+            padding-top: 15px;
         }
         .total-row {
-            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 14px;
         }
-        .total-label {
+        .total-row.final {
             font-weight: bold;
-            display: inline-block;
-            width: 200px;
-            text-align: right;
-            margin-right: 10px;
-        }
-        .total-value {
-            display: inline-block;
-            width: 100px;
-            text-align: right;
-        }
-        .footer {
-            margin-top: 30px;
-            padding-top: 10px;
-            border-top: 1px solid #ddd;
-            font-size: 10px;
-            text-align: center;
-            color: #777;
+            font-size: 16px;
+            border-top: 1px solid #333;
+            padding-top: 5px;
         }
         .status-badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
             font-weight: bold;
-            text-transform: uppercase;
         }
         .status-pending {
-            background-color: #f39c12;
-            color: white;
-        }
-        .status-paid {
-            background-color: #27ae60;
+            background-color: #dc3545;
             color: white;
         }
         .status-partial {
-            background-color: #3498db;
+            background-color: #ffc107;
+            color: #333;
+        }
+        .status-paid {
+            background-color: #28a745;
             color: white;
         }
-        .status-overdue {
-            background-color: #e74c3c;
-            color: white;
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 10px;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header clearfix">
-            <div class="company-info">
-                @if($company->logo)
-                    <img src="{{ public_path('uploads/company/' . $company->logo) }}" alt="Logo" class="logo">
+    <!-- Header -->
+    <div class="header">
+        <div class="company-info">
+            <div class="company-name">{{ $company->name ?? 'Empresa' }}</div>
+            @if($company)
+                <div>{{ $company->address ?? '' }}</div>
+                <div>Tel: {{ $company->phone ?? '' }} | Email: {{ $company->email ?? '' }}</div>
+                <div>{{ $company->identification_type ?? '' }}: {{ $company->identification_number ?? '' }}</div>
+            @endif
+        </div>
+        <div class="document-title">CUENTA POR COBRAR</div>
+    </div>
+
+    <!-- Account Information -->
+    <div class="info-section">
+        <h3>Información de la Cuenta</h3>
+        <div class="info-row">
+            <span class="info-label">Cliente:</span>
+            <span class="info-value">{{ $accountReceivable->customers->name }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Identificación:</span>
+            <span class="info-value">{{ $accountReceivable->customers->identification_number }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">No. Factura:</span>
+            <span class="info-value">{{ $accountReceivable->sales->invoice_no }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Fecha Emisión:</span>
+            <span class="info-value">{{ $issueDate }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Fecha Vencimiento:</span>
+            <span class="info-value">{{ $dueDate }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Estado:</span>
+            <span class="info-value">
+                @if($remainingBalance <= 0)
+                    <span class="status-badge status-paid">PAGADO</span>
+                @elseif($totalPaid > 0)
+                    <span class="status-badge status-partial">PARCIAL</span>
+                @else
+                    <span class="status-badge status-pending">PENDIENTE</span>
                 @endif
-                <h2>{{ $company->name }}</h2>
-                <p>{{ $company->address }}<br>
-                {{ $company->city }}, {{ $company->state }}<br>
-                NIT: {{ $company->nit }}<br>
-                Tel: {{ $company->phone }}</p>
-            </div>
-            <div class="document-info">
-                <h3>CUENTA POR COBRAR</h3>
-                <p><strong>No. Factura:</strong> {{ $accountReceivable->invoice_no }}</p>
-                <p><strong>Fecha Emisión:</strong> {{ $issueDate }}</p>
-                <p><strong>Fecha Vencimiento:</strong> {{ $dueDate }}</p>
-                
-                @php
-                    $status = '';
-                    $statusClass = '';
-                    
-                    if($remainingBalance <= 0) {
-                        $status = 'PAGADO';
-                        $statusClass = 'status-paid';
-                    } elseif($remainingBalance < $accountReceivable->total_amount) {
-                        $status = 'PAGO PARCIAL';
-                        $statusClass = 'status-partial';
-                    } elseif(strtotime($accountReceivable->due_date) < strtotime('today')) {
-                        $status = 'VENCIDO';
-                        $statusClass = 'status-overdue';
-                    } else {
-                        $status = 'PENDIENTE';
-                        $statusClass = 'status-pending';
-                    }
-                @endphp
-                
-                <p><strong>Estado:</strong> <span class="status-badge {{ $statusClass }}">{{ $status }}</span></p>
-            </div>
+            </span>
         </div>
-        
-        <div class="title">Estado de Cuenta</div>
-        
-        <div class="subtitle">Información del Cliente</div>
-        <div class="info-section">
-            <div class="info-row">
-                <span class="info-label">Cliente:</span> {{ $accountReceivable->customers->name }}
-            </div>
-            <div class="info-row">
-                <span class="info-label">Identificación:</span> {{ $accountReceivable->customers->identification_number }}
-            </div>
-            <div class="info-row">
-                <span class="info-label">Dirección:</span> {{ $accountReceivable->customers->address }}
-            </div>
-            <div class="info-row">
-                <span class="info-label">Teléfono:</span> {{ $accountReceivable->customers->phone }}
-            </div>
-            <div class="info-row">
-                <span class="info-label">Email:</span> {{ $accountReceivable->customers->email }}
-            </div>
+    </div>
+
+    <!-- Payment History -->
+    @if($accountReceivable->payments->count() > 0)
+    <div class="info-section">
+        <h3>Historial de Pagos</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Método de Pago</th>
+                    <th>Referencia</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($accountReceivable->payments as $payment)
+                <tr>
+                    <td>{{ \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') }}</td>
+                    <td class="text-right">${{ number_format($payment->payment_amount, 2) }}</td>
+                    <td>{{ $payment->payment_method->name ?? 'N/A' }}</td>
+                    <td>{{ $payment->reference ?? 'N/A' }}</td>
+                    <td>{{ $payment->user->name ?? 'N/A' }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    @endif
+
+    <!-- Totals Section -->
+    <div class="totals-section">
+        <div class="total-row">
+            <span>Monto Total de la Factura:</span>
+            <span>${{ number_format($accountReceivable->total_amount, 2) }}</span>
         </div>
-        
-        <div class="subtitle">Resumen de la Factura</div>
-        <div class="info-section">
-            <div class="info-row">
-                <span class="info-label">Total Factura:</span> ${{ number_format($accountReceivable->total_amount, 2, ',', '.') }}
-            </div>
-            <div class="info-row">
-                <span class="info-label">Total Pagado:</span> ${{ number_format($totalPaid, 2, ',', '.') }}
-            </div>
-            <div class="info-row">
-                <span class="info-label">Saldo Pendiente:</span> ${{ number_format($remainingBalance, 2, ',', '.') }}
-            </div>
+        <div class="total-row">
+            <span>Total Pagado:</span>
+            <span>${{ number_format($totalPaid, 2) }}</span>
         </div>
-        
-        <div class="subtitle">Historial de Pagos</div>
-        @if(count($accountReceivable->payments) > 0)
-            <table>
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Método de Pago</th>
-                        <th>Referencia</th>
-                        <th>Registrado por</th>
-                        <th>Monto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($accountReceivable->payments as $payment)
-                        <tr>
-                            <td>{{ \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') }}</td>
-                            <td>{{ $payment->payment_method->name }}</td>
-                            <td>{{ $payment->reference ?? 'N/A' }}</td>
-                            <td>{{ $payment->user->name }}</td>
-                            <td style="text-align: right;">${{ number_format($payment->payment_amount, 2, ',', '.') }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <p style="text-align: center; font-style: italic;">No hay pagos registrados para esta cuenta.</p>
-        @endif
-        
-        <div class="footer">
-            <p>Este documento es un estado de cuenta y no tiene validez como factura.</p>
-            <p>Generado el {{ date('d/m/Y H:i:s') }}</p>
+        <div class="total-row final">
+            <span>Saldo Pendiente:</span>
+            <span>${{ number_format($remainingBalance, 2) }}</span>
         </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Documento generado el {{ now()->format('d/m/Y H:i:s') }}</p>
+        <p>{{ $company->name ?? 'Sistema de Gestión' }} - Cuentas por Cobrar</p>
     </div>
 </body>
 </html>

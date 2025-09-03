@@ -553,15 +553,17 @@ Route::group(['middleware' => 'admin'], function () {
     // cuentas por cobrar
     Route::get('admin/accounts_receivable/list', [AccountsReceivableController::class, 'list'])->name('admin.accounts_receivable.list');
     Route::get('admin/accounts_receivable/data', [AccountsReceivableController::class, 'getAccountsReceivable'])->name('admin.accounts_receivable.fetch');
-    Route::get('admin/accounts_receivable/{id}', [AccountsReceivableController::class, 'show']);
     Route::get('admin/accounts_receivable/{id}/pdf', [AccountsReceivableController::class, 'printPdf'])->name('admin.accounts_receivable.pdf');
-    Route::get('admin/accounts_receivable/{id}/history', [AccountsReceivableController::class, 'historyReceivable'])->name('admin.payment_receivables.history');
+    Route::get('admin/accounts_receivable/{id}/ticket', [AccountsReceivableController::class, 'printPaymentTicket'])->name('admin.accounts_receivable.ticket');
     Route::post('admin/accounts_receivable/recalculate', [AccountsReceivableController::class, 'recalculateAllBalances'])->name('admin.accounts_receivable.recalculate');
-    // pagos de la cuentas por pagar
-    Route::post('admin.payment_receivables/store', [PaymentsSalesController::class, 'store'])->name('admin.payment_receivables.payment');
-    // Payment history route
-    Route::get('admin/payment-receivables/history/{id}', [App\Http\Controllers\PaymentsSalesController::class, 'getPaymentHistory'])
-        ->name('admin.payment_receivables.history');
+    
+    // pagos de cuentas por cobrar
+    Route::post('admin/payment_receivables/store', [PaymentsSalesController::class, 'store'])->name('admin.payment_receivables.payment');
+    Route::get('admin/payment_receivables/{id}/history', [PaymentsSalesController::class, 'getPaymentHistory'])->name('admin.payment_receivables.history');
+    
+    // Test route for debugging
+    Route::get('admin/accounts_receivable/test', [AccountsReceivableController::class, 'testData'])->name('admin.accounts_receivable.test');
+    Route::get('admin/accounts_receivable/simple', [AccountsReceivableController::class, 'getAccountsSimple'])->name('admin.accounts_receivable.simple');
     // metodos de pagos
     Route::get('admin/payment-method/list', [PaymentMethodController::class, 'list'])->name('admin.payment_method.list');
     Route::get('admin/payment-method/data', [PaymentMethodController::class, 'getPaymentMethods'])->name('admin.payment_methods.fetch');

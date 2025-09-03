@@ -8,6 +8,13 @@ class AccountsReceivable extends Model
 {
     //
     protected $table = 'accounts_receivable';
+    protected $fillable = [
+        'account_receivable_id',
+        'payment_amount',
+        'payment_date',
+        'payment_method_id',
+        'reference',
+    ];
     //relacion con sales
     public function sales()
     {
@@ -21,45 +28,46 @@ class AccountsReceivable extends Model
     //relacion con estado de factura
     public function stateTypes()
     {
-        return $this->belongsTo(StateTypeModel::class,'state_type_id');
+        return $this->belongsTo(StateTypeModel::class, 'state_type_id');
     }
     //relacion con cliente
     public function customers()
     {
-        return $this->belongsTo(PersonModel::class,'customer_id');
+        return $this->belongsTo(PersonModel::class, 'customer_id');
     }
     // relacion con usuario
     public function users()
     {
-        return $this->belongsTo(User::class,'created_by');
+        return $this->belongsTo(User::class, 'created_by');
     }
     // relacion con estado de lacuenta
     public function accountStates()
     {
-        return $this->belongsTo(AccountStates::class,'account_statuses_id');
+        return $this->belongsTo(AccountStates::class, 'account_statuses_id');
     }
 
     public function currency()
     {
         return $this->belongsTo(CurrenciesModel::class, 'currency_id');
     }
-    public function company(){
-        return $this->belongsTo(Companies::class,'company_id');
+    public function company()
+    {
+        return $this->belongsTo(Companies::class, 'company_id');
     }
 
     // relacion con pagos
     public function payments()
     {
         return $this->hasMany(PaymentsSales::class, 'account_receivable_id')
-                    ->where('is_delete', 0);
+            ->where('is_delete', 0);
     }
 
-     // relacion con pagos
-     public function paymentsDetails()
-     {
-         return $this->hasMany(PaymentsSales::class, 'account_receivable_id')
-                     ->where('is_delete', 0);
-     }
+    // relacion con pagos
+    public function paymentsDetails()
+    {
+        return $this->hasMany(PaymentsSales::class, 'account_receivable_id')
+            ->where('is_delete', 0);
+    }
 
     // Calcular el total pagado
     public function getTotalPaidAttribute()
@@ -97,6 +105,18 @@ class AccountsReceivable extends Model
         }
     }
 
-   
-   
+    // Verificar si está vencido
+    public function getIsOverdueAttribute()
+    {
+        return $this->date_of_due < now() && $this->balance > 0;
+    }
+
+    // Obtener días de vencimiento
+    public function getDaysOverdueAttribute()
+    {
+        if ($this->is_overdue) {
+            return now()->diffInDays($this->date_of_due);
+        }
+        return 0;
+    }
 }
