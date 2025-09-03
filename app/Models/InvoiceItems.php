@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Invoices;
 
-class SalesItems extends Model
+class InvoiceItems extends Model
 {
     protected $table = 'invoices_items';
     
@@ -17,7 +18,7 @@ class SalesItems extends Model
     // Relationship to the Sales model
     public function sale()
     {
-        return $this->belongsTo(Sales::class, 'sale_id');
+        return $this->belongsTo(Invoices::class, 'sale_id');
     }
     
     // Relationship to the Tax model if you have one

@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Sales;
+use App\Models\Invoices;
 
 class SendInvoice extends Mailable
 {
@@ -19,7 +19,7 @@ class SendInvoice extends Mailable
      *
      * @return void
      */
-    public function __construct(Sales $sale)
+    public function __construct(Invoices $sale)
     {
         $this->sale = $sale;
     }

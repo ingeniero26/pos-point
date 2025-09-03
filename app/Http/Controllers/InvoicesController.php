@@ -8,8 +8,8 @@ use App\Models\ItemsModel;
 use App\Models\PaymentMethodModel;
 use App\Models\PaymentTypeModel;
 use App\Models\PersonModel;
-use App\Models\Sales;
-use App\Models\SalesItems;
+use App\Models\Invoices;
+use App\Models\InvoicesItems;
 use App\Models\StateTypeModel;
 use App\Models\User;
 use App\Models\VoucherTypeModel;
@@ -32,8 +32,9 @@ use App\Services\InventoryCacheService;
 use Illuminate\Support\Facades\Mail;
 
 use App\Models\AccountTypesModel;
+use App\Models\InvoiceItems;
 
-class SalesController extends Controller
+class InvoicesController extends Controller
 {
     protected $inventoryCacheService;
 
@@ -200,7 +201,7 @@ class SalesController extends Controller
             // $series = $company->invoice_prefix ?? 'FV';
             
             // Crear la venta
-            $sale = new Sales();
+            $sale = new Invoices();
             $sale->voucher_type_id = $data['voucher_type_id'];
             $sale->customer_id = $data['customer_id'];
             $sale->state_type_id = $data['state_type_id'];
@@ -251,7 +252,7 @@ class SalesController extends Controller
                     }
 
                     // Crear el item de venta
-                    $saleItem = new SalesItems();
+                    $saleItem = new InvoiceItems();
                     $saleItem->sale_id = $sale->id;
                     $saleItem->item_id = $productId;
                     $saleItem->quantity = $quantity;
@@ -388,7 +389,7 @@ class SalesController extends Controller
     public function show($id) 
     {
         // Obtener la factura de compra con todas sus relaciones
-        $sale = Sales::with([
+        $sale = Invoices::with([
             'voucherTypes', 
             'customers', 
             'stateTypes', 
@@ -398,8 +399,8 @@ class SalesController extends Controller
             'warehouses',
             'company',
             'users',
-            'sales_items.item', // Incluir los items de la compra con sus detalles
-            'sales_items.tax'
+            'invoiceItems.item', // Incluir los items de la compra con sus detalles
+            'invoiceItems.tax'
         ])
         ->where('id', $id)
         ->where('is_delete', 0)
@@ -417,7 +418,7 @@ class SalesController extends Controller
     public function getDetails($id) 
     {
         // Obtener la factura de compra con todas sus relaciones
-        $sale = Sales::with([
+        $sale = Invoices::with([
             'voucherTypes', 
             'customers', 
             'stateTypes', 
@@ -427,8 +428,8 @@ class SalesController extends Controller
             'warehouses',
             'company',
             'users',
-            'sales_items.item', // Incluir los items de la compra con sus detalles
-            'sales_items.tax'
+            'invoiceItems.item', // Incluir los items de la compra con sus detalles
+            'invoiceItems.tax'
         ])
         ->where('id', $id)
         ->where('is_delete', 0)
@@ -443,7 +444,7 @@ class SalesController extends Controller
         return view('admin.sales.details', compact('sale', 'accountsReceivable'));
     }
 
-    public function destroy(Sales $sales)
+    public function destroy(Invoices $sales)
     {
         //
     }
@@ -456,9 +457,9 @@ class SalesController extends Controller
    */
   public function getSales(Request $request)
   {
-      $query = Sales::with(['customers', 'company', 'voucherTypes', 'warehouses', 'currencies', 
-          'users', 'sales_items.item', 'sales_items.tax',
-      'payment_form', 'payment_method', 'stateTypes'])
+      $query = Invoices::with(['customers', 'company', 'voucherTypes', 'warehouses', 'currencies', 
+          'users', 'invoiceItems.item', 'invoiceItems.tax',
+      'paymentForm', 'payment_method', 'stateTypes'])
           ->orderBy('id', 'desc');
       
       // Apply date from filter
@@ -503,7 +504,7 @@ public function exportExcel()
  */
     public function exportPdf(Request $request)
     {
-        $query = Sales::with(['customers', 'payment_form', 'payment_method', 'stateTypes'])
+        $query = Invoices::with(['customers', 'paymentForm', 'payment_method', 'stateTypes'])
             ->orderBy('id', 'desc');
         
         // Apply date from filter
@@ -533,7 +534,7 @@ public function exportExcel()
     }
     public function printPdf($id)
     {
-        $sale = Sales::with([
+        $sale = Invoices::with([
             'voucherTypes',
             'customers',
             'stateTypes',
@@ -543,7 +544,7 @@ public function exportExcel()
             'warehouses',
             'company',
             'users',
-            'sales_items.item' // Include the sale items with their details
+            'invoiceItems.item' // Include the sale items with their details
         ])
         ->where('id', $id)
         ->where('is_delete', 0)
@@ -558,7 +559,7 @@ public function exportExcel()
     // enviar correo
     public function sendEmail($id)
     {
-        $sale = Sales::with([
+        $sale = Invoices::with([
             'voucherTypes',
             'customers',
             'stateTypes',
@@ -568,7 +569,7 @@ public function exportExcel()
             'warehouses',
             'company',
             'users',
-            'sales_items.item' // Include the sale items with their details
+            'invoiceItems.item' // Include the sale items with their details
         ])
         ->where('id', $id)
         ->where('is_delete', 0)
@@ -750,7 +751,7 @@ public function exportExcel()
             DB::beginTransaction();
             
             // Create sale
-            $sale = new \App\Models\Sales();
+            $sale = new \App\Models\Invoices();
             $sale->customer_id = $request->customer_id;
             $sale->voucher_type_id = 8;
             $sale->state_type_id = 1;
@@ -816,7 +817,7 @@ public function exportExcel()
                 // Get the item details to fetch tax_id and tax_rate
                 $itemDetails = \App\Models\ItemsModel::with('tax')->find($item['id']);
                 
-                $saleItem = new \App\Models\SalesItems();
+                $saleItem = new \App\Models\InvoiceItems();
                 $saleItem->sale_id = $sale->id;
                 $saleItem->item_id = $item['id'];
                 $saleItem->quantity = $item['quantity'];
@@ -891,12 +892,12 @@ public function exportExcel()
      */
     public function posReceipt($id)
     {
-        $sale = \App\Models\Sales::with([
+        $sale = \App\Models\Invoices::with([
             'customers', 
             'payment_method', 
             'paymentTypes',
-            'sales_items.item.measure',
-            'sales_items.item.tax',
+            'invoiceItems.item.measure',
+            'invoiceItems.item.tax',
             'users',
             'company',
             'warehouses'
@@ -947,15 +948,15 @@ public function exportExcel()
     }
     public function salesByCategory(Request $request)
 {
-    $query = SalesItems::with(['item.category', 'sale'])
-        ->join('sales', 'sales_items.sale_id', '=', 'sales.id')
-        ->join('items', 'sales_items.item_id', '=', 'items.id')
+    $query = InvoiceItems::with(['item.category', 'invoice'])
+        ->join('invoices', 'invoice_items.invoice_id', '=', 'invoices.id')
+        ->join('items', 'invoice_items.item_id', '=', 'items.id')
         ->join('categories', 'items.category_id', '=', 'categories.id')
         ->select(
             'categories.category_name',
             \Illuminate\Support\Facades\DB::raw('DATE(sales.created_at) as sale_date'),
-            \Illuminate\Support\Facades\DB::raw('SUM(sales_items.quantity) as total_quantity'),
-            \Illuminate\Support\Facades\DB::raw('SUM(sales_items.total) as total_amount')
+            \Illuminate\Support\Facades\DB::raw('SUM(invoiceItems.quantity) as total_quantity'),
+            \Illuminate\Support\Facades\DB::raw('SUM(invoiceItems.total) as total_amount')
         );
 
     // Filtrar por fecha si se proporciona

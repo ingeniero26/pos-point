@@ -241,7 +241,7 @@
         </thead>
         <tbody>
             @php $counter = 1; @endphp
-            @foreach($sale->sales_items as $item)
+            @foreach($sale->invoiceItems as $item)
                 <tr>
                     <td>{{ $counter++ }}</td>
                     <td>{{ $item->item ? ($item->item->internal_code ?? $item->item->barcode) : 'N/A' }}</td>

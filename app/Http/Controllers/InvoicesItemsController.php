@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InvoiceItems;
 use App\Models\SalesItems;
 use Illuminate\Http\Request;
 
-class SalesItemsController extends Controller
+class InvoicesItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class SalesItemsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SalesItems $salesItems)
+    public function show(InvoiceItems $invoiceItems)
     {
         //
     }
@@ -42,7 +43,7 @@ class SalesItemsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SalesItems $salesItems)
+    public function edit(InvoiceItems $salesItems)
     {
         //
     }
@@ -50,7 +51,7 @@ class SalesItemsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SalesItems $salesItems)
+    public function update(Request $request, InvoiceItems $salesItems)
     {
         //
     }
@@ -58,7 +59,7 @@ class SalesItemsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SalesItems $salesItems)
+    public function destroy(InvoiceItems $salesItems)
     {
         //
     }

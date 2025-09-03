@@ -48,7 +48,7 @@ use App\Http\Controllers\PurchaseOrder2Controller;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\PurchaseTempController;
 use App\Http\Controllers\QuotationController;
-use App\Http\Controllers\SalesController;
+use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\TaxesController;
 use App\Http\Controllers\TransferController;
@@ -212,15 +212,15 @@ Route::group(['middleware' => 'admin'], function () {
 
 
     // items/search-items
-    Route::get('admin/sales/search-items',  [SalesController::class, 'getItems'])->name('admin.items.search-items');
+    Route::get('admin/sales/search-items',  [InvoicesController::class, 'getItems'])->name('admin.items.search-items');
     //Route::get('admin/sales/fe')
     // data
     //Route::get('admin/sales/data',[SalesController::class, 'getSales']);
 
 
     // prevew
-    Route::post('admin/sales/preview', [SalesController::class, 'preview']);
-    Route::post('admin/sales/send-email/{id}', [SalesController::class, 'sendEmail'])->name('admin.sales.send-email');
+    Route::post('admin/sales/preview', [InvoicesController::class, 'preview']);
+    Route::post('admin/sales/send-email/{id}', [InvoicesController::class, 'sendEmail'])->name('admin.sales.send-email');
 
     //tipo de identificacion
     Route::get('admin/identification_type/list', [IdentificationTypeController::class, 'list']);
@@ -515,39 +515,39 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/status_order/update/{id}', [OrderStatusController::class, 'update']);
     Route::delete('admin/status_order/delete/{id}', [OrderStatusController::class, 'destroy']);
     // sales
-    Route::get('admin/sales/list', [SalesController::class, 'list'])->name('admin.sales.list');
-    Route::get('admin/sales/data', [SalesController::class, 'getSales'])->name('admin.sales.fetch');
-    Route::get('admin/sales/create', [SalesController::class, 'create']);
-    Route::post('admin/sales/store', [SalesController::class, 'store'])->name('admin.sales.store');
-    Route::get('admin/sales/view/{id}', [SalesController::class, 'view'])->name('admin.sales.view');
-    Route::get('admin/sales/edit/{id}', [SalesController::class, 'edit'])->name('admin.sales.edit');
-    Route::post('admin/sales/update/{id}', [SalesController::class, 'update'])->name('admin.sales.update');
-    Route::delete('admin/sales/delete/{id}', [SalesController::class, 'destroy'])->name('admin.sales.destroy');
+    Route::get('admin/sales/list', [InvoicesController::class, 'list'])->name('admin.sales.list');
+    Route::get('admin/sales/data', [InvoicesController::class, 'getSales'])->name('admin.sales.fetch');
+    Route::get('admin/sales/create', [InvoicesController::class, 'create']);
+    Route::post('admin/sales/store', [InvoicesController::class, 'store'])->name('admin.sales.store');
+    Route::get('admin/sales/view/{id}', [InvoicesController::class, 'view'])->name('admin.sales.view');
+    Route::get('admin/sales/edit/{id}', [InvoicesController::class, 'edit'])->name('admin.sales.edit');
+    Route::post('admin/sales/update/{id}', [InvoicesController::class, 'update'])->name('admin.sales.update');
+    Route::delete('admin/sales/delete/{id}', [InvoicesController::class, 'destroy'])->name('admin.sales.destroy');
 
-    Route::get('admin/sales/get-details/{id}', [SalesController::class, 'getDetails'])->name('admin.sales.get_details');
+    Route::get('admin/sales/get-details/{id}', [InvoicesController::class, 'getDetails'])->name('admin.sales.get_details');
 
 
 
     //update_state
-    Route::post('admin/sales/update_state', [SalesController::class, 'updateState'])->name('admin.sales.update_state');
-    Route::get('admin/sales/{id}', [SalesController::class, 'show'])
+    Route::post('admin/sales/update_state', [InvoicesController::class, 'updateState'])->name('admin.sales.update_state');
+    Route::get('admin/sales/{id}', [InvoicesController::class, 'show'])
         ->name('admin.sales.show');
-    Route::get('admin/sales/{id}/pdf', [SalesController::class, 'printPdf'])->name('admin.sales.pdf');
-    Route::get('admin/sales/export/pdf', [SalesController::class, 'exportPdf'])->name('admin.sales.export.pdf');
-    Route::get('admin/sales/export/excel', [SalesController::class, 'exportExcel'])->name('admin.sales.export.excel');
+    Route::get('admin/sales/{id}/pdf', [InvoicesController::class, 'printPdf'])->name('admin.sales.pdf');
+    Route::get('admin/sales/export/pdf', [InvoicesController::class, 'exportPdf'])->name('admin.sales.export.pdf');
+    Route::get('admin/sales/export/excel', [InvoicesController::class, 'exportExcel'])->name('admin.sales.export.excel');
     // sistema pos
-    Route::get('admin/sales/listPos', [SalesController::class, 'listPos'])->name('admin.sales.pos');
-    Route::get('/admin/reports/sales-by-category', [SalesController::class, 'salesByCategory'])->name('admin.reports.sales-by-category');
+    Route::get('admin/sales/listPos', [InvoicesController::class, 'listPos'])->name('admin.sales.pos');
+    Route::get('/admin/reports/sales-by-category', [InvoicesController::class, 'salesByCategory'])->name('admin.reports.sales-by-category');
     // Professional POS System routes
-    Route::get('admin/pos/dashboard', [SalesController::class, 'posDashboard'])->name('admin.pos.dashboard');
-    Route::post('admin/pos/add-item', [SalesController::class, 'posAddItem'])->name('admin.pos.add_item');
-    Route::post('admin/pos/remove-item', [SalesController::class, 'posRemoveItem'])->name('admin.pos.remove_item');
-    Route::post('admin/pos/update-quantity', [SalesController::class, 'posUpdateQuantity'])->name('admin.pos.update_quantity');
-    Route::post('admin/pos/apply-discount', [SalesController::class, 'posApplyDiscount'])->name('admin.pos.apply_discount');
-    Route::post('admin/pos/process-payment', [SalesController::class, 'posProcessPayment'])->name('admin.pos.process_payment');
-    Route::get('admin/pos/receipt/{id}', [SalesController::class, 'posReceipt'])->name('admin.pos.receipt');
-    Route::post('admin/pos/update-quantity', [SalesController::class, 'posUpdateQuantity'])->name('admin.pos.update_quantity');
-    Route::post('admin/pos/get-stock', [SalesController::class, 'getStock'])->name('admin.pos.get_stock');
+    Route::get('admin/pos/dashboard', [InvoicesController::class, 'posDashboard'])->name('admin.pos.dashboard');
+    Route::post('admin/pos/add-item', [InvoicesController::class, 'posAddItem'])->name('admin.pos.add_item');
+    Route::post('admin/pos/remove-item', [InvoicesController::class, 'posRemoveItem'])->name('admin.pos.remove_item');
+    Route::post('admin/pos/update-quantity', [InvoicesController::class, 'posUpdateQuantity'])->name('admin.pos.update_quantity');
+    Route::post('admin/pos/apply-discount', [InvoicesController::class, 'posApplyDiscount'])->name('admin.pos.apply_discount');
+    Route::post('admin/pos/process-payment', [InvoicesController::class, 'posProcessPayment'])->name('admin.pos.process_payment');
+    Route::get('admin/pos/receipt/{id}', [InvoicesController::class, 'posReceipt'])->name('admin.pos.receipt');
+    Route::post('admin/pos/update-quantity', [InvoicesController::class, 'posUpdateQuantity'])->name('admin.pos.update_quantity');
+    Route::post('admin/pos/get-stock', [InvoicesController::class, 'getStock'])->name('admin.pos.get_stock');
 
 
     // cuentas por cobrar

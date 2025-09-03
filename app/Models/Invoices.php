@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sales extends Model
+class Invoices extends Model
 {
     //
     protected $table = 'invoices';
@@ -55,13 +55,13 @@ class Sales extends Model
         return $this->belongsTo(Companies::class,'company_id');
     }
     // forma de pago
-    public function payment_form() {
+    public function paymentForm() {
         return $this->belongsTo(PaymentTypeModel::class, 'payment_form_id');
     }
     // relacion con detalle de factura
-    public function sales_items()
+    public function invoiceItems()
     {
-        return $this->hasMany(SalesItems::class,'sale_id');
+        return $this->hasMany(InvoiceItems::class,'sale_id');
     }
 
 

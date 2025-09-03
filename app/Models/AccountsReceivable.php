@@ -11,7 +11,7 @@ class AccountsReceivable extends Model
     //relacion con sales
     public function sales()
     {
-        return $this->belongsTo(Sales::class, 'sale_id');
+        return $this->belongsTo(Invoices::class, 'sale_id');
     }
     //relacion con tipo de comprobante
     public function voucherTypes()
