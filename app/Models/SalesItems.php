@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SalesItems extends Model
 {
-    protected $table = 'sales_items';
+    protected $table = 'invoices_items';
     
     // Add the relationship to the Items model
     public function item()
