@@ -8,6 +8,23 @@ class Invoices extends Model
 {
     //
     protected $table = 'invoices';
+    protected $fillable = [
+        'voucher_type_id',
+        'customer_id',
+        'payment_form_id',
+        'payment_method_id',
+        'state_type_id',
+        'currency_id',
+        'warehouse_id',
+        'date_of_issue',
+        'date_of_due',
+        'company_id',
+        'created_by',
+        'invoice_no',
+        'total_sale',
+        'total_tax',
+        'total_discount',
+    ];
     // relacion con  tipo comprobante
     public function voucherTypes()
     {
@@ -61,7 +78,7 @@ class Invoices extends Model
     // relacion con detalle de factura
     public function invoiceItems()
     {
-        return $this->hasMany(InvoiceItems::class,'sale_id');
+        return $this->hasMany(InvoiceItems::class,'invoice_id');
     }
 
 

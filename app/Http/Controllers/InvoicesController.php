@@ -253,7 +253,7 @@ class InvoicesController extends Controller
 
                     // Crear el item de venta
                     $saleItem = new InvoiceItems();
-                    $saleItem->sale_id = $sale->id;
+                    $saleItem->invoice_id = $sale->id;
                     $saleItem->item_id = $productId;
                     $saleItem->quantity = $quantity;
                     $saleItem->unit_price = $price;

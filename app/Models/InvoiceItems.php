@@ -18,7 +18,7 @@ class InvoiceItems extends Model
     // Relationship to the Sales model
     public function sale()
     {
-        return $this->belongsTo(Invoices::class, 'sale_id');
+        return $this->belongsTo(Invoices::class, 'invoice_id');
     }
     
     // Relationship to the Tax model if you have one
