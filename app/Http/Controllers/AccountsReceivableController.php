@@ -9,8 +9,8 @@ use App\Models\PaymentsSales;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use PDF;
-use Log;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Support\Facades\Log;
 
 class AccountsReceivableController extends Controller
 {
@@ -33,11 +33,21 @@ class AccountsReceivableController extends Controller
             $accounts = AccountsReceivable::with([
                 'customers', 
                 'accountStates', 
-                'sales'
+                'sales',
+                'payments' => function($query) {
+                    $query->where('is_delete', 0);
+                }
             ])
             ->where('is_delete', 0)
             ->orderBy('date_of_due', 'asc')
             ->get();
+            
+            // Agregar los campos calculados a cada cuenta
+            $accounts->each(function ($account) {
+                $account->total_paid = $account->total_paid;
+                $account->balance = $account->balance;
+                $account->calculated_status = $account->calculated_status;
+            });
             
             return response()->json($accounts);
         } catch (\Exception $e) {
@@ -157,5 +167,63 @@ public function printPdf($id)
     public function destroy(AccountsReceivable $accountsReceivable)
     {
         //
+    }
+
+    /**
+     * Update account status based on payments
+     */
+    public function updateAccountStatus($accountReceivableId)
+    {
+        try {
+            $account = AccountsReceivable::findOrFail($accountReceivableId);
+            
+            // Calcular el balance actual
+            $totalPaid = $account->payments()->sum('payment_amount');
+            $balance = $account->total_amount - $totalPaid;
+            
+            // Determinar el nuevo estado
+            if ($balance <= 0) {
+                // Completamente pagado
+                $newStatusId = 3; // Asumiendo que 3 es "Pagado"
+            } elseif ($totalPaid > 0) {
+                // Pago parcial
+                $newStatusId = 2; // Asumiendo que 2 es "Parcial"
+            } else {
+                // Sin pagos
+                $newStatusId = 1; // Asumiendo que 1 es "Pendiente"
+            }
+            
+            // Actualizar el estado
+            $account->update(['account_statuses_id' => $newStatusId]);
+            
+            return true;
+        } catch (\Exception $e) {
+            Log::error('Error updating account status: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Recalculate all account balances and update statuses
+     */
+    public function recalculateAllBalances()
+    {
+        try {
+            $accounts = AccountsReceivable::where('is_delete', 0)->get();
+            
+            foreach ($accounts as $account) {
+                $this->updateAccountStatus($account->id);
+            }
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Balances recalculados exitosamente'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al recalcular balances: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

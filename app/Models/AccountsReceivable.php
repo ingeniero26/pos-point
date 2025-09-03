@@ -50,14 +50,52 @@ class AccountsReceivable extends Model
     // relacion con pagos
     public function payments()
     {
-        return $this->hasMany(PaymentsSales::class, 'account_receivable_id');
+        return $this->hasMany(PaymentsSales::class, 'account_receivable_id')
+                    ->where('is_delete', 0);
     }
 
      // relacion con pagos
      public function paymentsDetails()
      {
-         return $this->hasMany(PaymentsSales::class, 'account_receivable_id');
+         return $this->hasMany(PaymentsSales::class, 'account_receivable_id')
+                     ->where('is_delete', 0);
      }
+
+    // Calcular el total pagado
+    public function getTotalPaidAttribute()
+    {
+        return $this->payments()->sum('payment_amount');
+    }
+
+    // Calcular el balance pendiente
+    public function getBalanceAttribute()
+    {
+        return $this->total_amount - $this->total_paid;
+    }
+
+    // Verificar si está completamente pagado
+    public function getIsPaidAttribute()
+    {
+        return $this->balance <= 0;
+    }
+
+    // Verificar si tiene pagos parciales
+    public function getIsPartialAttribute()
+    {
+        return $this->total_paid > 0 && $this->balance > 0;
+    }
+
+    // Obtener el estado calculado basado en pagos
+    public function getCalculatedStatusAttribute()
+    {
+        if ($this->is_paid) {
+            return 'Pagado';
+        } elseif ($this->is_partial) {
+            return 'Parcial';
+        } else {
+            return 'Pendiente';
+        }
+    }
 
    
    

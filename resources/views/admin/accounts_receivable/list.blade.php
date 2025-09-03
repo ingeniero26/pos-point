@@ -324,6 +324,25 @@
                             statusBadge = '<span class="badge bg-secondary">' + account.account_states.name + '</span>';
                         }
                         
+                        // Calcular el balance real
+                        var totalPaid = 0;
+                        if (account.payments && account.payments.length > 0) {
+                            totalPaid = account.payments.reduce(function(sum, payment) {
+                                return sum + parseFloat(payment.payment_amount || 0);
+                            }, 0);
+                        }
+                        var realBalance = parseFloat(account.total_amount) - totalPaid;
+                        
+                        // Actualizar el estado basado en el balance real
+                        var realStatus = '';
+                        if (realBalance <= 0) {
+                            realStatus = '<span class="badge bg-success">Pagado</span>';
+                        } else if (totalPaid > 0) {
+                            realStatus = '<span class="badge bg-warning text-dark">Parcial</span>';
+                        } else {
+                            realStatus = '<span class="badge bg-danger">Pendiente</span>';
+                        }
+                        
                         // Agregar fila a la tabla
                         table.row.add([
                             account.id,
@@ -331,17 +350,17 @@
                             dueDateFormatted,
                             account.customers.name,
                             account.sales.invoice_no,
-                            statusBadge,
+                            realStatus,
                             formatCurrency(account.total_amount),
-                            formatCurrency(account.balance),
+                            formatCurrency(realBalance),
                             `<div class="btn-group">
-                                <button class="btn btn-outline-primary btn-sm view-details" data-id="${account.id}" data-invoice="${account.invoice_no}" 
-                                    data-amount="${account.total_amount}" data-balance="${account.balance}" data-customer="${account.customers.name}">
+                                <button class="btn btn-outline-primary btn-sm view-details" data-id="${account.id}" data-invoice="${account.sales.invoice_no}" 
+                                    data-amount="${account.total_amount}" data-balance="${realBalance}" data-customer="${account.customers.name}">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button class="btn btn-outline-success btn-sm payment-btn" data-id="${account.id}" data-invoice="${account.invoice_no}" 
-                                    data-amount="${account.total_amount}" data-balance="${account.balance}" data-customer="${account.customers.name}"
-                                    ${account.balance <= 0 ? 'disabled' : ''}>
+                                <button class="btn btn-outline-success btn-sm payment-btn" data-id="${account.id}" data-invoice="${account.sales.invoice_no}" 
+                                    data-amount="${account.total_amount}" data-balance="${realBalance}" data-customer="${account.customers.name}"
+                                    ${realBalance <= 0 ? 'disabled' : ''}>
                                     <i class="fas fa-money-bill-wave"></i>
                                 </button>
                                 <button class="btn btn-outline-info btn-sm print-pdf" data-id="${account.id}">
@@ -454,7 +473,7 @@
         // Manejar el clic en el botón de pago
         $(document).on('click', '.payment-btn', function() {
             var id = $(this).data('id');
-            var invoice_no = $(this).data('invoice_no');
+            var invoice = $(this).data('invoice');
             var amount = $(this).data('amount');
             var balance = $(this).data('balance');
             var customer = $(this).data('customer');
@@ -462,7 +481,7 @@
             // Llenar el formulario del modal
             $('#account_receivable_id').val(id);
             $('#customer_name').val(customer);
-            $('#invoice_number').val(invoice_no);
+            $('#invoice_number').val(invoice);
             $('#total_amount').val(formatCurrency(amount));
             $('#balance').val(formatCurrency(balance));
             $('#payment_amount').val(balance).attr('max', balance); // Por defecto, sugerir el pago total

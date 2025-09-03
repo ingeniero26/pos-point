@@ -556,6 +556,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/accounts_receivable/{id}', [AccountsReceivableController::class, 'show']);
     Route::get('admin/accounts_receivable/{id}/pdf', [AccountsReceivableController::class, 'printPdf'])->name('admin.accounts_receivable.pdf');
     Route::get('admin/accounts_receivable/{id}/history', [AccountsReceivableController::class, 'historyReceivable'])->name('admin.payment_receivables.history');
+    Route::post('admin/accounts_receivable/recalculate', [AccountsReceivableController::class, 'recalculateAllBalances'])->name('admin.accounts_receivable.recalculate');
     // pagos de la cuentas por pagar
     Route::post('admin.payment_receivables/store', [PaymentsSalesController::class, 'store'])->name('admin.payment_receivables.payment');
     // Payment history route
