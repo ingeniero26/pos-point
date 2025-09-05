@@ -388,60 +388,85 @@ class InvoicesController extends Controller
  */
     public function show($id) 
     {
-        // Obtener la factura de compra con todas sus relaciones
-        $sale = Invoices::with([
-            'voucherTypes', 
-            'customers', 
-            'stateTypes', 
-            'paymentTypes', 
-            'currencies', 
-            'payment_method',
-            'warehouses',
-            'company',
-            'users',
-            'invoiceItems.item', // Incluir los items de la compra con sus detalles
-            'invoiceItems.tax'
-        ])
-        ->where('id', $id)
-        ->where('is_delete', 0)
-        ->firstOrFail();
-        
-        // Verificar si hay cuentas por cobrar asociadas a esta venta
-        $accountsReceivable = \App\Models\AccountsReceivable::where('sale_id', $id)
+        try {
+            // Obtener la factura con todas sus relaciones
+            $sale = Invoices::with([
+                'voucherTypes', 
+                'customers', 
+                'stateTypes', 
+                'paymentTypes', 
+                'currencies', 
+                'payment_method',
+                'warehouses',
+                'company',
+                'users',
+                'invoiceItems.item.tax', // Incluir los items con sus detalles y tax
+                'invoiceItems.tax'
+            ])
+            ->where('id', $id)
             ->where('is_delete', 0)
-            ->first();
-        
-        
-        // Pasar los datos a la vista
-        return view('admin.sales.details', compact('sale', 'accountsReceivable'));
+            ->firstOrFail();
+            
+            // Verificar si hay cuentas por cobrar asociadas a esta venta
+            $accountsReceivable = \App\Models\AccountsReceivable::where('sale_id', $id)
+                ->where('is_delete', 0)
+                ->first();
+            
+            // Asegurar que invoiceItems no sea null
+            if (!$sale->invoiceItems) {
+                $sale->setRelation('invoiceItems', collect([]));
+            }
+            
+            // Pasar los datos a la vista
+            return view('admin.sales.details', compact('sale', 'accountsReceivable'));
+            
+        } catch (\Exception $e) {
+            \Log::error('Error al mostrar detalles de factura: ' . $e->getMessage());
+            return redirect()->route('admin.sales.list')
+                ->with('error', 'No se pudo cargar la factura solicitada.');
+        }
     }
     public function getDetails($id) 
     {
-        // Obtener la factura de compra con todas sus relaciones
-        $sale = Invoices::with([
-            'voucherTypes', 
-            'customers', 
-            'stateTypes', 
-            'paymentTypes', 
-            'currencies', 
-            'payment_method',
-            'warehouses',
-            'company',
-            'users',
-            'invoiceItems.item', // Incluir los items de la compra con sus detalles
-            'invoiceItems.tax'
-        ])
-        ->where('id', $id)
-        ->where('is_delete', 0)
-        ->firstOrFail();
-        
-        // Verificar si hay cuentas por cobrar asociadas a esta venta
-        $accountsReceivable = \App\Models\AccountsReceivable::where('sale_id', $id)
+        try {
+            // Obtener la factura con todas sus relaciones
+            $sale = Invoices::with([
+                'voucherTypes', 
+                'customers', 
+                'stateTypes', 
+                'paymentTypes', 
+                'currencies', 
+                'payment_method',
+                'warehouses',
+                'company',
+                'users',
+                'invoiceItems.item.tax', // Incluir los items con sus detalles y tax
+                'invoiceItems.tax'
+            ])
+            ->where('id', $id)
             ->where('is_delete', 0)
-            ->first();
-        
-        // Pasar los datos a la vista
-        return view('admin.sales.details', compact('sale', 'accountsReceivable'));
+            ->firstOrFail();
+            
+            // Verificar si hay cuentas por cobrar asociadas a esta venta
+            $accountsReceivable = \App\Models\AccountsReceivable::where('sale_id', $id)
+                ->where('is_delete', 0)
+                ->first();
+            
+            // Asegurar que invoiceItems no sea null
+            if (!$sale->invoiceItems) {
+                $sale->setRelation('invoiceItems', collect([]));
+            }
+            
+            // Pasar los datos a la vista
+            return view('admin.sales.details', compact('sale', 'accountsReceivable'));
+            
+        } catch (\Exception $e) {
+            \Log::error('Error al obtener detalles de factura: ' . $e->getMessage());
+            return response()->json([
+                'error' => true,
+                'message' => 'No se pudo cargar la factura solicitada.'
+            ], 404);
+        }
     }
 
     public function destroy(Invoices $sales)

@@ -386,6 +386,9 @@
                                         <button type="submit" class="btn btn-primary" id="saveBtn">
                                             <i class="fas fa-save"></i> Guardar Venta
                                         </button>
+                                        <button type="button" class="btn btn-success" id="printTicketBtn" style="display: none;">
+                                            <i class="fas fa-print"></i> Imprimir Ticket
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -1229,10 +1232,13 @@
                                     confirmButtonText: 'Aceptar'
                                 });
                                 
-                                // Imprimir ticket de venta
-                                printSalesTicket(response.data);
+                                // Imprimir ticket de venta mejorado
+                                printSalesTicketImproved(response.data);
                                 
-                                // Redireccionar a la lista de ventas después de 2 segundos
+                                // Mostrar botón de imprimir ticket para reimprimir si es necesario
+                                $('#printTicketBtn').show().data('sale-data', response.data);
+                                
+                                // Redireccionar a la lista de ventas después de 3 segundos
                                 setTimeout(function() {
                                     window.location.href = "{{ url('admin/sales/list') }}";
                                 }, 2000);
@@ -1447,8 +1453,405 @@
                 printWindow.print();
                 // Cerrar la ventana después de imprimir (opcional)
                 // printWindow.close();
-            }, 1000); // Aumentar el tiempo de espera para asegurar que el contenido se cargue
+            }, 1500);
         }
+        
+        // Función mejorada para imprimir el ticket de venta
+        function printSalesTicketImproved(sale) {
+            console.log('Sale data for ticket:', sale);
+            
+            // Obtener datos de la empresa desde el servidor
+            const companyData = {
+                name: '{{ Auth::user()->company->name ?? "Empresa" }}',
+                address: '{{ Auth::user()->company->address ?? "Dirección" }}',
+                phone: '{{ Auth::user()->company->phone ?? "Teléfono" }}',
+                nit: '{{ Auth::user()->company->identification_number ?? "NIT" }}',
+                email: '{{ Auth::user()->company->email ?? "" }}'
+            };
+            
+            // Obtener datos del cliente
+            const customerName = $('#customer_id option:selected').text() || 'Cliente General';
+            const customerDocument = $('#customer_document').val() || 'N/A';
+            
+            // Obtener datos de la factura
+            const invoiceNo = sale?.invoice_no || $('#series').val() + '-' + $('#number').val();
+            const invoiceDate = sale?.date_of_issue || $('#date_of_issue').val();
+            const currentTime = new Date().toLocaleTimeString('es-CO', { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            });
+            
+            // Obtener datos de pago
+            const paymentForm = $('#payment_form_id option:selected').text() || 'Contado';
+            const paymentMethod = $('#payment_method_id option:selected').text() || 'Efectivo';
+            
+            // Crear ventana de impresión optimizada para tickets
+            const printWindow = window.open('', '_blank', 'width=300,height=600,scrollbars=yes');
+            
+            // Construir el contenido del ticket mejorado
+            let ticketContent = `
+                <!DOCTYPE html>
+                <html lang="es">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Factura ${invoiceNo}</title>
+                    <style>
+                        * {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                        }
+                        
+                        body {
+                            font-family: 'Courier New', monospace;
+                            font-size: 11px;
+                            line-height: 1.3;
+                            color: #000;
+                            width: 80mm;
+                            margin: 0 auto;
+                            padding: 3mm;
+                            background: white;
+                        }
+                        
+                        .ticket {
+                            width: 100%;
+                        }
+                        
+                        .header {
+                            text-align: center;
+                            margin-bottom: 10px;
+                            border-bottom: 1px dashed #000;
+                            padding-bottom: 8px;
+                        }
+                        
+                        .company-name {
+                            font-size: 16px;
+                            font-weight: bold;
+                            margin-bottom: 3px;
+                            text-transform: uppercase;
+                        }
+                        
+                        .company-info {
+                            font-size: 10px;
+                            margin-bottom: 2px;
+                        }
+                        
+                        .invoice-info {
+                            text-align: center;
+                            margin: 10px 0;
+                            font-weight: bold;
+                            font-size: 13px;
+                            background: #f0f0f0;
+                            padding: 5px;
+                            border: 1px solid #ccc;
+                        }
+                        
+                        .customer-info {
+                            margin: 10px 0;
+                            border-bottom: 1px dashed #000;
+                            padding-bottom: 8px;
+                        }
+                        
+                        .info-row {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 3px;
+                            font-size: 10px;
+                        }
+                        
+                        .info-label {
+                            font-weight: bold;
+                            min-width: 70px;
+                        }
+                        
+                        .items-header {
+                            font-weight: bold;
+                            text-align: center;
+                            margin: 10px 0 8px 0;
+                            font-size: 12px;
+                            text-decoration: underline;
+                        }
+                        
+                        .items {
+                            margin-bottom: 10px;
+                        }
+                        
+                        .item {
+                            margin-bottom: 6px;
+                            font-size: 10px;
+                            border-bottom: 1px dotted #ccc;
+                            padding-bottom: 3px;
+                        }
+                        
+                        .item-line1 {
+                            display: flex;
+                            justify-content: space-between;
+                            font-weight: bold;
+                            margin-bottom: 2px;
+                        }
+                        
+                        .item-line2 {
+                            display: flex;
+                            justify-content: space-between;
+                            font-size: 9px;
+                            color: #666;
+                            margin-left: 15px;
+                        }
+                        
+                        .totals {
+                            border-top: 2px solid #000;
+                            padding-top: 8px;
+                            margin-bottom: 10px;
+                        }
+                        
+                        .total-row {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 3px;
+                            font-size: 11px;
+                        }
+                        
+                        .total-final {
+                            font-weight: bold;
+                            font-size: 14px;
+                            border-top: 2px solid #000;
+                            padding-top: 5px;
+                            margin-top: 5px;
+                            background: #f0f0f0;
+                            padding: 5px;
+                        }
+                        
+                        .payment-info {
+                            border-top: 1px dashed #000;
+                            padding-top: 8px;
+                            margin-bottom: 10px;
+                            text-align: center;
+                            font-size: 10px;
+                        }
+                        
+                        .footer {
+                            text-align: center;
+                            font-size: 9px;
+                            border-top: 1px dashed #000;
+                            padding-top: 8px;
+                        }
+                        
+                        .footer-message {
+                            margin: 4px 0;
+                        }
+                        
+                        .highlight {
+                            background: #ffff99;
+                            padding: 2px;
+                        }
+                        
+                        @media print {
+                            body {
+                                width: 80mm;
+                                margin: 0;
+                                padding: 2mm;
+                            }
+                            
+                            .no-print {
+                                display: none;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="ticket">
+                        <!-- Header con información de la empresa -->
+                        <div class="header">
+                            <div class="company-name">${companyData.name}</div>
+                            <div class="company-info">${companyData.address}</div>
+                            <div class="company-info">Tel: ${companyData.phone}</div>
+                            ${companyData.email ? `<div class="company-info">Email: ${companyData.email}</div>` : ''}
+                            <div class="company-info">NIT: ${companyData.nit}</div>
+                        </div>
+                        
+                        <!-- Información de la factura -->
+                        <div class="invoice-info">
+                            FACTURA DE VENTA<br>
+                            <span class="highlight">No. ${invoiceNo}</span>
+                        </div>
+                        
+                        <!-- Información del cliente -->
+                        <div class="customer-info">
+                            <div class="info-row">
+                                <span class="info-label">Cliente:</span>
+                                <span>${customerName}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Documento:</span>
+                                <span>${customerDocument}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Fecha:</span>
+                                <span>${new Date(invoiceDate).toLocaleDateString('es-CO')}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Hora:</span>
+                                <span>${currentTime}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Productos -->
+                        <div class="items-header">DETALLE DE PRODUCTOS</div>
+                        <div class="items">
+            `;
+            
+            // Agregar productos con mejor formato
+            let itemCount = 0;
+            let totalItems = 0;
+            
+            $('.product-row').each(function() {
+                const quantity = parseFloat($(this).find('.quantity').val()) || 0;
+                const productName = $(this).find('.product-name').text().trim() || 'Producto';
+                const price = parseFloat($(this).find('.price').val()) || 0;
+                const subtotal = parseFloat($(this).find('.subtotal').val()) || 0;
+                
+                if (quantity > 0) {
+                    itemCount++;
+                    totalItems += quantity;
+                    
+                    // Truncar nombre del producto si es muy largo
+                    const shortName = productName.length > 25 ? productName.substring(0, 25) + '...' : productName;
+                    
+                    ticketContent += `
+                        <div class="item">
+                            <div class="item-line1">
+                                <span>${quantity} x ${shortName}</span>
+                                <span>$${subtotal.toLocaleString('es-CO', {minimumFractionDigits: 0})}</span>
+                            </div>
+                            <div class="item-line2">
+                                <span>@ $${price.toLocaleString('es-CO', {minimumFractionDigits: 0})} c/u</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            // Si no hay productos, mostrar mensaje
+            if (itemCount === 0) {
+                ticketContent += `
+                    <div class="item">
+                        <div class="item-line1">
+                            <span>No hay productos registrados</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Obtener totales
+            const subtotal = parseFloat($('#total_subtotal').val()) || 0;
+            const discount = parseFloat($('#total_discount').val()) || 0;
+            const tax = parseFloat($('#total_tax').val()) || 0;
+            const total = parseFloat($('#total_sale').val()) || 0;
+            
+            // Agregar resumen de items
+            ticketContent += `
+                        </div>
+                        
+                        <!-- Resumen -->
+                        <div style="text-align: center; margin: 8px 0; font-size: 10px; border: 1px dashed #000; padding: 5px;">
+                            <strong>Total Items: ${itemCount} | Cantidad: ${totalItems}</strong>
+                        </div>
+                        
+                        <!-- Totales -->
+                        <div class="totals">
+                            <div class="total-row">
+                                <span>Subtotal:</span>
+                                <span>$${subtotal.toLocaleString('es-CO', {minimumFractionDigits: 0})}</span>
+                            </div>
+            `;
+            
+            if (discount > 0) {
+                ticketContent += `
+                    <div class="total-row">
+                        <span>Descuento:</span>
+                        <span style="color: red;">-$${discount.toLocaleString('es-CO', {minimumFractionDigits: 0})}</span>
+                    </div>
+                `;
+            }
+            
+            if (tax > 0) {
+                ticketContent += `
+                    <div class="total-row">
+                        <span>Impuestos:</span>
+                        <span>$${tax.toLocaleString('es-CO', {minimumFractionDigits: 0})}</span>
+                    </div>
+                `;
+            }
+            
+            ticketContent += `
+                            <div class="total-row total-final">
+                                <span>TOTAL A PAGAR:</span>
+                                <span>$${total.toLocaleString('es-CO', {minimumFractionDigits: 0})}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Información de pago -->
+                        <div class="payment-info">
+                            <div><strong>Forma de Pago:</strong> ${paymentForm}</div>
+                            <div><strong>Método de Pago:</strong> ${paymentMethod}</div>
+                        </div>
+                        
+                        <!-- Footer -->
+                        <div class="footer">
+                            <div class="footer-message"><strong>¡Gracias por su compra!</strong></div>
+                            <div class="footer-message">Conserve este comprobante</div>
+                            <div class="footer-message">---</div>
+                            <div class="footer-message">Sistema de Ventas v1.0</div>
+                            <div class="footer-message">Impreso: ${new Date().toLocaleString('es-CO')}</div>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            // Escribir contenido y configurar impresión
+            printWindow.document.write(ticketContent);
+            printWindow.document.close();
+            
+            // Configurar la impresión con mejor manejo
+            printWindow.onload = function() {
+                setTimeout(function() {
+                    printWindow.focus();
+                    printWindow.print();
+                    
+                    // Cerrar ventana después de imprimir
+                    setTimeout(function() {
+                        if (printWindow && !printWindow.closed) {
+                            printWindow.close();
+                        }
+                    }, 2000);
+                }, 800);
+            };
+            
+            // Fallback mejorado
+            setTimeout(function() {
+                if (printWindow && !printWindow.closed) {
+                    try {
+                        printWindow.print();
+                    } catch (e) {
+                        console.error('Error al imprimir:', e);
+                    }
+                }
+            }, 2000);
+        }
+        
+        // Manejar clic en botón de imprimir ticket
+        $('#printTicketBtn').on('click', function() {
+            const saleData = $(this).data('sale-data');
+            if (saleData) {
+                printSalesTicketImproved(saleData);
+            } else {
+                // Si no hay datos guardados, usar los del formulario actual
+                printSalesTicketImproved(null);
+            }
+        });
     });
 </script>
 @endsection

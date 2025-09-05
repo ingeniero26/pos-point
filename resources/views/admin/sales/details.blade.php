@@ -170,30 +170,39 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach($sale->sales_items as $index => $detail)
-                                                        <tr>
-                                                            <td>{{ $index + 1 }}</td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    @if($detail->item && $detail->item->image)
-                                                                    <img src="{{ asset('uploads/products/'.$detail->item->image) }}" 
-                                                                         alt="Producto" class="me-2" style="width: 40px; height: 40px; object-fit: cover;">
-                                                                    @endif
-                                                                    <div>
-                                                                        <p class="mb-0 fw-bold">{{ $detail->item->product_name ?? 'N/A' }}</p>
-                                                                        <small class="text-muted">{{ $detail->item->internal_code ?? $detail->item->barcode ?? 'N/A' }}</small>
+                                                        @if($sale->invoiceItems && $sale->invoiceItems->count() > 0)
+                                                            @foreach($sale->invoiceItems as $index => $detail)
+                                                            <tr>
+                                                                <td>{{ $index + 1 }}</td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        @if($detail->item && $detail->item->image)
+                                                                        <img src="{{ asset('uploads/products/'.$detail->item->image) }}" 
+                                                                             alt="Producto" class="me-2" style="width: 40px; height: 40px; object-fit: cover;">
+                                                                        @endif
+                                                                        <div>
+                                                                            <p class="mb-0 fw-bold">{{ $detail->item->product_name ?? 'N/A' }}</p>
+                                                                            <small class="text-muted">{{ $detail->item->internal_code ?? $detail->item->barcode ?? 'N/A' }}</small>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-end">{{ number_format($detail->quantity, 2, ',', '.') }}</td>
-                                                            <td class="text-end">{{ number_format($detail->unit_price, 2, ',', '.') }}</td>
-                                                            <td class="text-end">{{ number_format($detail->discount, 2, ',', '.') }}</td>
+                                                                </td>
+                                                                <td class="text-end">{{ number_format($detail->quantity ?? 0, 2, ',', '.') }}</td>
+                                                                <td class="text-end">{{ number_format($detail->unit_price ?? 0, 2, ',', '.') }}</td>
+                                                                <td class="text-end">{{ number_format($detail->discount ?? 0, 2, ',', '.') }}</td>
                                                             <td class="text-end">{{ number_format($detail->subtotal, 2, ',', '.') }}</td>
                                                             <td class="text-end">{{ $detail->item->tax->rate ?? 0 }}%</td>
                                                             <td class="text-end">{{ number_format($detail->tax_amount, 2, ',', '.') }}</td>
-                                                            <td class="text-end">{{ number_format($detail->total, 2, ',', '.') }}</td>
+                                                            <td class="text-end">{{ number_format($detail->total ?? 0, 2, ',', '.') }}</td>
                                                         </tr>
                                                         @endforeach
+                                                        @else
+                                                        <tr>
+                                                            <td colspan="9" class="text-center text-muted py-4">
+                                                                <i class="fas fa-inbox fa-2x mb-2"></i><br>
+                                                                No hay productos registrados en esta factura
+                                                            </td>
+                                                        </tr>
+                                                        @endif
                                                     </tbody>
                                                     <tfoot class="table-light">
                                                         <tr>

@@ -38,12 +38,7 @@
                                         <button type="button" class="btn btn-outline-success btn-sm" id="exportExcel">
                                             <i class="fas fa-file-excel me-1"></i> Exportar
                                         </button>
-                                        <button type="button" class="btn btn-outline-warning btn-sm" id="testData">
-                                            <i class="fas fa-bug me-1"></i> Test
-                                        </button>
-                                        <button type="button" class="btn btn-outline-info btn-sm" id="testSimple">
-                                            <i class="fas fa-list me-1"></i> Simple
-                                        </button>
+                                        
                                     </div>
                                 </div>
                             </div>
