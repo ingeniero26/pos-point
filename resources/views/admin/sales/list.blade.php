@@ -238,12 +238,9 @@
                                         <button class="btn btn-danger btn-sm delete-btn" data-id="${sale.id}" title="Eliminar">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
-                                        
                                         <button class="btn btn-warning btn-sm notes-credit" data-sale-id="${sale.id}" title="Notas de Crédito">
                                             <i class="fa-solid fa-credit-card"></i>
                                         </button>
-                                       
-                                        
                                     </div>
                                 </td>
                             </tr>`;

@@ -104,6 +104,7 @@
                                                 <th>Precio Costo</th>
                                                 <th>Precio Venta</th>
                                                 <th>Ganancia</th>
+                                                <th>% Ganancia (Valor)</th>
                                                 <th>Impuesto</th>
                                                 <th>Precio + IVA</th>
                                                 <th>Estado</th>
@@ -389,15 +390,19 @@
                             
                             <div class="row">
                                 <!-- Campo para el precio sin impuesto -->
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="" class="form-label"><b>Precio sin Impuesto</b></label>
                                     <input type="number" name="selling_price" id="selling_price" class="form-control" step="0.01">
                                 </div>
 
                                 <!-- Campo para el precio con impuesto -->
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="" class="form-label"><b>Precio Final (con Impuesto)</b></label>
                                     <input type="number" name="price_total" id="price_total" class="form-control" step="0.01" readonly>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="percentage_profit" class="form-label"><b>% Ganancia</b></label>
+                                    <input type="text" id="percentage_profit" name="percentage_profit" class="form-control" readonly>
                                 </div>
                             </div>
                          
@@ -582,7 +587,10 @@
                         let price_total = formatCurrency(items.price_total);
                         let statusText = items.status == 1 ? 'Inactivo' : 'Activo';
                         let statusClass = items.status == 1 ? 'badge bg-danger' : 'badge bg-success';
-                        let ganancia = (items.selling_price)-(items.cost_price)  ;
+                        let ganancia = (items.selling_price)-(items.cost_price);
+                        let percentageProfit = formatCurrency(items.percentage_profit);
+                        
+                       
                         
                         let row = `
                             <tr>
@@ -607,6 +615,7 @@
                                 <td class="text-end">${costPrice}</td>
                                 <td class="text-end">${sellingPrice}</td>
                                 <td class="text-end">${ganancia}</td>
+                                <td class="text-end">${percentageProfit || 'N/A'}%</td>
                                 <td>${items.tax ? items.tax.tax_name : 'N/A'}</td>
                                 <td class="text-end">${price_total}</td>
                                 <td class="text-center">
@@ -1067,6 +1076,14 @@
         $('#selling_price').on('input', function() {
             var sellingPrice = parseFloat($(this).val());
             var taxId = $('#tax_id').val();
+            var costPrice = parseFloat($('#cost_price').val()) || 0;
+    var porcentajeGanancia = 0;
+
+    if (costPrice > 0) {
+        porcentajeGanancia = ((sellingPrice - costPrice) / costPrice) * 100;
+    }
+
+    $('#percentage_profit').val(porcentajeGanancia.toFixed(2)); // Muestra el resultado en un input
 
             if (taxId && sellingPrice) {
                 $.ajax({
