@@ -6,6 +6,7 @@ use App\Models\CategoryModel;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class SubCategoryController extends Controller
 {
@@ -40,19 +41,31 @@ class SubCategoryController extends Controller
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
         ]);
+         $name = trim($request->name);
         $subCategory = new SubCategory();
         $subCategory->name = $request->name;
         $subCategory->category_id = $request->category_id;
         $subCategory->description = $request->description;
-        $subCategory->slug = $request->slug;
+       // $subCategory->slug = $request->slug;
         $subCategory->meta_title = $request->meta_title;
         $subCategory->meta_description = $request->meta_description;
         $subCategory->meta_keywords = $request->meta_keywords;
         $subCategory->company_id = Auth::user()->company_id;
         $subCategory->created_by = Auth::user()->id;
         // Si viene el slug desde el formulario, se usa, si no, se genera uno automáticamente
+           $slug = Str::slug($name, '-');
+            $chekSlug = SubCategory::checkSlug($slug);
+            if (empty($chekSlug)) {
+                $subCategory->slug = $slug;
+                $subCategory->save();
+            } else {
+                $new_slug = $slug . '-' . $subCategory->id;
+                $subCategory->slug = $new_slug;
+                $subCategory->save();
+            }
       
         $subCategory->save();
+        return response()->json(['success' => 'Registro creado con éxito']);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CategoryModel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -38,6 +39,15 @@ class CategoryController extends Controller
         $category->created_by = Auth::user()->id;
         $category->save();
         // si viene el slug desde el formulario
+        if (empty($request->slug)) {
+            $slug = Str::slug($request->category_name);
+            $category->slug = $slug;
+            $category->save();
+        } else {
+            $new_slug = $request->slug . '-' . $category->id;
+            $category->slug = $new_slug;
+            $category->save();
+        }
 
 
         return response()->json(['success' => 'Registro Creado con Exito']);

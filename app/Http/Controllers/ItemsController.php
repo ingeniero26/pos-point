@@ -14,7 +14,7 @@ use App\Models\ItemsTaxesModel;
 use App\Models\ItemWarehouseModel;
 use App\Models\ItemWrehouseModel;
 use App\Models\MeasureModel;
-
+use App\Models\SubCategory;
 use App\Models\TaxesModel;
 use App\Models\TypeItemsModel;
 use App\Models\WarehouseModel;
@@ -51,6 +51,9 @@ class ItemsController extends Controller
         $categories = Cache::remember('categories_list', 300, function () {
             return CategoryModel::all()->pluck('category_name', 'id');
         });
+        $subcategories = Cache::remember('subcategories_list', 300, function () {
+            return SubCategory::all()->pluck('name', 'id');
+        });
 
         $warehouses = Cache::remember('warehouses_list', 300, function () {
             return WarehouseModel::all()->pluck('warehouse_name', 'id');
@@ -82,6 +85,7 @@ class ItemsController extends Controller
 
         return view('admin.items.list', compact(
             'categories',
+            'subcategories',
             'warehouses',
             'brands',
             'measures',
@@ -96,6 +100,7 @@ class ItemsController extends Controller
     {
         $items = ItemsModel::with([
             'category:id,category_name',
+            'subcategory:id,name',
             'brand:id,brand_name',
             'measure:id,measure_name',
             'invoice_groups:id,name',
@@ -105,7 +110,7 @@ class ItemsController extends Controller
         ])
             ->select([
                 'id', 'item_type_id', 'product_name', 'slug', 'barcode', 'internal_code',
-                'sku','reference',    'category_id','currency_id',  'expiration_date',
+                'sku','reference',    'category_id', 'sub_category_id', 'currency_id',  'expiration_date',
                 'description', 'short_description',  'aditional_information',
                 'shipping_returns','brand_id','measure_id', 'invoice_group_id',
                 'cost_price', 'selling_price','percentage_profit',    'tax_id',
@@ -142,6 +147,7 @@ class ItemsController extends Controller
             $product->sku = $request->sku;
             $product->reference = $request->reference;
             $product->category_id = $request->category_id;
+            $product->sub_category_id = $request->sub_category_id;
             $product->currency_id = $request->currency_id;
             $product->expiration_date = $request->expiration_date;
             // si maneja series
@@ -292,6 +298,7 @@ class ItemsController extends Controller
             $product->sku = $request->sku;
             $product->reference = $request->reference;
             $product->category_id = $request->category_id;
+            $product->sub_category_id = $request->sub_category_id;
             $product->currency_id = $request->currency_id;
             $product->expiration_date = $request->expiration_date;
             $product->description = $request->description;
@@ -849,5 +856,13 @@ class ItemsController extends Controller
                 'data' => []
             ], 500);
         }
+    }
+
+       public function getSubcategories(Request $request) {
+        $categoryId = $request->input('category_id'); // Obtener el ID del departamento desde la solicitud
+        // Obtener las ciudades que pertenecen al departamento seleccionado
+        $subcategories = SubCategory::where('category_id', $categoryId)->pluck('name', 'id');
+        // Devolver las ciudades en formato JSON
+        return response()->json(['subcategories' => $subcategories]);
     }
 }

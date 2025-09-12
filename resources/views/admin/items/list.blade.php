@@ -92,6 +92,7 @@
                                                 <th>SKU</th>
                                                 <th>Referencia</th>
                                                 <th>Categoría</th>
+                                                <th>Sub Categoria</th>
                                                 <th>Moneda</th>
                                                 <th>Vencimiento</th>
                                                 <th>Descripción</th>
@@ -167,20 +168,20 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="barcode" class="form-label"><b>Código de Barras </b></label>
                                     <input type="text" class="form-control" id="barcode" name="barcode"  onblur="duplicateBarcode(this)">
                                 </div>
                             </div>
                             
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="manufacturer" class="form-label"><b>Código Interno </b></label>
                                     <input type="text" class="form-control" id="internal_code" name="internal_code"  onblur="duplicateInternalCode(this)">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="reference" class="form-label"><b>Referencia </b></label>
                                     <input type="text" class="form-control" id="reference" name="reference" >
@@ -195,6 +196,18 @@
                                        <option value="{{$key }}">{{$item}}</option>
                                            
                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Sub Categoria</label>
+                                     <select name="subcategory_id" id="subcategory_id" class="form-control">
+                                        <option value="">Seleccione</option>
+                                       {{-- @foreach ($subcategories as $key =>$item)
+                                       <option value="{{$key }}">{{$item}}</option>
+                                           
+                                       @endforeach --}}
                                     </select>
                                 </div>
                             </div>
@@ -603,6 +616,7 @@
                                 <td>${items.sku || 'N/A'}</td>
                                 <td>${items.reference || 'N/A'}</td>
                                 <td>${items.category ? items.category.category_name : 'N/A'}</td>
+                                <td>${items.subcategory ? items.subcategory.name : 'N/A'}</td>
                                 <td>${items.currencies ? items.currencies.currency_name : 'N/A'}</td>
                                 <td>${items.expiration_date || 'N/A'}</td>
                                 <td>${items.description || 'N/A'}</td>
@@ -993,6 +1007,35 @@
 </script>
 
 <script type="text/javascript">
+ // cargar combo subcategoria cuando se seleccione una categoria
+    $('#category_id').change(function() {
+        var categoryId = $(this).val(); // Obtener el valor seleccionado de la categoría
+        // Limpiar el combo de subcategorías
+        $('#subcategory_id').html('<option value="">Seleccione</option>');
+        // Si se seleccionó una categoría válida
+        if (categoryId) {
+            // Hacer una solicitud AJAX para obtener las subcategorías
+            $.ajax({
+                url: "{{ url('admin/items/get_subcategories') }}/" + categoryId,
+                type: 'get',
+                data: {
+                    category_id: categoryId // Enviar el ID de la categoría seleccionada
+                },
+                success: function(response) {
+                    // Si la respuesta es exitosa, llenar el combo de subcategorías
+                    if (response.subcategories) {
+                        $.each(response.subcategories, function(key, value) {
+                            $('#subcategory_id').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    console.error('Error al obtener las subcategorías');
+                }
+            });
+        }
+    });
+
  // funcion duplicado barcode 
  function duplicateBarcode(input) {
     var barcode  = input.value;
@@ -1047,7 +1090,7 @@
             
                         
             
-    $(document).ready(function(){
+         $(document).ready(function(){
         let isSubmitting = false; // Flag para controlar el envío
 
         $('#tax_id').change(function() {

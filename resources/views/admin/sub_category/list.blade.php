@@ -73,7 +73,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addCategoryModalLabel">Agregar Categoria</h5>
+                    <h5 class="modal-title" id="addCategoryModalLabel">Agregar Sub Categoria</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -99,7 +99,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="slug" class="form-label"><b>Slug</b></label>
-                            <input type="text" class="form-control" id="slug" name="slug" >
+                            <input type="text" class="form-control" id="slug" name="slug" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="meta_title" class="form-label"><b>Meta Title</b></label>

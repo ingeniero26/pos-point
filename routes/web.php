@@ -186,7 +186,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/items/by_warehouse_simple', [ItemsController::class, 'itemsByWarehouseSimple'])->name('admin.items.by_warehouse_simple');
     Route::get('admin/items/get_item_by_warehouse', [ItemsController::class, 'getItemByWarehouse'])->name('admin.items.get_item_by_warehouse');
     Route::get('admin/items/search_products', [ItemsController::class, 'searchProducts'])->name('admin.items.search_products');
-
+ // 
+ 
+    Route::get('admin/items/get_subcategories/{category_id}', [ItemsController::class, 'getSubcategories'])->name('admin.items.get_subcategories');
 
     // buscar items traslado
     Route::get('admin/sales/search-items', [ItemsController::class, 'itemSearch'])->name('admin.items.search');

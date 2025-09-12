@@ -10,7 +10,7 @@ class ItemsModel extends Model
     protected $table = 'items';
 
     protected $fillable = ['product_type', 'product_name', 'sku',
-        'reference', 'category_id', 'description', 'brand_id', 'measure_id', 'cost_price',
+        'reference', 'category_id','subcategory_id', 'description', 'brand_id', 'measure_id', 'cost_price',
     'selling_price','tax_id', 'price_total','created_by'];
 
     protected $hidden = ['created_at', 'updated_at'];
@@ -22,6 +22,10 @@ class ItemsModel extends Model
     public function category()
     {
         return $this->belongsTo(CategoryModel::class, 'category_id');
+    }
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
     public function brand()
     {
@@ -59,7 +63,7 @@ class ItemsModel extends Model
     // sales
   
     public function sales() {
-        return $this->hasMany(Sales::class, 'item_id');
+        return $this->hasMany(Invoices::class, 'item_id');
     }
 
     static public  function checkSlug($slug)

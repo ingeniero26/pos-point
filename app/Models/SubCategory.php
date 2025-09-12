@@ -8,6 +8,12 @@ class SubCategory extends Model
 {
     //
     protected $table = 'sub_categories';
+    
+    static public  function checkSlug($slug)
+    {   
+        return self::where('slug','=',$slug)->count();
+    }
+
     protected $fillable = [
         'name',
         'category_id',

@@ -12,4 +12,8 @@ class CategoryModel extends Model
     {
         return $this->hasMany(ItemsModel::class, 'category_id'); // Asegúrate de que 'category_id' sea el campo correcto
     }
+    public function subcategories()
+    {
+        return $this->hasMany(SubCategory::class, 'category_id'); // Asegúrate de que 'category_id' sea el campo correcto
+    }
 }
