@@ -995,15 +995,15 @@
 <script type="text/javascript">
  // funcion duplicado barcode 
  function duplicateBarcode(input) {
-                var barcode  = input.value;
-                if (barcode) {
-                    $.ajax({
-                        url: '{{ url('admin/items/check-barcode') }}',
-                        type: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            barcode: barcode
-                        },
+    var barcode  = input.value;
+        if (barcode) {
+        $.ajax({
+         url: '{{ url('admin/items/check-barcode') }}',
+        type: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+             barcode: barcode
+            },
                         success: function(response) {
                             if (response.exists) {
                                 Swal.fire({
@@ -1019,8 +1019,8 @@
                 }
             }
             // funcion duplicado internal code 
-            function duplicateInternalCode(input) {
-                var internalCode = input.value;
+    function duplicateInternalCode(input) {
+        var internalCode = input.value;
                 if (internalCode) {
                     $.ajax({
                         url: '{{ url('admin/items/check-internal-code') }}',

@@ -291,12 +291,24 @@
                                 <p>Plan Contable</p>
                             </a> </li>
                             <li class="nav-item">
-                                <a href="{{url('admin/receipt_type/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <a href="{{url('admin/document_types/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                     <p>Tipo Comprobantes</p>
                                 </a> 
                             </li>
-
-
+                            <li class="nav-item">
+                                <a href="{{url('admin/accounting_entries/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <p>Asientos Contables</p>
+                            </a> </li>
+                            <li class="nav-item"></li>
+                                <a href="{{url('admin/journal/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <p>Diario</p>
+                            </a>
+                            </li>
+                            <li class="nav-item"></li>
+                                <a href="{{url('admin/balance_sheet/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <p>Balance General</p>
+                            </a>
+                            </li>
                     </ul>
                 </li>
             

@@ -49,7 +49,7 @@ use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\PurchaseTempController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\InvoicesController;
-use App\Http\Controllers\SuppliersController;
+use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\TaxesController;
 use App\Http\Controllers\TransferController;
 use App\Http\Controllers\TypeLiabilityController;
@@ -742,8 +742,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('admin/branch_type/delete/{id}', [BranchTypeController::class, 'destroy'])->name('admin.branch_type.delete');
     Route::put('admin/branch_type/toggle-status/{id}', [BranchTypeController::class, 'toggleStatus'])->name('admin.branch_type.toggle-status');
 
-
-
+ 
 });
 
 Route::group(['middleware' => 'user'], function () {
