@@ -82,6 +82,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 Route::get('/services', [HomeController::class, 'services'])->name('home.services');
+Route::get('/team', [HomeController::class, 'team'])->name('home.team');
 Route::get('/blog', [HomeController::class, 'blog'])->name('home.blog');
 Route::get('/blog-single', [HomeController::class, 'blogSingle'])->name('home.blog-single');
 Route::get('/portfolio', [HomeController::class, 'portfolio'])->name('home.portfolio');
