@@ -230,7 +230,7 @@
 <body>
     <div class="header">
         <div class="company-info">
-            <h2>{{ $quotation->company->name ?? 'Empresa' }}</h2>
+            <h2>{{ $quotation->company->company_name ?? 'Empresa' }}</h2>
             <p>{{ $quotation->company->address ?? '' }}</p>
             <p>{{ $quotation->company->phone ?? '' }} | {{ $quotation->company->email ?? '' }}</p>
             <p>NIT: {{ $quotation->company->identification_number ?? '' }}</p>
@@ -320,7 +320,7 @@
 
     <div class="footer">
         <p>Documento generado el {{ date('d/m/Y H:i:s') }}</p>
-        <p>{{ $quotation->company->name ?? 'Empresa' }} - Todos los derechos reservados</p>
+        <p>{{ $quotation->company->company_name ?? 'Empresa' }} - Todos los derechos reservados</p>
     </div>
 
 </body>

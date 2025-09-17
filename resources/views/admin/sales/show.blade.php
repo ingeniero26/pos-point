@@ -63,7 +63,7 @@
                                                 </div>
                                                 @endif
                                                 <div>
-                                                    <h5 class="mb-1">{{ $company->name }}</h5>
+                                                    <h5 class="mb-1">{{ $company->company_name }}</h5>
                                                     <p class="mb-0 text-muted">NIT: {{ $company->identification_number }}</p>
                                                 </div>
                                             </div>

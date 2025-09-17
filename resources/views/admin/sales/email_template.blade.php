@@ -24,7 +24,7 @@
         <p>Si tiene alguna consulta, por favor no dude en contactarnos.</p>
         
         <p>Atentamente,</p>
-        <p>{{ $sale->company->name }}</p>
+        <p>{{ $sale->company->company_name }}</p>
     </div>
 </body>
 </html>

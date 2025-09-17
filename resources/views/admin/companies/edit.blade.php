@@ -81,8 +81,8 @@
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="name" class="form-label">Nombre de la Empresa</label>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $company->name) }}">
-                                        @error('name')
+                                        <input type="text" class="form-control @error('company_name') is-invalid @enderror" id="company_name" name="company_name" value="{{ old('company_name', $company->company_name) }}">
+                                        @error('company_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>

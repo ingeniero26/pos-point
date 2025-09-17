@@ -47,7 +47,7 @@ class CompaniesController extends Controller
             'identification_type_id' => 'required|exists:identification_type,id',
             'identification_number' => 'required|string|max:250',
             'dv' => 'required|string|max:250',
-            'name' => 'required|string|max:250',
+            'company_name' => 'required|string|max:250',
             'short_name' => 'nullable|string|max:250',
             'email' => 'required|email|max:250',
             'country_id' => 'required|exists:countries,id',

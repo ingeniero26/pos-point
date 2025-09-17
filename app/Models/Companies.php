@@ -12,7 +12,7 @@ class Companies extends Model
     protected $fillable = [
         'identification_type_id',
         'identification_number',
-        'name',
+        'company name',
         'short_name',
         'email',
         'logo',
