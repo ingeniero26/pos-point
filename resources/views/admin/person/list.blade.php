@@ -93,10 +93,12 @@
                                                  <th>Tipo Documento</th>
                                                  <th>Número</th>  
                                                  <th>Digito Verificador</th>
-                                                 <th>Empresa</th>                                              
+                                                 <th>Empresa</th>  
+                                                 <th>Razon Comercial</th>                                            
                                                 <th>Tercero</th>
                                                 <th>Régimen</th>   
                                                 <th>Obligación</th>  
+                                                <th>CIUU</th>
                                                 <th>País</th>                       
                                                 <th>Departamento</th>
                                                 <th>Ciudad</th>
@@ -175,27 +177,48 @@
                         </div>
                         {{-- nombre empresa ocultar si es un cliente --}}
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label for=""><b>Nombre Empresa</b></label>
                                 <input type="text" class="form-control"
-                                 name="company_name" id="company_name"
+                                  id="company_name"
                                  name="company_name">
                             </div>
+                            <div class="col-md-6">
+                                <label for=""><b>Nombre Comercial</b></label>
+                                <input type="text" class="form-control"
+                                  id="name_trade"
+                                 name="name_trade">
+                            </div>
+
                         </div>
                         
                         <div class="row">
-                            <div class="col-md-6" id="nombreRazonSocial">
+                            <div class="col-md-6" id="">
                                 <div class="mb-3">
-                                    <label for="contact_name" class="form-label"><b>Nombre Contácto</b></label>
-                                    <input type="text" class="form-control" id="name" name="name" >
+                                    <label for="contact_name" class="form-label"><b>Primer Nombre </b></label>
+                                    <input type="text" class="form-control" id="first_name" name="first_name" >
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="">
+                                <div class="mb-3">
+                                    <label for="second_name" class="form-label"><b>Segundo Nombre </b></label>
+                                    <input type="text" class="form-control" id="second_name" name="second_name" >
                                 </div>
                             </div>
                             <div class="col-md-6" id="apellidoContacto">
                                 <div class="mb-3">
-                                    <label for="contact_last_name" class="form-label"><b>Apellido del Contacto</b></label>
+                                    <label for="contact_last_name" class="form-label"><b>1er Apellido </b></label>
                                     <input type="text" class="form-control" id="last_name" name="last_name" >
                                 </div>
                             </div>
+                            <div class="col-md-6" id="">
+                                <div class="mb-3">
+                                    <label for="second_last_name" class="form-label"><b>2do Apellido </b></label>
+                                    <input type="text" class="form-control" 
+                                    id="second_last_name" name="second_last_name" >
+                                </div>
+                            </div>
+
                         </div>
                         
                         <div class="row">
@@ -241,7 +264,13 @@
                         </div>
                         
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-2">
+                                <label for=""><b>CIUU</b></label>
+                                <input type="text" class="form-control"
+                                  id="ciiu_code"
+                                 name="ciiu_code">
+                            </div>
+                            <div class="col-md-3">
                                 <label for="">Pais</label>
                                  <select name="country_id" id="country_id" class="form-control">
                                      <option value="">Seleccione</option>
@@ -253,7 +282,7 @@
 
                             </div>
                  
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="department_id" class="form-label"><b>Departamento</b></label>
                                     <select name="department_id" id="department_id" class="form-control">
@@ -488,10 +517,12 @@
                                 <td>${customer.identification_number}</td>
                                 <td>${customer.dv}</td>
                                 <td>${customer.company_name}</td>
-                                <td>${customer.name} ${customer.last_name}</td>
+                                <td>${customer.name_trade}</td>
+                                <td>${customer.first_name} ${customer.second_name} ${customer.last_name} ${customer.second_last_name}</td>
                               
                                 <td>${customer.type_regimen ? customer.type_regimen.regimen_name : 'N/A'}</td>
                                 <td>${customer.type_liability ? customer.type_liability.liability_name : 'N/A'}</td>
+                                <td>${customer.ciiu_code ? customer.ciiu_code : 'N/A'}</td>
                                 <td>${customer.countries ? customer.countries.country_name : 'N/A'}</td>
                                 <td>${customer.departments ? customer.departments.name_department : 'N/A'}</td>
                                 <td>${customer.cities ? customer.cities.city_name : 'N/A'}</td>

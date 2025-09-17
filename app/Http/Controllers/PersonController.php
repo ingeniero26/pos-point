@@ -78,12 +78,17 @@ class PersonController extends Controller
         $customer->identification_number = $request->identification_number;
         $customer->dv = $request->dv;
         $customer->company_name = $request->company_name;
+        $customer->name_trade = $request->name_trade;
         
-        $customer->name = $request->name;
+        $customer->first_name  = $request->first_name;
+        $customer->second_name  = $request->second_name;
+
         $customer->last_name = $request->last_name;
+        $customer->second_last_name = $request->second_last_name;
         $customer->type_person_id = $request->type_person_id;
         $customer->type_regimen_id = $request->type_regimen_id;
         $customer->type_liability_id = $request->type_liability_id;
+        $customer->ciiu_code = $request->ciiu_code;
         $customer->country_id = $request->country_id;
         $customer->department_id = $request->department_id;
         $customer->city_id = $request->city_id;
@@ -147,12 +152,18 @@ class PersonController extends Controller
         $customer->identification_type_id = $request->identification_type_id;
         $customer->identification_number = $request->identification_number;
         $customer->dv = $request->dv;
-        $customer->name = $request->name;
+        $customer->company_name = $request->company_name;
+        $customer->name_trade = $request->name_trade;
+        $customer->first_name  = $request->first_name;
+        $customer->second_name  = $request->second_name;
         $customer->last_name = $request->last_name;
+        $customer->second_last_name = $request->second_last_name;
         $customer->type_person_id = $request->type_person_id;
         $customer->type_regimen_id = $request->type_regimen_id;
         $customer->type_liability_id = $request->type_liability_id;
         $customer->type_third_id = $request->type_third_id;
+        $customer->ciiu_code = $request->ciiu_code;
+        $customer->country_id = $request->country_id;
         $customer->city_id = $request->city_id;
         $customer->department_id = $request->department_id;
         $customer->address = $request->address;
