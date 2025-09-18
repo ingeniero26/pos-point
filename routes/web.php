@@ -55,6 +55,7 @@ use App\Http\Controllers\TransferController;
 use App\Http\Controllers\TypeLiabilityController;
 use App\Http\Controllers\TypeMovementCashController;
 use App\Http\Controllers\TypeRegimenController;
+use App\Http\Controllers\ContactTypesController;
 
 use App\Http\Controllers\UserSalesController;
 
@@ -744,6 +745,16 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/branch_type/update/{id}', [BranchTypeController::class, 'update'])->name('admin.branch_type.update');
     Route::delete('admin/branch_type/delete/{id}', [BranchTypeController::class, 'destroy'])->name('admin.branch_type.delete');
     Route::put('admin/branch_type/toggle-status/{id}', [BranchTypeController::class, 'toggleStatus'])->name('admin.branch_type.toggle-status');
+ 
+    // contact_type
+    Route::get('admin/contact_types/list', [ContactTypesController::class, 'list'])->name('admin.contact_type.list');
+    Route::get('admin/contact_types/data', [ContactTypesController::class, 'getContactTypes'])->name('admin.contact_type.fetch');
+    Route::post('admin/contact_types/store', [ContactTypesController::class, 'store'])->name('admin.contact_type.store');
+    Route::get('admin/contact_types/edit/{id}', [ContactTypesController::class, 'edit'])->name('admin.contact_type.edit');
+    Route::post('admin/contact_types/update/{id}', [ContactTypesController::class, 'update'])->name('admin.contact_type.update');
+    Route::delete('admin/contact_types/delete/{id}', [ContactTypesController::class, 'destroy'])->name('admin.contact_type.delete');
+    Route::put('admin/contact_types/toggle-status/{id}', [ContactTypesController::class, 'toggleStatus'])->name('admin.contact_type.toggle-status');
+
 
  
 });

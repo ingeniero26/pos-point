@@ -168,7 +168,7 @@
             }
             
             // delete
-            function handleDelete(e) {
+    function handleDelete(e) {
         e.preventDefault();
         const colorId = $(this).data('id');
 
