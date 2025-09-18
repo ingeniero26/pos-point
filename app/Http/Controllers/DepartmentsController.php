@@ -37,6 +37,7 @@ class DepartmentsController extends Controller
         // Create a new department with the validated data
         $department = new DepartmentModel();
         $department->name_department = $request->name_department;
+        $department->dane_code = $request->dane_code;
         $department->country_id = $request->country_id;
         $department->created_by = Auth::user()->id;
         $department->company_id = Auth::user()->company_id;
@@ -56,6 +57,7 @@ class DepartmentsController extends Controller
         ]);
 
         $department = DepartmentModel::findOrFail($id);
+        $department->dane_code = $request->dane_code;
         $department->name_department = $request->name_department;
         $department->country_id = $request->country_id;
       

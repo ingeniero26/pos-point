@@ -8,7 +8,7 @@ class DepartmentModel extends Model
 {
     //
     protected $table = 'departments';
-    protected $fillable = ['name_department'];
+    protected $fillable = ['dane_code','name_department'];
 
     public function countries() {
         return $this->belongsTo(CountryModel::class, 'country_id');

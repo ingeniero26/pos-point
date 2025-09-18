@@ -41,6 +41,7 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
+                                                <th>Código Dane</th>
                                                  <th>País</th>
                                                 <th>Nombre</th>
                                                
@@ -74,6 +75,10 @@
                 <div class="modal-body">
                     <form id="addDepartmentForm">
                         {{ @csrf_field() }}
+                        <div class="mb-3">
+                            <label for="dane_code" class="form-label"><b>Código Dane</b></label>
+                            <input type="text" class="form-control" id="dane_code" name="dane_code" required>
+                        </div>
                         <div class="mb-3">
                             <label for="">Pais</label>
                             <select name="country_id" id="country_id"
@@ -122,6 +127,7 @@
                             let updatedAt = dayjs(departments.updated_at).format('DD/MM/YYYY h:mm A');
                             tableBody += `<tr>
                                         <td>${index + 1}</td>
+                                        <td>${departments.dane_code}</td>
                                          <td>${departments.countries ? departments.countries.country_name : 'N/A'}</td>
 
                                         <td>${departments.name_department}</td>
@@ -157,6 +163,7 @@
                      url: "{{ url('admin/department/edit') }}/" + departmentId,
                   type: 'GET', success: function(departments)
                    { // Establecer los valores en los campos del modal
+                        $('#dane_code').val(departments.dane_code);
                     $('#country_id').val(departments.country_id);
                      $('#name_department').val(departments.name_department);
                       
