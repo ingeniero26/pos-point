@@ -14,6 +14,11 @@ class Companies extends Model
         'identification_number',
         'company name',
         'short_name',
+        'trade_name', // New field added for trade name
+        'code_ciiu', // New field added for CIIU code
+        'activity_description',
+        'legal_representative',
+        'cc_representative',
         'email',
         'logo',
         'country_id',

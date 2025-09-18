@@ -79,33 +79,71 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <label for="name" class="form-label">Nombre de la Empresa</label>
                                         <input type="text" class="form-control @error('company_name') is-invalid @enderror" id="company_name" name="company_name" value="{{ old('company_name', $company->company_name) }}">
                                         @error('company_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="col-md-3">
+                                        <label for="name" class="form-label">Nombre Comercial</label>
+                                        <input type="text" class="form-control @error('trade_name') is-invalid @enderror" id="trade_name" name="trade_name" value="{{ old('trade_name', $company->trade_name) }}">
+                                        @error('trade_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <label for="short_name" class="form-label">Nombre Corto</label>
                                         <input type="text" class="form-control @error('short_name') is-invalid @enderror" id="short_name" name="short_name" value="{{ old('short_name', $company->short_name) }}">
                                         @error('short_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="col-md-3">
+                                        <label for="">Código CIIU</label>
+                                        <input type="text" class="form-control @error('code_ciiu') is-invalid @enderror" id="code_ciiu" name="code_ciiu" value="{{ old('code_ciiu', $company->code_ciiu) }}">
+                                        @error('code_ciiu')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <label for="activity_description" class="form-label">Descripción de la Actividad</label>
+                                        <input type="text" class="form-control @error('activity_description') is-invalid @enderror" id="activity_description" name="activity_description" value="{{ old('activity_description', $company->activity_description) }}">
+                                        @error('activity_description')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <label for="email" class="form-label">Correo Electrónico</label>
                                         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $company->email) }}">
                                         @error('email')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="col-md-3">
+                                        <label for="legal_representative" class="form-label">Representante Legal</label>
+                                        <input type="text" class="form-control @error('legal_representative') is-invalid @enderror" id="legal_representative" name="legal_representative" value="{{ old('legal_representative', $company->legal_representative) }}">
+                                        @error('legal_representative')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="cc_representative" class="form-label">Cédula Representante Legal</label>
+                                        <input type="text" class="form-control @error('cc_representative') is-invalid @enderror" id="cc_representative" name="cc_representative" value="{{ old('cc_representative', $company->cc_representative) }}">
+                                        @error('cc_representative')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-                                    <div class="col-md-6">
+
+                                    <div class="col-md-3">
                                         <label for="logo" class="form-label">Logo</label>
                                         <input type="file" class="form-control @error('logo') is-invalid @enderror" id="logo" name="logo">
                                         @error('logo')
