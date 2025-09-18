@@ -31,6 +31,7 @@ class CitysController extends Controller
         ]);
 
         $taxes = new CityModel();
+        $taxes->dane_code = $request->dane_code;
         $taxes->department_id = $request->department_id;
         $taxes->city_name = $request->city_name;
         $taxes->created_by = Auth::user()->id;
@@ -52,12 +53,14 @@ class CitysController extends Controller
         $validated = $request->validate([
             'city_name' =>'required|string|max:255',
             'department_id' =>'required|exists:departments,id',
+            'dane_code' =>'nullable|string|max:255',
        
             
         ]);
         
         $product = CityModel::findOrFail($id);
         $product -> update($validated);
+        return response()->json(['success' => 'Registro Actualizado con Exito']);
 
     }
     public function destroy($id)

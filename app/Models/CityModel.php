@@ -8,6 +8,7 @@ class CityModel extends Model
 {
     //
     protected $table = 'cities';
+    protected $fillable = ['dane_code','city_name'];
 
     public function departments()
     {

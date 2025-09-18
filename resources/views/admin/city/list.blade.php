@@ -41,6 +41,7 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
+                                                <th>Código Dane</th>
                                                  <th>Departamento</th>
                                                 <th>Ciudad</th>
                                                 <th>Estado</th>
@@ -75,8 +76,14 @@
                     <form id="addCityForm" >
                         @csrf
                         <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="dane_code" class="form-label"><b>Código Dane</b></label>
+                                    <input type="text" class="form-control" id="dane_code" name="dane_code" required>
+                                </div>
+                            </div>
                          
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Departamento</label>
                                      <select name="department_id" id="department_id" class="form-control">
@@ -88,7 +95,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Ciudad </label>
                                     <input type="text" id="city_name" name="city_name" class="form-control">
@@ -144,7 +151,7 @@
                         
                         tableBody += `<tr>
                                         <td>${index + 1}</td>
-                                     
+                                        <td>${citys.dane_code}</td>
                                         <td>${ citys.departments ? citys.departments.name_department : 'N/A'}</td>
                                         <td>${citys.city_name}</td>
                                     
@@ -209,12 +216,16 @@
         type: 'GET',
         success: function(city) { 
             // Establecer los valores en los campos del modal
+            $('#addCityModalLabel').text('Editar Ciudad');
+
+            $('#dane_code').val(city.dane_code);
      
             $('#department_id').val(city.department_id);
    
-            $('#description').val(city.city_name);
+            $('#city_name').val(city.city_name);
             
             $('#addCityModal').modal('show'); 
+            
             
             // Manejar el envío del formulario de edición
             $('#addCityForm').off('submit').on('submit', function(e) {
