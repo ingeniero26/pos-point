@@ -54,4 +54,12 @@ class TypeLiabilityController extends Controller
         $type_liability->delete();
         return response()->json(['success' => 'Registro Eliminado con Exito']);
     }
+
+    public function toggleStatus($id)
+    {
+        $type_liability = TypeLiabilityModel::find($id);
+        $type_liability->status =!$type_liability->status;
+        $type_liability->save();
+        return response()->json(['success' => 'Registro Actualizado con Exito']);
+    }
 }

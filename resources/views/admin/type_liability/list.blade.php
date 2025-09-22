@@ -6,7 +6,7 @@
             <div class="container-fluid"> 
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3 class="mb-0">Tipo Onligacion</h3>
+                        <h3 class="mb-0">Tipo  Obligación</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-end">
@@ -137,9 +137,9 @@
             $.each(response, function(index, customer){
                 let createdAt = dayjs(customer.created_at).format('DD/MM/YYYY h:mm A');
                 let updatedAt = dayjs(customer.updated_at).format('DD/MM/YYYY h:mm A');
-                let statusText = customer.status == 1 ? 'Inactivo' : 'Activo';
+                let statusText = customer.status == 1 ? 'Activo' : 'Inactivo';
               
-                let toggleStatusText = customer.status == 1 ? 'Activar' : 'Desactivar';
+                let toggleStatusText = customer.status == 1 ? 'Desactivar' : 'Activar';
                 let toggleIcon = customer.status == 1 ? 'fa-toggle-on' : 'fa-toggle-off';
 
                 tableBody += `<tr>

@@ -72,6 +72,7 @@ use App\Http\Controllers\NotesCreditDebitController;
 use App\Http\Controllers\ReceiptTypeController;
 use App\Http\Controllers\AdjustmentReasonController;
 use App\Http\Controllers\BranchTypeController;
+use App\Http\Controllers\ContactSourceController;
 use App\Http\Controllers\InventoryAjustmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
@@ -644,6 +645,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/type_liability/edit/{id}', [TypeLiabilityController::class, 'edit']);
     Route::post('admin/type_liability/update/{id}', [TypeLiabilityController::class, 'update']);
     Route::delete('admin/type_liability/delete/{id}', [TypeLiabilityController::class, 'destroy']);
+    Route::put('admin/type_liability/toggle-status/{id}', [TypeLiabilityController::class, 'toggleStatus'])->name('admin.contact_type.toggle-status');
 
 
 
@@ -755,6 +757,15 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('admin/contact_types/delete/{id}', [ContactTypesController::class, 'destroy'])->name('admin.contact_type.delete');
     Route::put('admin/contact_types/toggle-status/{id}', [ContactTypesController::class, 'toggleStatus'])->name('admin.contact_type.toggle-status');
 
+
+     // fuentes contact
+    Route::get('admin/contact_sources/list', [ContactSourceController::class, 'list'])->name('admin.contact_source.list');
+    Route::get('admin/contact_sources/data', [ContactSourceController::class, 'getContactSources'])->name('admin.contact_source.fetch');
+    Route::post('admin/contact_sources/store', [ContactSourceController::class, 'store'])->name('admin.contact_source.store');
+    Route::get('admin/contact_sources/edit/{id}', [ContactSourceController::class, 'edit'])->name('admin.contact_source.edit');
+    Route::post('admin/contact_sources/update/{id}', [ContactSourceController::class, 'update'])->name('admin.contact_source.update');
+    Route::delete('admin/contact_sources/delete/{id}', [ContactSourceController::class, 'destroy'])->name('admin.contact_source.delete');
+    Route::put('admin/contact_sources/toggle-status/{id}', [ContactSourceController::class, 'toggleStatus'])->name('admin.contact_source.toggle-status');
 
  
 });

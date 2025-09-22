@@ -64,9 +64,8 @@
                         
                        Tipo Contactos
                     </a> </li>
-                    <li > <a href="{{url('admin/department/list')}}" class="dropdown-item">Departamentos
-                    </a> </li>
-                    <li> <a href="{{url('admin/city/list')}}"class="dropdown-item">
+                   
+                    <li> <a href="{{url('admin/contact_sources/list')}}"class="dropdown-item">
                         Fuentes de Contactos
                     </a> </li>
                     <li> <a href="{{url('admin/branch_type/list')}}"class="dropdown-item">
