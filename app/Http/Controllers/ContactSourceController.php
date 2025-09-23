@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactSource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ContactSourceController extends Controller
 {
@@ -40,6 +41,8 @@ class ContactSourceController extends Controller
         $contactSource->name = $request->name;
         $contactSource->description = $request->description;
         $contactSource->status = $request->status;
+         $contactSource->created_by = Auth::user()->id;
+        $contactSource->company_id = Auth::user()->company_id;
         $contactSource->save();
         return response()->json(['message' => 'Registro creado con exito']);
     }
