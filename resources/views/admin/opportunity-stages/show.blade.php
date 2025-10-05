@@ -3,6 +3,16 @@
 @section('title', 'Detalle de Etapa de Oportunidad')
 
 @section('content')
+<main class="app-main">
+    <div class="app-content-header">
+        <h1 class="app-content-headerText">Detalle de Etapa de Oportunidad</h1>
+        <div class="app-content-headerButton">
+            <a href="{{ route('opportunity-stages.index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Volver a Etapas
+            </a>
+        </div>
+    </div>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -219,6 +229,7 @@
         </div>
     </div>
 </div>
+</main>
 
 <!-- Modal de confirmación de eliminación -->
 <div class="modal fade" id="deleteModal" tabindex="-1">

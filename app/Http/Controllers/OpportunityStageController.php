@@ -29,7 +29,7 @@ class OpportunityStageController extends Controller
             ->with(['company', 'creator'])
             ->paginate(15);
 
-        return view('opportunity-stages.index', compact('stages'));
+        return view('admin.opportunity-stages.index', compact('stages'));
     }
 
     /**
@@ -38,7 +38,7 @@ class OpportunityStageController extends Controller
     public function create()
     {
         $companies = Companies::where('status', true)->get();
-        return view('opportunity-stages.create', compact('companies'));
+        return view('admin.opportunity-stages.create', compact('companies'));
     }
 
     /**
@@ -80,7 +80,7 @@ class OpportunityStageController extends Controller
             abort(404);
         }
 
-        return view('opportunity-stages.show', compact('opportunityStage'));
+        return view('admin.opportunity-stages.show', compact('opportunityStage'));
     }
 
     /**
@@ -93,7 +93,7 @@ class OpportunityStageController extends Controller
         }
 
         $companies = Companies::where('status', true)->get();
-        return view('opportunity-stages.edit', compact('opportunityStage', 'companies'));
+        return view('admin.opportunity-stages.edit', compact('opportunityStage', 'companies'));
     }
 
     /**
