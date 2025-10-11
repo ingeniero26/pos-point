@@ -76,6 +76,7 @@ use App\Http\Controllers\ContactSourceController;
 use App\Http\Controllers\InventoryAjustmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OpportunityPriorityController;
 use App\Http\Controllers\OpportunityStageController;
 
 // Route::get('/', function () {
@@ -779,6 +780,19 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('admin/opportunity_stages/delete/{id}', [OpportunityStageController::class, 'destroy'])->name('admin.opportunity_stage.delete');
     Route::put('admin/opportunity_stages/toggle-status/{id}', [OpportunityStageController::class, 'toggleStatus'])->name('admin.opportunity_stage.toggle-status');
  
+    // priority
+    Route::get('admin/opportunity_priority/list', [OpportunityPriorityController::class, 'list'])->name('admin.opportunity_priority.list');
+    Route::get('admin/opportunity_priority/data', [OpportunityPriorityController::class, 'getPriorities'])->name('admin.opportunity_priority.fetch');
+    Route::post('admin/opportunity_priority/store', [OpportunityPriorityController::class, 'store'])->name('admin.opportunity_priority.store');
+    Route::get('admin/opportunity_priority/edit/{id}', [OpportunityPriorityController::class, 'edit'])->name('admin.opportunity_priority.edit');
+    Route::post('admin/opportunity_priority/update/{id}', [OpportunityPriorityController::class, 'update'])->name('admin.opportunity_priority.update');
+    Route::delete('admin/opportunity_priority/delete/{id}', [OpportunityPriorityController::class, 'destroy'])->name('admin.opportunity_priority.delete');
+    Route::put('admin/opportunity_priority/toggle-status/{id}', [OpportunityPriorityController::class, 'toggleStatus'])->name('admin.opportunity_priority.toggle-status');
+
+
+
+
+
 });
 
 Route::group(['middleware' => 'user'], function () {

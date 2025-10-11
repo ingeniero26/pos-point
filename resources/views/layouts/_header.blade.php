@@ -71,9 +71,10 @@
                     <li> <a href="{{url('admin/opportunity_stages/list')}}"class="dropdown-item">
                         Etapas de Oportunidades
                     </a> </li>
-                    <li> <a href="{{url('admin/branch/list')}}"class="dropdown-item">
-                        Oportunidades
+                    <li> <a href="{{url('admin/opportunity_priority/list')}}"class="dropdown-item">
+                        Prioridades
                     </a> </li>
+                    
                     <li>
                         <a href="{{url('admin/contact/list')}}"class="dropdown-item">
                             Actividades CRM
