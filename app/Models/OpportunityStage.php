@@ -70,6 +70,12 @@ class OpportunityStage extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    // Relación con las oportunidades que pertenecen a esta etapa
+    public function opportunities()
+    {
+        return $this->hasMany(Opportunity::class, 'stage_id');
+    }
     // Mutator para asegurar que el porcentaje esté entre 0 y 100
     public function setClosingPercentageAttribute($value)
     {

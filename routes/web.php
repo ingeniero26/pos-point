@@ -76,6 +76,7 @@ use App\Http\Controllers\ContactSourceController;
 use App\Http\Controllers\InventoryAjustmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\OpportunityPriorityController;
 use App\Http\Controllers\OpportunityStageController;
 use App\Http\Controllers\OpportunityStateController;
@@ -800,7 +801,18 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/opportunity_state/update/{id}', [OpportunityStateController::class, 'update'])->name('admin.opportunity_state.update');
     Route::delete('admin/opportunity_state/delete/{id}', [OpportunityStateController::class, 'destroy'])->name('admin.opportunity_state.delete');
     Route::put('admin/opportunity_state/toggle-status/{id}', [OpportunityStateController::class, 'toggleStatus'])->name('admin.opportunity_state.toggle-status');
-
+ 
+    // Legacy opportunity routes (deprecated - use opportunities resource routes instead)
+    // Route::get('admin/opportunity/list', [OpportunityController::class, 'list'])->name('admin.opportunity.list');
+    // Route::get('admin/opportunity/data', [OpportunityController::class, 'getOpportunities'])->name('admin.opportunity.fetch');
+    // Route::get('admin/opportunity/create', [OpportunityController::class, 'create'])->name('admin.opportunity.create');
+    // Route::post('admin/opportunity/store', [OpportunityController::class, 'store'])->name('admin.opportunity.store');
+    Route::get('admin/opportunity/edit/{id}', [OpportunityController::class, 'edit'])->name('admin.opportunity.edit');
+    Route::post('admin/opportunity/update/{id}', [OpportunityController::class, 'update'])->name('admin.opportunity.update');
+    Route::delete('admin/opportunity/delete/{id}', [OpportunityController::class, 'destroy'])->name('admin.opportunity.delete');
+    Route::get('admin/opportunity/{id}', [OpportunityController::class, 'show'])->name('admin.opportunity.show');
+    Route::post('admin/opportunity/add-comment/{id}', [OpportunityController::class, 'addComment'])->name('admin.opportunity.add_comment');
+    Route::post('admin/opportunity/change-stage/{id}', [OpportunityController::class, 'changeStage'])->name('admin.opportunity.change_stage');
 
 
 });
@@ -894,4 +906,26 @@ Route::middleware(['auth'])->group(function () {
     Route::post('admin/opportunity-stages/update-order', [OpportunityStageController::class, 'updateOrder'])
         ->name('opportunity-stages.update-order');
     Route::get('admin/api/opportunity-stages', [OpportunityStageController::class, 'getStages'])
-        ->name('opportunity-stages.api');
+        ->name('opportunity-stages.api');    // Opportunities
+    Route::resource('admin/opportunities', OpportunityController::class, [
+        'names' => [
+            'index' => 'opportunities.index',
+            'create' => 'opportunities.create',
+            'store' => 'opportunities.store',
+            'show' => 'opportunities.show',
+            'edit' => 'opportunities.edit',
+            'update' => 'opportunities.update',
+            'destroy' => 'opportunities.destroy'
+        ]
+    ]);
+    
+    // Additional routes for opportunities
+    Route::post('admin/opportunities/{opportunity}/restore', [OpportunityController::class, 'restore'])
+        ->name('opportunities.restore');
+    Route::patch('admin/opportunities/{opportunity}/move-stage', [OpportunityController::class, 'moveToStage'])
+        ->name('opportunities.move-stage');
+    Route::get('admin/opportunities-kanban', [OpportunityController::class, 'kanban'])
+        ->name('opportunities.kanban');
+    Route::get('admin/api/opportunities/statistics', [OpportunityController::class, 'statistics'])
+        ->name('opportunities.statistics');
+       // ->name('opportunities.api');

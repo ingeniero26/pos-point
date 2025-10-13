@@ -81,8 +81,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{url('admin/contact/list')}}"class="dropdown-item">
-                            Comunicaciones
+                        <a href="{{url('admin/opportunities')}}"class="dropdown-item">
+                            Oportunidades
                         </a>    
                     </li>
                 </ul>
