@@ -76,8 +76,8 @@
                     </a> </li>
                     
                     <li>
-                        <a href="{{url('admin/contact/list')}}"class="dropdown-item">
-                            Actividades CRM
+                        <a href="{{url('admin/opportunity_state/list')}}"class="dropdown-item">
+                           Estados de Oportunidades
                         </a>
                     </li>
                     <li>

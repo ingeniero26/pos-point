@@ -78,6 +78,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OpportunityPriorityController;
 use App\Http\Controllers\OpportunityStageController;
+use App\Http\Controllers\OpportunityStateController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -789,7 +790,16 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('admin/opportunity_priority/delete/{id}', [OpportunityPriorityController::class, 'destroy'])->name('admin.opportunity_priority.delete');
     Route::put('admin/opportunity_priority/toggle-status/{id}', [OpportunityPriorityController::class, 'toggleStatus'])->name('admin.opportunity_priority.toggle-status');
 
+ 
 
+    // opportunity states
+    Route::get('admin/opportunity_state/list', [OpportunityStateController::class, 'list'])->name('admin.opportunity_state.list');
+    Route::get('admin/opportunity_state/data', [OpportunityStateController::class, 'getStates'])->name('admin.opportunity_state.fetch');
+    Route::post('admin/opportunity_state/store', [OpportunityStateController::class, 'store'])->name('admin.opportunity_state.store');
+    Route::get('admin/opportunity_state/edit/{id}', [OpportunityStateController::class, 'edit'])->name('admin.opportunity_state.edit');
+    Route::post('admin/opportunity_state/update/{id}', [OpportunityStateController::class, 'update'])->name('admin.opportunity_state.update');
+    Route::delete('admin/opportunity_state/delete/{id}', [OpportunityStateController::class, 'destroy'])->name('admin.opportunity_state.delete');
+    Route::put('admin/opportunity_state/toggle-status/{id}', [OpportunityStateController::class, 'toggleStatus'])->name('admin.opportunity_state.toggle-status');
 
 
 

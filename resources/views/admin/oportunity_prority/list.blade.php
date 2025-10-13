@@ -183,7 +183,7 @@
 
     Swal.fire({
         title: '¿Estás seguro?',
-        text: "Esta acción eliminará permanentemente El Concepto de Nota.",
+        text: "Esta acción eliminará permanentemente Este registro.",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -193,7 +193,7 @@
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: "{{ url('admin/notes_concept/delete') }}/" + measureId,
+                url: "{{ url('admin/opportunity_priority/delete') }}/" + measureId,
                 type: 'DELETE',
                 data: {
                     _token: "{{ csrf_token() }}"
@@ -202,7 +202,7 @@
                     fectMeasures();
                     Swal.fire({
                         title: 'Eliminado!',
-                        text: 'El Concepto de Nota ha sido eliminado.',
+                        text: 'El Registro ha sido eliminado.',
                         icon: 'success',
                         confirmButtonText: 'Aceptar'
                     });

@@ -78,8 +78,12 @@ class OpportunityPriorityController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OpportunityPriority $opportunityPriority)
+    public function destroy($id)
     {
         //
+        $itemType = OpportunityPriority::find($id);
+        $itemType->is_delete = 1;
+        $itemType->save();
+        return response()->json(['message' => 'Registro eliminado con exito!']);
     }
 }
