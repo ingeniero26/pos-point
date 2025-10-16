@@ -42,15 +42,19 @@ class OpportunityController extends Controller
 
         if ($request->filled('status')) {
             switch ($request->status) {
-                case 'open':
+                case 'Open':
                     $query->open();
                     break;
-                case 'won':
+                case 'Won':
                     $query->won();
                     break;
-                case 'lost':
+                case 'Lost':
                     $query->lost();
                     break;
+                    case 'Cancelled':
+                        $query->where('status', 'Cancelled');
+                        break;
+                default:
             }
         }
 

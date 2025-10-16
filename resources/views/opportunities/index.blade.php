@@ -64,9 +64,10 @@
                                     <label class="form-label">Estado</label>
                                     <select class="form-select" name="status">
                                         <option value="">Todos</option>
-                                        <option value="open" {{ request('status') == 'open' ? 'selected' : '' }}>Abiertas</option>
-                                        <option value="won" {{ request('status') == 'won' ? 'selected' : '' }}>Ganadas</option>
-                                        <option value="lost" {{ request('status') == 'lost' ? 'selected' : '' }}>Perdidas</option>
+                                        <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Abiertas</option>
+                                        <option value="Won" {{ request('status') == 'Won' ? 'selected' : '' }}>Ganadas</option>
+                                        <option value="Lost" {{ request('status') == 'Lost' ? 'selected' : '' }}>Perdidas</option>
+                                        <option value="Cancelled" {{ request('status') == 'Cancelled' ? 'selected' : '' }}>Cancelada</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3 d-flex align-items-end">

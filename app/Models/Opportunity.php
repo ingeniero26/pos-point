@@ -25,7 +25,7 @@ class Opportunity extends Model
         'reason_lost', 
         'responsible_user_id', 
         'priority_id', 
-        'state_opportunity_id',
+        'status',
         'company_id', 
         'created_by', 
         'is_delete'
@@ -119,10 +119,7 @@ class Opportunity extends Model
         return $this->belongsTo(OpportunityPriority::class, 'priority_id');
     }
 
-    public function stateOpportunity()
-    {
-        return $this->belongsTo(OpportunityState::class, 'state_opportunity_id');
-    }
+   
 
     public function company()
     {
