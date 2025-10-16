@@ -46,7 +46,7 @@ class InventoryController extends Controller
                         'item.tax:id,tax_name,rate',
                         'item.measure:id,measure_name',
                         'warehouse:id,warehouse_name',
-                        'company:id,name'
+                        'company:id,company_name'
                     ])
                     ->orderBy('id', 'asc');
 
