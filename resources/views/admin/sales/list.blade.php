@@ -197,7 +197,7 @@
                     var row = `<tr>
                                 <td>${sale.id}</td>
                                 <td>${issueDate}</td>
-                                <td>${sale.customers ? sale.customers.name : 'N/A'}</td>
+                                <td>${sale.customers ? sale.customers.first_name : 'N/A'}</td>
                                 <td>${invoiceNumber}</td>
                                 <td>
                                     <div class="d-flex align-items-center">

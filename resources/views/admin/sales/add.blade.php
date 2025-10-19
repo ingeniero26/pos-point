@@ -211,7 +211,7 @@
                                                 <select class="form-select select2" id="customer_id" name="customer_id" required>
                                                     <option value="">Buscar cliente...</option>
                                                     @foreach($customers as $customer)
-                                                        <option value="{{ $customer->id }}">{{ $customer->name }} - {{ $customer->identification_number }}</option>
+                                                        <option value="{{ $customer->id }}">{{ $customer->first_name }} - {{ $customer->identification_number }}</option>
                                                     @endforeach
                                                 </select>
                                                 <button class="btn btn-outline-secondary" type="button" id="newCustomerBtn">
