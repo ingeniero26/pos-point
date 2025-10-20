@@ -392,7 +392,7 @@
                 data: {
                     _token: "{{ csrf_token() }}",
                     sale_id: saleId,
-                    state_id: newStateId
+                    new_state: newStateId
                 },
                 success: function(response) {
                     if (response.success) {

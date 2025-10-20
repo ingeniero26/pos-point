@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Models\AccountTypesModel;
 use App\Models\InvoiceItems;
+use Stripe\Invoice;
 
 class InvoicesController extends Controller
 {
@@ -998,7 +999,89 @@ public function exportExcel()
 
     return view('admin.reports.sales-by-category', compact('salesData'));
 }
+
+
+// public function updateState(Request $request, $id)
+// {
+//     try {
+//         $sale = Invoices::findOrFail($id);
+//         $sale->state_type_id = $request->state_type_id;
+//         $sale->save();
+
+//         return response()->json([
+//             'success' => true,
+//             'message' => 'Estado de la venta actualizado correctamente'
+//         ]);
+//     } catch (\Exception $e) {
+//         return response()->json([
+//             'success' => false,
+//             'message' => 'Error al actualizar el estado de la venta: ' . $e->getMessage()
+//         ], 500);
+//     }
+
+// }
+
+public function updateState(Request $request)
+{
+    DB::beginTransaction();
+    
+    try {
+        $request->validate([
+            'sale_id' => 'required|exists:invoices,id',
+            'new_state' => 'required|integer|between:1,7'
+        ]);
+
+        $sale = Invoices::findOrFail($request->sale_id);
+        $oldState = $sale->state_type_id;
+        $newState = $request->new_state;
+
+        // Validaciones de negocio según el estado actual y nuevo estado
+        // if (!$this->validateStateTransition($oldState, $newState)) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Transición de estado no permitida'
+        //     ], 422);
+        // }
+
+        // Actualizar el estado
+        $sale->state_type_id = $newState;
+        $sale->save();
+
+        DB::commit();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Estado actualizado correctamente',
+            'data' => [
+                'sale_id' => $sale->id,
+                'old_state' => $oldState,
+                'new_state' => $newState,
+                'state_description' => $sale->stateType->description ?? 'N/A'
+            ]
+        ]);
+
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        DB::rollBack();
+        return response()->json([
+            'success' => false,
+            'message' => 'Error de validación',
+            'errors' => $e->errors()
+        ], 422);
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        Log::error('Error al actualizar estado de venta: ' . $e->getMessage(), [
+            'sale_id' => $request->sale_id,
+            'new_state' => $request->new_state,
+            'exception' => $e
+        ]);
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Error interno del servidor: ' . $e->getMessage() // ← Temporal para debugging
+        ], 500);
+    }
 }
 
-
+}
    
