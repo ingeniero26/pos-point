@@ -172,7 +172,7 @@
         </div>
         <div class="info-row">
             <span class="info-label">Cliente:</span>
-            <span>{{ $sale->customer->name ?? 'Cliente General' }}</span>
+            <span>{{ $sale->customers->name ?? 'Cliente General' }}</span>
         </div>
         <div class="info-row">
             <span class="info-label">Identificación:</span>
@@ -200,7 +200,8 @@
                 @php
                     $taxSummary = [];
                 @endphp
-                @foreach($sale->sales_items as $item)
+                @if($sale->invoiceItems && count($sale->invoiceItems) > 0)
+                @foreach($sale->invoiceItems as $item)
                 @php
                     $taxRate = $item->tax_rate ?? 0;
                     if (!isset($taxSummary[$taxRate])) {
@@ -220,6 +221,11 @@
                     </td>
                 </tr>
                 @endforeach
+                @else
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 10px;">No hay productos en esta venta</td>
+                </tr>
+                @endif
             </tbody>
         </table>
 
@@ -230,12 +236,14 @@
             </div>
             
             <div class="tax-summary">
+                @if($taxSummary && count($taxSummary) > 0)
                 @foreach($taxSummary as $rate => $amount)
                 <div class="tax-row">
                     <span>IVA {{ $rate }}%:</span>
                     <span>${{ number_format($amount, 0, ',', '.') }}</span>
                 </div>
                 @endforeach
+                @endif
             </div>
 
             @if($sale->total_discount > 0)

@@ -65,18 +65,38 @@ class Companies extends Model
         return DB::transaction(function () {
             // Bloquear el registro para actualización
             $company = self::lockForUpdate()->find($this->id);
-            
+
+            if (! $company) {
+                throw new \Exception('Empresa no encontrada');
+            }
+
+            // Validar rangos
+            if (is_null($company->range_from) || is_null($company->range_to)) {
+                throw new \Exception('El rango (range_from/range_to) no está definido para la empresa');
+            }
+
+            if ($company->range_from > $company->range_to) {
+                throw new \Exception('El rango_from es mayor que range_to');
+            }
+
+            // Determinar el último consecutivo utilizado. Si es null o menor que (range_from - 1),
+            // lo tratamos como (range_from - 1) para que el siguiente sea range_from.
+            $last = $company->current_consecutive;
+            if (is_null($last) || $last < ($company->range_from - 1)) {
+                $last = $company->range_from - 1;
+            }
+
+            $nextConsecutive = $last + 1;
+
             // Verificar que no exceda el rango permitido
-            if ($company->current_consecutive >= $company->range_to) {
+            if ($nextConsecutive > $company->range_to) {
                 throw new \Exception("Se ha alcanzado el límite máximo de consecutivos ({$company->range_to})");
             }
-            
-            // Incrementar el consecutivo
-            $nextConsecutive = $company->current_consecutive + 1;
-            
+
             // Actualizar en la base de datos
-            $company->update(['current_consecutive' => $nextConsecutive]);
-            
+            $company->current_consecutive = $nextConsecutive;
+            $company->save();
+
             return $nextConsecutive;
         });
     }

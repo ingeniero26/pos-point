@@ -14,6 +14,7 @@ use App\Models\StateTypeModel;
 use App\Models\User;
 use App\Models\VoucherTypeModel;
 use App\Models\WarehouseModel;
+use App\Models\Companies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,12 +22,11 @@ use App\Exports\SalesExport;
 use App\Models\AccountsReceivable;
 use App\Models\CashMovement;
 use App\Models\CashRegisterSession;
-use App\Models\Companies;
 use App\Models\InventoryModel;
 use App\Models\TaxesModel;
 use PDF;
 use Carbon\Carbon;
-use Log;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Services\InventoryCacheService;
 use Illuminate\Support\Facades\Mail;
@@ -171,7 +171,7 @@ class InvoicesController extends Controller
         $companyId = Auth::user()->company_id;
         
         // Obtener el objeto Company para generar el consecutivo
-      //  $company = Companies::findOrFail($companyId);
+       $company = Companies::findOrFail($companyId);
             
             // Validar los datos de entrada
             $request->validate([
@@ -196,10 +196,10 @@ class InvoicesController extends Controller
 
             $data = $request->all();
             // Generar el consecutivo ANTES de crear la venta
-            // $nextConsecutive = $company->getNextConsecutive();
+            $nextConsecutive = $company->getNextConsecutive();
             
-            // // Generar la serie basada en el prefijo de la empresa
-            // $series = $company->invoice_prefix ?? 'FV';
+            // Generar la serie basada en el prefijo de la empresa
+            $series = $company->invoice_prefix ?? 'FV';
             
             // Crear la venta
             $sale = new Invoices();
@@ -211,8 +211,8 @@ class InvoicesController extends Controller
             $sale->date_of_issue = $data['date_of_issue'];
             $sale->date_of_due = $data['date_of_due'];
             $sale->time_of_issue = now()->format('H:i:s');
-            $sale->series = $data['series'];
-            $sale->number = $data['number'];
+            $sale->series = $series;
+            $sale->number = $nextConsecutive;
             $sale->currency_id = $data['currency_id'];
             $sale->payment_method_id = $data['payment_method_id'];
             $sale->total_subtotal = $data['total_subtotal'];
@@ -233,8 +233,8 @@ class InvoicesController extends Controller
             }
 
             // Generar número de factura
-            // Generar número de factura con el formato correcto
-                 $sale->invoice_no = 'FV-' . str_pad($sale->id, 6, '0', STR_PAD_LEFT);
+            // Generar número de factura con el formato correcto usando el consecutivo
+            $sale->invoice_no = $company->getFormattedConsecutive($nextConsecutive);
             $sale->save();
             // Guardar los items de la venta
             if (isset($data['product_ids']) && is_array($data['product_ids'])) {
@@ -422,7 +422,7 @@ class InvoicesController extends Controller
             return view('admin.sales.details', compact('sale', 'accountsReceivable'));
             
         } catch (\Exception $e) {
-            \Log::error('Error al mostrar detalles de factura: ' . $e->getMessage());
+            Log::error('Error al mostrar detalles de factura: ' . $e->getMessage());
             return redirect()->route('admin.sales.list')
                 ->with('error', 'No se pudo cargar la factura solicitada.');
         }
@@ -462,7 +462,7 @@ class InvoicesController extends Controller
             return view('admin.sales.details', compact('sale', 'accountsReceivable'));
             
         } catch (\Exception $e) {
-            \Log::error('Error al obtener detalles de factura: ' . $e->getMessage());
+            Log::error('Error al obtener detalles de factura: ' . $e->getMessage());
             return response()->json([
                 'error' => true,
                 'message' => 'No se pudo cargar la factura solicitada.'
@@ -776,6 +776,10 @@ public function exportExcel()
             // Begin transaction
             DB::beginTransaction();
             
+            // Obtener la empresa y generar el consecutivo
+            $company = Companies::findOrFail(Auth::user()->company_id);
+            $nextConsecutive = $company->getNextConsecutive();
+            
             // Create sale
             $sale = new \App\Models\Invoices();
             $sale->customer_id = $request->customer_id;
@@ -798,8 +802,10 @@ public function exportExcel()
             $sale->save();
            
             
-            // Generate invoice number
-            $sale->invoice_no = 'INV-' . str_pad($sale->id, 6, '0', STR_PAD_LEFT);
+            // Generate invoice number using consecutive
+            $sale->invoice_no = $company->getFormattedConsecutive($nextConsecutive);
+            $sale->series = $company->invoice_prefix ?? 'FV';
+            $sale->number = $nextConsecutive;
             $sale->save();
             // actualizar el movimiento de la caja
               // Registrar el movimiento en la caja y actualizar el saldo
@@ -832,19 +838,14 @@ public function exportExcel()
                     $cashSession->save();
                 }
             }
-            
-
-           
-            
-            // Save sale items
-            // consultar el tax_id y el tax_rate de cada item
+        
             
             foreach ($request->items as $item) {
                 // Get the item details to fetch tax_id and tax_rate
                 $itemDetails = \App\Models\ItemsModel::with('tax')->find($item['id']);
                 
                 $saleItem = new \App\Models\InvoiceItems();
-                $saleItem->sale_id = $sale->id;
+                $saleItem->invoice_id = $sale->id;
                 $saleItem->item_id = $item['id'];
                 $saleItem->quantity = $item['quantity'];
                 $saleItem->unit_price = $item['price'];
@@ -922,8 +923,9 @@ public function exportExcel()
             'customers', 
             'payment_method', 
             'paymentTypes',
-            'invoiceItems.item.measure',
+            'invoiceItems.item',
             'invoiceItems.item.tax',
+            'invoiceItems.tax',
             'users',
             'company',
             'warehouses'
