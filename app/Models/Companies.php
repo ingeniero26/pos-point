@@ -120,6 +120,39 @@ class Companies extends Model
     }
 
     /**
+     * Obtener el siguiente consecutivo sin reservarlo (no persiste el cambio).
+     * Útil para mostrar en vistas sin consumir el número.
+     */
+    public function peekNextConsecutive()
+    {
+        // Cargar la información actual de la empresa
+        $company = self::find($this->id);
+
+        if (! $company) {
+            throw new \Exception('Empresa no encontrada');
+        }
+
+        if (is_null($company->range_from) || is_null($company->range_to)) {
+            throw new \Exception('El rango (range_from/range_to) no está definido para la empresa');
+        }
+
+        // Determinar el último consecutivo utilizado. Si es null o menor que (range_from - 1),
+        // lo tratamos como (range_from - 1) para que el siguiente sea range_from.
+        $last = $company->current_consecutive;
+        if (is_null($last) || $last < ($company->range_from - 1)) {
+            $last = $company->range_from - 1;
+        }
+
+        $nextConsecutive = $last + 1;
+
+        if ($nextConsecutive > $company->range_to) {
+            throw new \Exception("Se ha alcanzado el límite máximo de consecutivos ({$company->range_to})");
+        }
+
+        return $nextConsecutive;
+    }
+
+    /**
      * Verificar si el consecutivo está en el rango válido
      */
     public function isConsecutiveInRange($consecutive = null)

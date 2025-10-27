@@ -322,6 +322,7 @@ Route::group(['middleware' => 'admin'], function () {
     // Rutas para la gestión de la empresa
     Route::get('/admin/company', [CompaniesController::class, 'index'])->name('admin.companies.index');
     Route::put('/admin/company/{id}', [CompaniesController::class, 'update'])->name('admin.companies.update');
+    Route::get('/admin/company/{id}/next-invoice', [CompaniesController::class, 'getNextInvoiceNumber'])->name('admin.companies.next-invoice');
 
     // Rutas para obtener departamentos y ciudades
     Route::get('/admin/get-departments/{country}', [CompaniesController::class, 'getDepartments']);

@@ -1365,7 +1365,7 @@
                             <div>{{ Auth::user()->company->address ?? 'Dirección' }}</div>
                             <div>Tel: {{ Auth::user()->company->phone ?? 'Teléfono' }}</div>
                             <div>NIT: {{ Auth::user()->company->identification_number ?? 'NIT' }}</div>
-                            <div>Consecutivo: {{ Auth::user()->company->getNextConsecutive() }}</div>
+                            <div>Consecutivo: {{ Auth::user()->company->peekNextConsecutive() }}</div>
                            
 
                         </div>

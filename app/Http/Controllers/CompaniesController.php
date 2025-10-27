@@ -90,4 +90,35 @@ class CompaniesController extends Controller
 
         return redirect()->back()->with('success', 'Información de la empresa actualizada exitosamente');
     }
+
+    /**
+     * Obtiene el siguiente número consecutivo para la facturación
+     *
+     * @param int $companyId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getNextInvoiceNumber($companyId)
+    {
+        try {
+            $company = Companies::findOrFail($companyId);
+            
+            // Obtener el siguiente consecutivo
+            $nextNumber = $company->getNextConsecutive();
+            
+            // Obtener el número formateado con el prefijo
+            $formattedNumber = $company->getFormattedConsecutive($nextNumber);
+            
+            return response()->json([
+                'success' => true,
+                'consecutive' => $nextNumber,
+                'formatted_number' => $formattedNumber
+            ]);
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 422);
+        }
+    }
 }
