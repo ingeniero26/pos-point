@@ -296,7 +296,11 @@ Route::group(['middleware' => 'admin'], function () {
     // cash
     Route::get('admin/cash_register/list', [CashRegisterController::class, 'list']);
     Route::get('admin/cash_register/data', [CashRegisterController::class, 'getCashRegisters'])->name('admin.cash_register.fetch');
-    Route::post('admin/cash_register/store', [CashRegisterController::class, 'store'])->name('admin.cash_register.store');;
+    Route::post('admin/cash_register/store', [CashRegisterController::class, 'store'])->name('admin.cash_register.store');
+    Route::get('admin/cash_register/edit/{id}', [CashRegisterController::class, 'edit']);
+    Route::post('admin/cash_register/update/{id}', [CashRegisterController::class, 'update']);
+    Route::delete('admin/cash_register/delete/{id}', [CashRegisterController::class, 'destroy']);
+    Route::put('admin/cash_register/toggle-status/{id}', [CashRegisterController::class, 'toggleStatus'])->name('admin.cash_register.toggle-status');
 
     // type_movement_cash
     Route::get('admin/type_movement_cash_register/list', [TypeMovementCashController::class, 'list']);

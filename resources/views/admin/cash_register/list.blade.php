@@ -146,9 +146,6 @@
    @section('script')
    
    <script type="text/javascript">
-
- 
-
     function duplicateEmail(input) {
         var email = input.value;
         if (email) {
@@ -188,7 +185,6 @@
 
     function fechtCustomers() {
         let status = $('#filterStatus').val();
-        
         $.ajax({
             url: "{{route('admin.cash_register.fetch')}}",
             type: 'GET',
@@ -244,15 +240,15 @@ $(document).ready(function() {
   
 });
 
-        function handleToggleStatus(e) {
-            e.preventDefault();
-            const button = $(this);
-            const customerId = button.data('id');
-            const currentStatus = button.data('status');
-            const newStatus = currentStatus == 1 ? 0 : 1;
+function handleToggleStatus(e) {
+    e.preventDefault();
+        const button = $(this);
+        const customerId = button.data('id');
+        const currentStatus = button.data('status');
+        const newStatus = currentStatus == 1 ? 0 : 1;
 
             $.ajax({
-                url: "{{ url('admin/person/toggle-status') }}/" + customerId,
+                url: "{{ url('admin/cash_register/toggle-status') }}/" + customerId,
                 type: 'PUT',
                 data: {
                     _token: "{{ csrf_token() }}",
@@ -276,36 +272,28 @@ $(document).ready(function() {
         {
             e.preventDefault(); 
             const customerId = $(this).data('id'); 
-            window.location.href = "{{ url('admin/person') }}/" + customerId;
+            window.location.href = "{{ url('admin/cash_register') }}/" + customerId;
         }
 
 
 
         // edit
-        function handleEdit(e) {
-    e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace o botón 
-    let customerId = $(this).data('id');
-    $.ajax({
-        url: "{{ url('admin/customer/edit') }}/" + customerId,
+    function handleEdit(e) {
+        e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace o botón 
+        let customerId = $(this).data('id');
+        $.ajax({
+        url: "{{ url('admin/cash_register/edit') }}/" + customerId,
         type: 'GET',
         success: function(customer) { 
             // Establecer los valores en los campos del modal
-          
-            $('#identification_type_id').val(customer.identification_type_id);
-            $('#identification_number').val(customer.identification_number);
-            $
+            $('#addCustomerModalLabel').text('Editar Caja Registradora');
+            $('#code').val(customer.code);
             $('#name').val(customer.name);
-            $('#last_name').val(customer.last_name);
-            $('#type_person').val(customer.type_person);
-            $('#tax_liability').val(customer.tax_liability);
-            
-            $('#department_id').val(customer.department_id);
-            $('#city_id').val(customer.city_id);
-            $('#address').val(customer.address);
-            $('#phone').val(customer.phone);
-           $('#email').val(customer.email);
-            
-                       
+            $('#location_description').val(customer.location_description);
+            $('#maximun_balance').val(customer.maximun_balance);
+            $('#branch_id').val(customer.branch_id);
+            $('#status').val(customer.status);
+                           
             $('#addCustomerModal').modal('show'); 
             
             // Manejar el envío del formulario de edición
@@ -313,7 +301,7 @@ $(document).ready(function() {
                 e.preventDefault(); // Prevenir el envío del formulario 
                 const formData = $(this).serialize();
                 $.ajax({ 
-                    url: "{{ url('admin/person/update') }}/" + customerId,
+                    url: "{{ url('admin/cash_register/update') }}/" + customerId,
                     type: 'POST',
                     data: formData,
                     success: function(response) {
@@ -344,7 +332,7 @@ function handleDelete(e) {
 
             Swal.fire({
                 title: '¿Estás seguro?',
-                text: "Esta acción eliminará permanentemente el contacto.",
+                text: "Esta acción eliminará permanentemente esta caja.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -354,7 +342,7 @@ function handleDelete(e) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "{{ url('admin/person/delete') }}/" + customerId,
+                        url: "{{ url('admin/cash_register/delete') }}/" + customerId,
                         type: 'DELETE',
                         data: {
                             _token: "{{ csrf_token() }}"
@@ -382,12 +370,8 @@ function handleDelete(e) {
                     });
                 }
             });
-        }
-
-
-            
+        }   
         // delete
- 
     });
 </script>
 

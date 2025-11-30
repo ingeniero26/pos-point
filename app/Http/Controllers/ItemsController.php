@@ -310,6 +310,7 @@ class ItemsController extends Controller
             $product->invoice_group_id = $request->invoice_group_id; // Asegurarse de que este campo exista en el formulario
             $product->cost_price = $request->cost_price;
             $product->selling_price = $request->selling_price;
+            $product->percentage_profit = $request->percentage_profit;
             $product->tax_id = $request->tax_id;
             $product->price_total = $request->price_total;
             $product->updated_by = Auth::user()->id;

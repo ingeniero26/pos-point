@@ -11,13 +11,11 @@ class ReceiptTypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() {
-        
-    }
+   
     public function list()
     {
         //
-        return view('admin.receipt_type.list');
+        return view('admin.receipt_types.list');
     }
     public function getReceiptTypes()
     {

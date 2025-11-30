@@ -96,3 +96,4 @@ try {
     echo "📍 Archivo: " . $e->getFile() . ":" . $e->getLine() . "\n";
     exit(1);
 }
+

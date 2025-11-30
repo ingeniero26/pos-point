@@ -276,7 +276,7 @@
                 </li>
 
 
-                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
+                {{-- <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
                     <p>
                         Contabilidad
                         <i class="nav-arrow bi bi-chevron-right"></i>
@@ -291,7 +291,7 @@
                                 <p>Plan Contable</p>
                             </a> </li>
                             <li class="nav-item">
-                                <a href="{{url('admin/document_types/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <a href="{{url('admin/receipt_types/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                     <p>Tipo Comprobantes</p>
                                 </a> 
                             </li>
@@ -310,7 +310,7 @@
                             </a>
                             </li>
                     </ul>
-                </li>
+                </li> --}}
             
                 <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
                     <p>
@@ -319,7 +319,6 @@
                     </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        
                         <li class="nav-item">
                             <a href="{{url('admin/cash_register/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Cajas</p>

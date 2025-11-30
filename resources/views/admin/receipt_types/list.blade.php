@@ -72,46 +72,67 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addCategoryModalLabel">Agregar Comprobante Contable</h5>
+                    <h5 class="modal-title" id="addCategoryModalLabel">Tipo Comprobante Contable</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="addCategoryForm">
                         {{ @csrf_field() }}
-                        <div class="mb-3">
-                            <label for="code" class="form-label"><b>Código</b></label>
-                            <input type="text" class="form-control" id="code" name="code" required>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                <label for="code" class="form-label"><b>Código</b></label>
+                                <input type="text" class="form-control" id="code" name="code" required>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                     <label for="name" class="form-label"><b>Nombre</b></label>
+                                     <input type="text" class="form-control" id="name" name="name" required>
+                                 </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="name" class="form-label"><b>Nombre</b></label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                        </div>
-
-                       
-                        <div class="mb-3">
-                            <label for="slug" class="form-label"><b>Prefijo</b></label>
-                            <input type="text" class="form-control" id="prefix" name="prefix" >
-                        </div>
-                        <div class="mb-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="slug" class="form-label"><b>Prefijo</b></label>
+                                    <input type="text" class="form-control" id="prefix" name="prefix" >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
                             <label for="meta_title" class="form-label"><b>Secuencia Actual</b></label>
                             <input type="text" class="form-control" id="current_sequential" name="current_sequential" >
                         </div>
-                        <div class="mb-3">
-                            <label for="meta_description" class="form-label"><b>Modifica Terceros</b></label>
-                            <select class="form-select" id="modify_third_parties" name="modify_third_parties">
-                                <option value="1">Sí</option>
-                                <option value="0">No</option>
-                            </select>
+                            </div>
                         </div>
 
-                      
-                        <div class="mb-3">
-                            <label for="meta_keywords" class="form-label"><b>Meta Modifica Inventario</b></label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                <label for="modify_third_parties" class="form-label"><b>Modifica Terceros</b></label>
+                                <select class="form-select" id="modify_third_parties" name="modify_third_parties">
+                                    <option value="1">Sí</option>
+                                    <option value="0">No</option>
+                                </select>
+                             </div>
+                            </div>
+                            <div class="col-md-6">
+                                 <div class="mb-3">
+                            <label for="modify_inventories" class="form-label"><b>Meta Modifica Inventario</b></label>
                             <select class="form-select" id="modify_inventories" name="modify_inventories">
 
                             <option value="1">Sí</option>
                             <option value="0">No</option>
+                            </select>
                         </div>
+                            </div>
+                        </div>
+                    
+                        
+
+                      
+                       
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

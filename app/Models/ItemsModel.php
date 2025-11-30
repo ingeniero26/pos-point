@@ -10,7 +10,7 @@ class ItemsModel extends Model
     protected $table = 'items';
 
     protected $fillable = ['product_type', 'product_name', 'sku',
-        'reference', 'category_id','subcategory_id', 'description', 'brand_id', 'measure_id', 'cost_price',
+        'reference', 'category_id','sub_category_id', 'description', 'brand_id', 'measure_id', 'cost_price',
     'selling_price','tax_id', 'price_total','created_by'];
 
     protected $hidden = ['created_at', 'updated_at'];
