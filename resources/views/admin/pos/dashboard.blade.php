@@ -459,6 +459,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div>
+                                    <label for="">Seleccione una caja</label>
+                                    <select class="form-control select2" id="cash-register-select" style="width: 100%;">
+                                        <option value="">Seleccionar Caja</option>
+                                        @foreach($cashRegisters as $register)
+                                        <option value="{{ $register->id }}">{{ $register->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
                                 <div class="search-container mb-4">
                                     <div class="input-group">
@@ -948,6 +957,7 @@ $(document).ready(function() {
         const paymentData = {
             customer_id: selectedCustomer,
             warehouse_id: selectedWarehouse,
+            cash_register_id: $('#cash-register-select').val(),
             payment_method_id: selectedPaymentMethod,
             payment_form_id: $('#payment-form').val(),
             items: cart,
@@ -955,7 +965,7 @@ $(document).ready(function() {
             tax_amount: cart.reduce((sum, item) => sum + item.tax_amount, 0),
             total: total,
             received: received,
-            cash_register_id: 1, // Asumiendo que 1 es el ID para efectivo
+           // Asumiendo que 1 es el ID para efectivo
             change: parseFloat($('#change-amount').val()) || 0,
             discount: parseFloat($('#cart-discount').text().replace('$', '')) || 0,
         };

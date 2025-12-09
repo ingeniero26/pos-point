@@ -35,7 +35,7 @@ class Purchase2Controller extends Controller
         ->with([
             'voucher_type',
             'suppliers' => function($q) {
-                $q->select('id', 'company_name', 'name');
+                $q->select('id', 'company_name', 'first_name');
             },
             'state_type',
             'payment_types' => function($q) {

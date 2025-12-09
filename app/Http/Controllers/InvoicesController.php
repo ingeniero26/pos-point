@@ -658,6 +658,9 @@ public function exportExcel()
         // Get all necessary data for POS interface
         $data = [
             'categories' => \App\Models\CategoryModel::where('is_delete', 0)->get(),
+            'cashRegisters' => \App\Models\CashRegister::where('is_delete', 0)
+                ->where('status', 1)
+                ->get(),
             'products' => \App\Models\ItemsModel::where('is_delete', 0)
                 ->where('status', 0)
                 ->with(['category', 'tax', 'measure'])

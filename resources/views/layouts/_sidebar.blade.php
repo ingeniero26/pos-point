@@ -320,15 +320,16 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{url('admin/cash_register/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                <p>Cajas</p>
-                            </a> 
-                        </li>
-                        <li class="nav-item">
                             <a href="{{url('admin/type_movement_cash_register/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Tipo Movimientos </p>
                             </a> 
                         </li>
+                        <li class="nav-item">
+                            <a href="{{url('admin/cash_register/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <p>Cajas</p>
+                            </a> 
+                        </li>
+                        
                         <li class="nav-item">
                             <a href="{{url('admin/cash_register_sessions/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Apertura de Cajas</p>

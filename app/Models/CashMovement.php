@@ -46,7 +46,7 @@ class CashMovement extends Model
 
     public function sale()
     {
-        return $this->belongsTo(Sales::class, 'related_sale_id');
+        return $this->belongsTo(Invoices::class, 'related_sale_id');
     }
 
     public function purchase()

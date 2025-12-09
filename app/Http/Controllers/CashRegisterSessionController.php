@@ -29,13 +29,6 @@ class CashRegisterSessionController extends Controller
             'company_id' => 'required|exists:companies,id'
         ]);
     
-        // Verificar permisos del usuario sobre la caja
-        // if (!auth()->user()->can('open', CashRegister::find($request->cash_register_id))) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'No tiene permisos para abrir esta caja.'
-        //     ], 403);
-        // }
     
         // Verificar sesión existente
         if (CashRegisterSession::where('cash_register_id', $request->cash_register_id)
