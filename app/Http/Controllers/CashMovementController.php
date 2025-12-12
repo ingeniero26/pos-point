@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CashMovement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class CashMovementController extends Controller
@@ -22,6 +23,21 @@ class CashMovementController extends Controller
             ->orderByDesc('transaction_time')
             ->paginate(20);
 
-        return view('admin.cash_movements.list', compact('movements'));
+        // Calcular totales globales (no solo de la página)
+        $companyId = Auth::user()->company_id;
+
+        $total_ingresos = (float) CashMovement::where('company_id', $companyId)
+            ->where('amount', '>', 0)
+            ->sum('amount');
+
+        // Sumar los montos negativos como positivos para totales de egreso
+        $total_egresos = (float) CashMovement::where('company_id', $companyId)
+            ->where('amount', '<', 0)
+            ->select(DB::raw('COALESCE(SUM(ABS(amount)),0) as total'))
+            ->value('total');
+
+        $balance = $total_ingresos - $total_egresos;
+
+        return view('admin.cash_movements.list', compact('movements', 'total_ingresos', 'total_egresos', 'balance'));
     }
 }

@@ -197,13 +197,33 @@ class PersonController extends Controller
         }
     }
     public function show($id) { 
-        $customer = PersonModel::with('departments', 'cities', 'identification_type')->find($id);
-         if ($customer) { 
-            return view('admin.person.show', compact('customer')); } 
-            else { 
-                return redirect()->route('person.list')->with('error', 'Cliente no encontrado.'); 
-            } 
-        }
+        $person = PersonModel::with([
+            'departments', 
+            'cities', 
+            'countries',
+            'identification_type',
+            'type_third',
+            'type_person',
+            'type_regimen',
+            'type_liability',
+            'purchases' => function($query) {
+                $query->with(['voucher_type', 'state_type', 'payment_method', 'currencies'])
+                      ->orderBy('created_at', 'desc')
+                      ->limit(10); // Limitar a las últimas 10 compras
+            },
+            'sales' => function($query) {
+                $query->with(['voucherTypes', 'stateTypes', 'payment_method', 'currencies'])
+                      ->orderBy('created_at', 'desc')
+                      ->limit(10); // Limitar a las últimas 10 ventas
+            }
+        ])->find($id);
+        
+        if ($person) { 
+            return view('admin.person.show', compact('person')); 
+        } else { 
+            return redirect()->route('person.list')->with('error', 'Tercero no encontrado.'); 
+        } 
+    }
     public function checkIdentification()
     {
         $customer = PersonModel::where('identification_number', request('identification_number'))->first();

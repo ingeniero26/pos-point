@@ -37,19 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php
-                            $total_ingresos = 0;
-                            $total_otros_ingresos = 0;
-                            $total_egresos = 0;
-                        @endphp
                             @forelse($movements as $movement)
-                                @php
-                                    if ($movement->amount > 0) {
-                                        $total_ingresos += $movement->amount;
-                                    } elseif ($movement->amount < 0) {
-                                        $total_egresos += abs($movement->amount);
-                                    }
-                                @endphp
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($movement->transaction_time)->format('d/m/Y H:i') }}</td>
                                     <td>{{ $movement->cashRegisterSession->cashRegister->name ?? '-' }}</td>
@@ -93,13 +81,24 @@
                                 </tr>
                             @endforelse
                         </tbody>
-                        <tfoot></tfoot>
+                        <tfoot>
                             <tr>
-                                <th colspan="6" class="text-end">Totales:</th>
-                                <th class="text-end text-success">${{ number_format($total_ingresos, 2) }}</th>
-                                <th class="text-end text-danger">${{ number_format($total_egresos, 2) }}</th>
-                                <th></th>
+                                <th colspan="6" class="text-end">Totales (empresa):</th>
+                                <th class="text-end text-success">${{ number_format($total_ingresos ?? 0, 2) }}</th>
+                                <th class="text-end text-danger">${{ number_format($total_egresos ?? 0, 2) }}</th>
+                                <th class="text-end">
+                                    @if(isset($balance))
+                                        @if($balance >= 0)
+                                            <span class="text-success">${{ number_format($balance, 2) }}</span>
+                                        @else
+                                            <span class="text-danger">-${{ number_format(abs($balance), 2) }}</span>
+                                        @endif
+                                    @else
+                                        $0.00
+                                    @endif
+                                </th>
                             </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

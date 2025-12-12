@@ -515,7 +515,17 @@ CREATE TABLE IF NOT EXISTS `cache` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla point_pos.cache: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.cache: ~9 rows (aproximadamente)
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+	('brands_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:28:{i:1;s:13:"MARCA GENERAL";i:4;s:7:"samuray";i:5;s:5:"india";i:6;s:8:"vaniplas";i:7;s:5:"rimax";i:8;s:5:"imusa";i:9;s:5:"haceb";i:10;s:6:"corona";i:11;s:9:"universal";i:12;s:10:"hogar plas";i:13;s:5:"masso";i:14;s:6:"grulla";i:15;s:5:"venus";i:16;s:5:"oster";i:17;s:4:"ABBA";i:18;s:4:"lynx";i:19;s:11:"continental";i:20;s:11:"sueño flex";i:21;s:5:"relax";i:22;s:7:"serraty";i:23;s:6:"alteza";i:24;s:13:"home elements";i:25;s:5:"DKasa";i:26;s:7:"Colplas";i:27;s:7:"Sorplas";i:28;s:11:"Multimarcas";i:29;s:5:"KENDY";i:30;s:6:"VEREDA";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765330347),
+	('categories_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:77:{i:1;s:7:"Estufas";i:2;s:12:"FERRETERIA 2";i:3;s:12:"ventiladores";i:7;s:20:"repuesto verntilador";i:8;s:6:"Sillas";i:9;s:8:"Chanclas";i:10;s:12:"herramientas";i:11;s:16:"repuesto estufas";i:12;s:18:"repuesto licuadora";i:13;s:17:"repuesto lavadora";i:14;s:9:"colchones";i:15;s:5:"camas";i:16;s:11:"colchonetas";i:17;s:9:"cacharros";i:18;s:15:"BOTA VENUS TELA";i:19;s:20:"BOTA PANTANERA VENUS";i:20;s:11:"BOTA GRULLA";i:21;s:20:"utensilios de cocina";i:22;s:18:"loza y cristaleria";i:23;s:10:"jugueteria";i:24;s:18:"morrales y maletas";i:25;s:6:"mallas";i:26;s:10:"licuadoras";i:27;s:7:"neveras";i:28;s:15:"OLLAS A PRESION";i:29;s:19:"molinos y repuestos";i:30;s:9:"cuchillos";i:31;s:17:"ollas de aluminio";i:32;s:12:"CAVAS ICOPOR";i:33;s:11:"tornilleria";i:34;s:6:"cables";i:35;s:7:"cuerdas";i:36;s:11:"televisores";i:37;s:18:"ponchera y tazones";i:38;s:17:"tanques plasticos";i:39;s:16:"baldes plasticos";i:40;s:7:"hamacas";i:41;s:16:"MESAS PLASTICAS ";i:42;s:18:"loza y cristaleria";i:43;s:13:"ASEO PERSONAL";i:44;s:24:"LOZEROS Y PORTACUBIERTOS";i:45;s:21:"BOTA PANTANERA VEREDA";i:46;s:20:"BOTA PANTANERA MACHA";i:47;s:20:"BOTA PANTANERA TITAN";i:48;s:20:"BOTA VENUS ESTAMPADA";i:49;s:19:"BOTA ANDINA DE DAMA";i:50;s:19:"BOTA VENUS DE NIÑO";i:51;s:11:"BOTA MAXTER";i:52;s:10:"BOTA ARGOS";i:53;s:15:"ZAPATO DE DAMA ";i:54;s:21:"ZAPATO COLEGIAL NIÑO";i:55;s:19:"GUAYOS Y ZAPATILLAS";i:56;s:30:"BOTA DE TRABAJO ARGOS Y WELLCO";i:57;s:16:"termos cafeteros";i:58;s:16:"PESOS Y BASCULAS";i:59;s:26:"NEVERAS Y TERMOS PLASTICOS";i:60;s:22:"CHANCLA SOLIMAR HOMBRE";i:61;s:20:"CHANCLA SOLIMAR DAMA";i:62;s:9:"LAVADORAS";i:63;s:16:"UTILES ESCOLARES";i:64;s:6:"VARIOS";i:65;s:17:"COBIJAS Y SABANAS";i:66;s:19:"ENVASES HERMETICOS ";i:67;s:16:"JARRAS PLASTICAS";i:68;s:21:"UTENCILIOS PARA BAÑO";i:69;s:18:"UTENSILIOS DE ASEO";i:70;s:7:"MACETAS";i:71;s:9:"CALDEROS ";i:72;s:18:"ELECTRODOMESTICOS ";i:73;s:8:"VARIOS 2";i:74;s:11:"FERRETERIA ";i:75;s:17:"repuesto estufa 2";i:76;s:28:"repuestos de olla  a presion";i:77;s:18:"herramienta manual";i:78;s:21:"herramienta electrica";i:79;s:8:"pinturas";i:80;s:10:"Tecnologia";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765330347),
+	('currencies_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:156:{i:8;s:12:"Lek Albanés";i:12;s:14:"Dinar Algerino";i:32;s:14:"Peso Argentino";i:36;s:18:"Dólar Australiano";i:44;s:16:"Dólar Bahameño";i:48;s:15:"Dinar Bahreiní";i:50;s:18:"Taka De Bangladesh";i:51;s:12:"Dram Armenio";i:52;s:18:"Dólar De Barbados";i:60;s:17:"Dólar Bermudeño";i:64;s:18:"Ngultrum De Bután";i:68;s:9:"Boliviano";i:72;s:16:"Pula De Botsuana";i:84;s:16:"Dólar De Belice";i:90;s:28:"Dólar De Las Islas Salomón";i:96;s:17:"Dólar De Brunéi";i:104;s:12:"Kyat Birmano";i:108;s:16:"Franco Burundés";i:116;s:14:"Riel Camboyano";i:124;s:17:"Dólar Canadiense";i:132;s:19:"Escudo Caboverdiano";i:136;s:14:"Dólar Caimano";i:144;s:18:"Rupia De Sri Lanka";i:152;s:12:"Peso Chileno";i:156;s:10:"Yuan Chino";i:170;s:15:"Peso Colombiano";i:174;s:16:"Franco Comoriano";i:188;s:20:"Colón Costarricense";i:191;s:11:"Kuna Croata";i:192;s:11:"Peso Cubano";i:203;s:12:"Koruna Checa";i:208;s:13:"Corona Danesa";i:214;s:15:"Peso Dominicano";i:230;s:12:"Birr Etíope";i:232;s:13:"Nakfa Eritreo";i:238;s:16:"Libra Malvinense";i:242;s:14:"Dólar Fiyiano";i:262;s:16:"Franco Yibutiano";i:270;s:15:"Dalasi Gambiano";i:292;s:18:"Libra De Gibraltar";i:320;s:20:"Quetzal Guatemalteco";i:324;s:15:"Franco Guineano";i:328;s:15:"Dólar Guyanés";i:332;s:15:"Gourde Haitiano";i:340;s:18:"Lempira Hondureño";i:344;s:19:"Dólar De Hong Kong";i:348;s:15:"Forint Húngaro";i:352;s:16:"Króna Islandesa";i:356;s:11:"Rupia India";i:360;s:16:"Rupiah Indonesia";i:364;s:11:"Rial Iraní";i:368;s:13:"Dinar Iraquí";i:376;s:23:"Nuevo Shéquel Israelí";i:388;s:16:"Dólar Jamaicano";i:392;s:12:"Yen Japonés";i:398;s:12:"Tenge Kazajo";i:400;s:13:"Dinar Jordano";i:404;s:15:"Chelín Keniata";i:408;s:14:"Won Norcoreano";i:410;s:14:"Won Surcoreano";i:414;s:14:"Dinar Kuwaití";i:417;s:12:"Som Kirguís";i:418;s:7:"Kip Lao";i:422;s:14:"Libra Libanesa";i:426;s:14:"Loti Lesotense";i:430;s:16:"Dólar Liberiano";i:434;s:11:"Dinar Libio";i:440;s:13:"Litas Lituano";i:446;s:15:"Pataca De Macao";i:454;s:14:"Kwacha Malauí";i:458;s:14:"Ringgit Malayo";i:462;s:15:"Rufiyaa Maldiva";i:478;s:17:"Ouguiya Mauritana";i:480;s:14:"Rupia Mauricia";i:484;s:13:"Peso Mexicano";i:496;s:14:"Tughrik Mongol";i:498;s:11:"Leu Moldavo";i:504;s:16:"Dirham Marroquí";i:512;s:11:"Rial Omaní";i:516;s:14:"Dólar Namibio";i:524;s:14:"Rupia Nepalesa";i:532;s:29:"Florín Antillano Neerlandés";i:533;s:16:"Florín Arubeño";i:548;s:15:"Vatu Vanuatense";i:554;s:19:"Dólar Neozelandés";i:558;s:22:"Córdoba Nicaragüense";i:566;s:15:"Naira Nigeriana";i:578;s:14:"Corona Noruega";i:586;s:16:"Rupia Pakistaní";i:590;s:16:"Balboa Panameña";i:598;s:27:"Kina De Papúa Nueva Guinea";i:600;s:18:"Guaraní Paraguayo";i:604;s:17:"Nuevo Sol Peruano";i:608;s:13:"Peso Filipino";i:634;s:12:"Rial Qatarí";i:643;s:10:"Rublo Ruso";i:646;s:15:"Franco Ruandés";i:654;s:21:"Libra De Santa Helena";i:678;s:32:"Dobra De Santo Tomé Y Príncipe";i:682;s:12:"Riyal Saudí";i:690;s:19:"Rupia De Seychelles";i:694;s:21:"Leone De Sierra Leona";i:702;s:18:"Dólar De Singapur";i:704;s:15:"Dong Vietnamita";i:706;s:15:"Chelín Somalí";i:710;s:16:"Rand Sudafricano";i:728;s:5:"Libra";i:748;s:15:"Lilangeni Suazi";i:752;s:12:"Corona Sueca";i:756;s:12:"Franco Suizo";i:760;s:11:"Libra Siria";i:764;s:15:"Baht Tailandés";i:776;s:15:"Pa\'anga Tongano";i:780;s:27:"Dólar De Trinidad Y Tobago";i:784;s:37:"Dirham De Los Emiratos Árabes Unidos";i:788;s:14:"Dinar Tunecino";i:800;s:16:"Chelín Ugandés";i:807;s:15:"Denar Macedonio";i:818;s:13:"Libra Egipcia";i:826;s:15:"Libra Esterlina";i:834;s:15:"Chelín Tanzano";i:840;s:21:"Dólar Estadounidense";i:858;s:13:"Peso Uruguayo";i:860;s:10:"Som Uzbeko";i:882;s:12:"Tala Samoana";i:886;s:12:"Rial Yemení";i:901;s:16:"Dólar Taiwanés";i:931;s:23:"Peso Cubano Convertible";i:934;s:15:"Manat Turcomano";i:936;s:12:"Cedi Ghanés";i:937;s:26:"Bolívar Fuerte Venezolano";i:938;s:14:"Dinar Sudanés";i:941;s:12:"Dinar Serbio";i:943;s:21:"Metical Mozambiqueño";i:944;s:17:"Manat Azerbaiyano";i:946;s:10:"Leu Rumano";i:949;s:10:"Lira Turca";i:950;s:29:"Franco Cfa De África Central";i:951;s:26:"Dólar Del Caribe Oriental";i:952;s:32:"Franco Cfa De África Occidental";i:953;s:10:"Franco Cfp";i:967;s:15:"Kwacha Zambiano";i:968;s:17:"Dólar Surinamés";i:969;s:15:"Ariary Malgache";i:971;s:13:"Afgani Afgano";i:972;s:12:"Somoni Tayik";i:973;s:16:"Kwanza Angoleño";i:974;s:16:"Rublo Bielorruso";i:975;s:12:"Lev Búlgaro";i:976;s:17:"Franco Congoleño";i:977;s:39:"Marco Convertible De Bosnia-Herzegovina";i:978;s:4:"Euro";i:980;s:16:"Grivna Ucraniana";i:981;s:14:"Lari Georgiano";i:985;s:12:"Zloty Polaco";i:986;s:15:"Real Brasileño";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765330347),
+	('invoice_groups_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:78:{i:1;s:23:"Equipos de Computación";i:2;s:18:"Motores y Turbinas";i:3;s:21:"Instrumentos Médicos";i:4;s:23:"Medicamentos Esenciales";i:5;s:33:"Productos Farmacéuticos Básicos";i:6;s:26:"Leche y Productos Lácteos";i:7;s:29:"Pan y Productos de Panadería";i:8;s:5:"Café";i:9;s:25:"Servicios de Consultoría";i:10;s:24:"Servicios de Ingeniería";i:11;s:25:"Servicios de Contabilidad";i:12;s:12:"Carne de Res";i:13;s:22:"Productos Veterinarios";i:14;s:7:"Cemento";i:15;s:24:"Acero para Construcción";i:16;s:8:"Gasolina";i:17;s:6:"Diesel";i:18;s:5:"Arroz";i:19;s:5:"Maíz";i:20;s:19:"Transporte de Carga";i:21;s:23:"Transporte de Pasajeros";i:22;s:14:"Ropa de Vestir";i:23;s:7:"Calzado";i:24;s:19:"Servicios Bancarios";i:25;s:7:"Seguros";i:26;s:21:"Productos de Limpieza";i:27;s:21:"Servicios de Internet";i:28;s:23:"Servicios de Telefonía";i:29;s:22:"Computadores y Laptops";i:30;s:34:"Teléfonos Celulares y Smartphones";i:31;s:31:"Tablets y Dispositivos Móviles";i:32;s:26:"Accesorios de Computación";i:33;s:23:"Televisores y Pantallas";i:34;s:24:"Refrigeradores y Neveras";i:35;s:21:"Lavadoras y Secadoras";i:36;s:16:"Estufas y Hornos";i:37;s:18:"Aire Acondicionado";i:38;s:12:"Ventiladores";i:39;s:15:"Muebles de Sala";i:40;s:18:"Muebles de Comedor";i:41;s:25:"Colchones y Bases de Cama";i:42;s:20:"Herramientas de Mano";i:43;s:24:"Herramientas Eléctricas";i:44;s:16:"Papel de Oficina";i:45;s:21:"Útiles de Escritorio";i:46;s:29:"Impresoras y Multifuncionales";i:47;s:19:"Material de Empaque";i:48;s:37:"Cemento y Materiales de Construcción";i:49;s:21:"Tubería y Accesorios";i:50;s:24:"Pintura y Recubrimientos";i:51;s:28:"Cables y Material Eléctrico";i:52;s:25:"Repuestos de Automóviles";i:53;s:21:"Llantas y Neumáticos";i:54;s:21:"Aceites y Lubricantes";i:55;s:23:"Baterías de Vehículos";i:56;s:26:"Productos de Aseo Personal";i:57;s:31:"Productos de Limpieza del Hogar";i:58;s:25:"Cosméticos y Perfumería";i:59;s:33:"Juguetes y Artículos para Niños";i:60;s:16:"Ropa para Hombre";i:61;s:15:"Ropa para Mujer";i:62;s:16:"Ropa para Niños";i:63;s:18:"Calzado en General";i:64;s:20:"Accesorios de Vestir";i:65;s:21:"Artículos Deportivos";i:66;s:20:"Equipos de Ejercicio";i:67;s:23:"Bicicletas y Accesorios";i:68;s:22:"Alimento para Mascotas";i:69;s:24:"Accesorios para Mascotas";i:70;s:28:"Libros y Material Didáctico";i:71;s:20:"Software y Licencias";i:72;s:18:"Semillas y Plantas";i:73;s:22:"Fertilizantes y Abonos";i:74;s:27:"Herramientas de Jardinería";i:75;s:32:"Servicio de Transporte y Entrega";i:76;s:24:"Servicio de Instalación";i:77;s:31:"Servicio Técnico y Reparación";i:78;s:25:"Servicio de Mantenimiento";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765330347),
+	('items_type_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:4:{i:1;s:21:"Producto Inventariado";i:2;s:9:"Servicios";i:3;s:12:"Auto Consumo";i:4;s:24:"Producto no Inventariado";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765330347),
+	('measures_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:6:{i:1;s:6:"UNIDAD";i:2;s:9:"KILOGRAMO";i:5;s:5:"Metro";i:6;s:9:"Miligramo";i:7;s:10:"Centimetro";i:8;s:5:"Libra";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765330347),
+	('subcategories_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:1:{i:1;s:34:"Ventiladores Samuray Mejor Calidad";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765330347),
+	('taxes_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:5:{i:1;s:7:"Ninguno";i:2;s:11:"Iva Excento";i:3;s:12:"Iva Excluido";i:4;s:7:"IVA(5%)";i:5;s:8:"Iva(19%)";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765330347),
+	('warehouses_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:3:{i:1;s:9:"Principal";i:7;s:8:"Bodega 2";i:8;s:9:"Eliminame";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765330347);
 
 -- Volcando estructura para tabla point_pos.cache_locks
 CREATE TABLE IF NOT EXISTS `cache_locks` (
@@ -549,20 +559,19 @@ CREATE TABLE IF NOT EXISTS `cash_movements` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Registro detallado de todos los movimientos de efectivo en caja';
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Registro detallado de todos los movimientos de efectivo en caja';
 
--- Volcando datos para la tabla point_pos.cash_movements: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.cash_movements: ~9 rows (aproximadamente)
 INSERT INTO `cash_movements` (`id`, `cash_register_session_id`, `cash_movement_type_id`, `amount`, `description`, `reference_document_type`, `reference_document_number`, `related_sale_id`, `related_purchase_id`, `related_third_party_id`, `third_party_document_type`, `third_party_document_number`, `third_party_name`, `transaction_time`, `user_id`, `company_id`, `created_by`, `created_at`, `updated_at`) VALUES
-	(1, 17, 1, 100000.00, 'Saldo inicial de apertura de caja', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-08-13 14:12:13', 1, 1, 1, '2025-08-13 19:12:13', '2025-08-13 19:12:13'),
-	(2, 17, 2, 2000.00, 'Venta #FV-000001', 'SALE', 'FV-000001', 1, NULL, 16, NULL, NULL, NULL, '2025-08-13 14:13:29', 1, 1, 1, '2025-08-13 19:13:29', '2025-08-13 19:13:29'),
-	(3, 17, 2, 1000.00, 'Venta #FV-000002', 'SALE', 'FV-000002', 2, NULL, 16, NULL, NULL, NULL, '2025-08-14 00:24:28', 1, 1, 1, '2025-08-14 05:24:28', '2025-08-14 05:24:28'),
-	(4, 17, 2, 50000.00, 'Venta #FV-000004', 'SALE', 'FV-000004', 4, NULL, 16, NULL, NULL, NULL, '2025-08-14 15:10:21', 1, 1, 1, '2025-08-14 20:10:21', '2025-08-14 20:10:21'),
-	(5, 17, 2, 1000.00, 'Venta #FV-000005', 'SALE', 'FV-000005', 5, NULL, 16, NULL, NULL, NULL, '2025-08-14 17:38:31', 1, 1, 1, '2025-08-14 22:38:31', '2025-08-14 22:38:31'),
-	(6, 17, 2, 4000.00, 'Venta #FV-000006', 'SALE', 'FV-000006', 6, NULL, 16, NULL, NULL, NULL, '2025-08-14 19:27:34', 1, 1, 1, '2025-08-15 00:27:34', '2025-08-15 00:27:34'),
-	(7, 17, 2, 54740.00, 'Venta #FV-000007', 'SALE', 'FV-000007', 7, NULL, 16, NULL, NULL, NULL, '2025-10-19 22:32:48', 1, 1, 1, '2025-10-20 03:32:48', '2025-10-20 03:32:48'),
-	(8, 17, 2, 50575.00, 'Venta #FV-000008', 'SALE', 'FV-000008', 8, NULL, 36, NULL, NULL, NULL, '2025-10-19 22:37:16', 1, 1, 1, '2025-10-20 03:37:16', '2025-10-20 03:37:16'),
-	(9, 17, 2, 54740.00, 'Venta #SETP990000001', 'SALE', 'SETP990000001', 9, NULL, 16, NULL, NULL, NULL, '2025-10-23 00:41:55', 1, 1, 1, '2025-10-23 05:41:55', '2025-10-23 05:41:55'),
-	(10, 17, 2, 116620.00, 'Venta #SETP990000006', 'SALE', 'SETP990000006', 15, NULL, 16, NULL, NULL, NULL, '2025-10-23 01:34:22', 1, 1, 1, '2025-10-23 06:34:22', '2025-10-23 06:34:22');
+	(19, 19, 1, 100000.00, 'Saldo inicial de apertura de caja', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-11-30 22:23:15', 1, 1, 1, '2025-12-01 03:23:15', '2025-12-01 03:23:15'),
+	(20, 19, 2, 54740.00, 'Venta #SETP990000020', 'SALE', 'SETP990000020', 27, NULL, 16, NULL, NULL, NULL, '2025-12-01 01:04:39', 1, 1, 1, '2025-12-01 06:04:39', '2025-12-01 06:04:39'),
+	(21, 19, 8, -66640.00, 'Compra de productos', 'Compra', '53', NULL, 53, 11, NULL, NULL, NULL, '2025-12-01 01:09:37', 1, 1, 1, '2025-12-01 06:09:37', '2025-12-01 06:09:37'),
+	(22, 19, 45, 50000.00, 'Cierre de caja - Saldo final', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-12-01 01:19:24', 1, 1, 1, '2025-12-01 06:19:24', '2025-12-01 06:19:24'),
+	(23, 20, 1, 200000.00, 'Saldo inicial de apertura de caja', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-12-01 01:42:13', 1, 1, 1, '2025-12-01 06:42:13', '2025-12-01 06:42:13'),
+	(24, 20, 2, 50575.00, 'Venta #SETP990000021', 'SALE', 'SETP990000021', 28, NULL, 16, NULL, NULL, NULL, '2025-12-09 00:11:07', 1, 1, 1, '2025-12-09 05:11:07', '2025-12-09 05:11:07'),
+	(25, 20, 8, -69020.00, 'Compra de productos', 'Compra', '54', NULL, 54, 12, NULL, NULL, NULL, '2025-12-09 01:14:13', 1, 1, 1, '2025-12-09 06:14:13', '2025-12-09 06:14:13'),
+	(26, 20, 2, 285600.00, 'Venta #SETP990000022', 'SALE', 'SETP990000022', 29, NULL, 16, NULL, NULL, NULL, '2025-12-10 01:16:14', 1, 1, 1, '2025-12-10 06:16:14', '2025-12-10 06:16:14'),
+	(27, 20, 2, 103530.00, 'Venta #SETP990000023', 'SALE', 'SETP990000023', 30, NULL, 16, NULL, NULL, NULL, '2025-12-12 01:06:21', 1, 1, 1, '2025-12-12 06:06:21', '2025-12-12 06:06:21');
 
 -- Volcando estructura para tabla point_pos.cash_movement_types
 CREATE TABLE IF NOT EXISTS `cash_movement_types` (
@@ -614,14 +623,15 @@ CREATE TABLE IF NOT EXISTS `cash_registers` (
   `is_delete` tinyint(1) NOT NULL DEFAULT 0,
   `company_id` int(11) DEFAULT NULL COMMENT 'ID de la empresa propietaria de la caja',
   `created_by` int(11) DEFAULT NULL COMMENT 'Usuario que creó el registro',
+  `updated_by` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Cajas físicas o puntos de venta donde se maneja efectivo';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Cajas físicas o puntos de venta donde se maneja efectivo';
 
--- Volcando datos para la tabla point_pos.cash_registers: ~0 rows (aproximadamente)
-INSERT INTO `cash_registers` (`id`, `code`, `name`, `location_description`, `maximun_balance`, `branch_id`, `status`, `is_delete`, `company_id`, `created_by`, `created_at`, `updated_at`) VALUES
-	(4, '02', 'Caja General', 'Principal', 1000000.00, 1, 1, 0, 1, 1, '2025-08-13 19:11:33', '2025-08-13 19:11:33');
+-- Volcando datos para la tabla point_pos.cash_registers: ~1 rows (aproximadamente)
+INSERT INTO `cash_registers` (`id`, `code`, `name`, `location_description`, `maximun_balance`, `branch_id`, `status`, `is_delete`, `company_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+	(5, '01', 'Caja General', 'Almacén Principal', 5000000.00, 1, 1, 0, 1, 1, 1, '2025-12-01 00:43:23', '2025-12-01 01:52:30');
 
 -- Volcando estructura para tabla point_pos.cash_register_sessions
 CREATE TABLE IF NOT EXISTS `cash_register_sessions` (
@@ -646,11 +656,12 @@ CREATE TABLE IF NOT EXISTS `cash_register_sessions` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='''Control de sesiones de caja (aperturas, cierres, arqueos)''';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='''Control de sesiones de caja (aperturas, cierres, arqueos)''';
 
--- Volcando datos para la tabla point_pos.cash_register_sessions: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.cash_register_sessions: ~2 rows (aproximadamente)
 INSERT INTO `cash_register_sessions` (`id`, `cash_register_id`, `user_id`, `opening_balance`, `expected_closing_balance`, `actual_closing_balance`, `difference`, `current_balance`, `total_cash_sales`, `total_other_cash_inflows`, `total_cash_outflows`, `opened_at`, `closed_at`, `status`, `observations_opening`, `observations_closing`, `company_id`, `created_by`, `created_at`, `updated_at`) VALUES
-	(17, 4, 1, 100000.00, 334675.00, 0.00, 0.00, 434675.00, 0.00, 0.00, 0.00, '2025-08-13 14:12:13', NULL, 'Open', 'Apertura de caja', NULL, 1, 1, '2025-08-13 19:12:13', '2025-10-23 06:34:22');
+	(19, 5, 1, 100000.00, 88100.00, 50000.00, -38100.00, 50000.00, 0.00, 0.00, 0.00, '2025-11-30 22:23:15', '2025-12-01 01:19:24', 'Closed', 'iniciar caja', 'cierre caja saldo real', 1, 1, '2025-12-01 03:23:15', '2025-12-01 06:19:24'),
+	(20, 5, 1, 200000.00, 285600.00, 0.00, 0.00, 570685.00, 0.00, 0.00, 0.00, '2025-12-01 01:42:12', NULL, 'Open', 'apertura caja', NULL, 1, 1, '2025-12-01 06:42:12', '2025-12-12 06:06:21');
 
 -- Volcando estructura para tabla point_pos.categories
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -927,7 +938,7 @@ CREATE TABLE IF NOT EXISTS `companies` (
 
 -- Volcando datos para la tabla point_pos.companies: ~1 rows (aproximadamente)
 INSERT INTO `companies` (`id`, `busines_type_id`, `identification_type_id`, `identification_number`, `dv`, `company_name`, `short_name`, `trade_name`, `code_ciiu`, `activity_description`, `cc_representative`, `email`, `legal_representative`, `logo`, `limit_documents`, `country_id`, `department_id`, `city_id`, `address`, `phone`, `currency_id`, `type_regimen_id`, `economic_activity_code`, `ica_rate`, `type_obligation_id`, `dian_resolution`, `invoice_prefix`, `resolution_date`, `technical_key`, `range_from`, `range_to`, `current_consecutive`, `date_from`, `date_to`, `environment`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 1, 3, '1070813753', '2', 'JDSYSTEMAS', 'JERSON DANIEL BATISTA VEGA', 'JSYSTEMAS-JD', NULL, NULL, '1047378360', 'ingjerson2014@gmail.com', 'Jerson Batista', 'uploads/company_logos/1748295160.png', 1000, 46, 1, 1, 'EL CARMEN DE BOLIVAR', '3013230867', 170, 2, '4530', NULL, 2, '18760000001', 'SETP', '2025-09-15', 'fc8eac422eba16e22ffd8c6f94b3f40a6e38162c', 990000000, 995000000, 990000007, '2019-01-19', '2030-01-19', 'Produccion', 1, '2025-03-06 13:32:54', '2025-10-23 06:35:39');
+	(1, 1, 3, '1070813753', '2', 'JDSYSTEMAS', 'JERSON DANIEL BATISTA VEGA', 'JSYSTEMAS-JD', NULL, NULL, '1047378360', 'ingjerson2014@gmail.com', 'Jerson Batista', 'uploads/company_logos/1748295160.png', 1000, 46, 1, 1, 'EL CARMEN DE BOLIVAR', '3013230867', 170, 2, '4530', NULL, 2, '18760000001', 'SETP', '2025-09-15', 'fc8eac422eba16e22ffd8c6f94b3f40a6e38162c', 990000000, 995000000, 990000023, '2019-01-19', '2030-01-19', 'Produccion', 1, '2025-03-06 13:32:54', '2025-12-12 06:06:21');
 
 -- Volcando estructura para tabla point_pos.contact_sources
 CREATE TABLE IF NOT EXISTS `contact_sources` (
@@ -1765,18 +1776,14 @@ CREATE TABLE IF NOT EXISTS `invoices` (
   KEY `currency_id` (`currency_id`) USING BTREE,
   KEY `payment_method_id` (`payment_method_id`) USING BTREE,
   KEY `voucher_type_id` (`voucher_type_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla de ventas ajustada a la normatividad colombiana';
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla de ventas ajustada a la normatividad colombiana';
 
--- Volcando datos para la tabla point_pos.invoices: ~8 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.invoices: ~4 rows (aproximadamente)
 INSERT INTO `invoices` (`id`, `voucher_type_id`, `customer_id`, `created_by`, `invoice_no`, `state_type_id`, `warehouse_id`, `payment_form_id`, `date_of_issue`, `date_of_due`, `time_of_issue`, `series`, `number`, `currency_id`, `payment_method_id`, `total_subtotal`, `total_tax`, `total_discount`, `total_sale`, `payment_received`, `payment_change`, `total_prepayment`, `total_charge`, `total_taxed`, `total_unaffected`, `total_exonerated`, `cufe`, `payment_status_id`, `electronic_document_status`, `delivery_status`, `shipping_method`, `observations`, `company_id`, `is_delete`, `created_at`, `updated_at`) VALUES
-	(7, 2, 16, 1, 'FV-000007', 7, 1, 1, '2025-10-19', NULL, '22:32:48', NULL, NULL, 170, 1, 46000.00, 8740.00, 0.00, 54740.00, 0.00, 0.00, 0.00, 0.00, 54740.00, 0.00, 0.00, NULL, NULL, 'pending', 'pending', NULL, NULL, 1, 0, '2025-10-20 03:32:48', '2025-10-20 05:46:21'),
-	(8, 2, 36, 1, 'FV-000008', 1, 1, 1, '2025-10-19', NULL, '22:37:16', NULL, NULL, 170, 1, 42500.00, 8075.00, 0.00, 50575.00, 0.00, 0.00, 0.00, 0.00, 50575.00, 0.00, 0.00, NULL, NULL, 'pending', 'pending', NULL, NULL, 1, 0, '2025-10-20 03:37:16', '2025-10-20 03:37:16'),
-	(9, 2, 16, 1, 'SETP990000001', 1, 1, 1, '2025-10-23', NULL, '00:41:55', 'SETP', 990000001, 170, 1, 46000.00, 8740.00, 0.00, 54740.00, 0.00, 0.00, 0.00, 0.00, 54740.00, 0.00, 0.00, NULL, NULL, 'pending', 'pending', NULL, NULL, 1, 0, '2025-10-23 05:41:55', '2025-10-23 05:41:55'),
-	(12, 8, 16, 1, 'SETP990000002', 1, 1, 1, '2025-10-23', NULL, NULL, 'SETP', 990000002, 170, 1, 42500.00, 8075.00, 0.00, 50575.00, 55000.00, 4425.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, NULL, 'pending', NULL, NULL, NULL, 1, 0, '2025-10-23 05:50:47', '2025-10-23 05:50:47'),
-	(13, 8, 16, 1, 'SETP990000003', 1, 1, 1, '2025-10-23', NULL, NULL, 'SETP', 990000003, 170, 1, 42500.00, 8075.00, 0.00, 50575.00, 51000.00, 425.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, NULL, 'pending', NULL, NULL, NULL, 1, 0, '2025-10-23 06:08:57', '2025-10-23 06:08:57'),
-	(14, 8, 16, 1, 'SETP990000004', 1, 1, 1, '2025-10-23', NULL, NULL, 'SETP', 990000004, 170, 1, 240000.00, 45600.00, 0.00, 285600.00, 300000.00, 14400.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, NULL, 'pending', NULL, NULL, NULL, 1, 0, '2025-10-23 06:17:30', '2025-10-23 06:17:30'),
-	(15, 2, 16, 1, 'SETP990000006', 1, 1, 1, '2025-10-23', NULL, '01:34:22', 'SETP', 990000006, 170, 1, 98000.00, 18620.00, 0.00, 116620.00, 0.00, 0.00, 0.00, 0.00, 116620.00, 0.00, 0.00, NULL, NULL, 'pending', 'pending', NULL, NULL, 1, 0, '2025-10-23 06:34:22', '2025-10-23 06:34:22'),
-	(16, 8, 16, 1, 'SETP990000007', 1, 1, 1, '2025-10-23', NULL, NULL, 'SETP', 990000007, 170, 1, 98000.00, 18620.00, 0.00, 116620.00, 120000.00, 3380.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, NULL, 'pending', NULL, NULL, NULL, 1, 0, '2025-10-23 06:35:39', '2025-10-23 06:35:39');
+	(27, 2, 16, 1, 'SETP990000020', 1, 1, 1, '2025-12-01', NULL, '01:04:39', 'SETP', 990000020, 170, 1, 46000.00, 8740.00, 0.00, 54740.00, 0.00, 0.00, 0.00, 0.00, 54740.00, 0.00, 0.00, NULL, NULL, 'pending', 'delivered', NULL, NULL, 1, 0, '2025-12-01 06:04:39', '2025-12-01 06:04:39'),
+	(28, 8, 16, 1, 'SETP990000021', 1, 1, 1, '2025-12-09', NULL, NULL, 'SETP', 990000021, 170, 1, 42500.00, 8075.00, 0.00, 50575.00, 60000.00, 9425.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, NULL, 'pending', NULL, NULL, NULL, 1, 0, '2025-12-09 05:11:07', '2025-12-09 05:11:07'),
+	(29, 2, 16, 1, 'SETP990000022', 1, 1, 1, '2025-12-10', NULL, '01:16:14', 'SETP', 990000022, 170, 1, 240000.00, 45600.00, 0.00, 285600.00, 0.00, 0.00, 0.00, 0.00, 285600.00, 0.00, 0.00, NULL, NULL, 'pending', 'pending', NULL, NULL, 1, 0, '2025-12-10 06:16:14', '2025-12-10 06:16:14'),
+	(30, 8, 16, 1, 'SETP990000023', 1, 1, 1, '2025-12-12', NULL, NULL, 'SETP', 990000023, 170, 1, 87000.00, 16530.00, 0.00, 103530.00, 110000.00, 6470.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, NULL, 'pending', NULL, NULL, NULL, 1, 0, '2025-12-12 06:06:21', '2025-12-12 06:06:21');
 
 -- Volcando estructura para tabla point_pos.invoices_items
 CREATE TABLE IF NOT EXISTS `invoices_items` (
@@ -1801,18 +1808,15 @@ CREATE TABLE IF NOT EXISTS `invoices_items` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='detalle ventas';
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='detalle ventas';
 
--- Volcando datos para la tabla point_pos.invoices_items: ~8 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.invoices_items: ~5 rows (aproximadamente)
 INSERT INTO `invoices_items` (`id`, `invoice_id`, `item_id`, `quantity`, `unit_price`, `total_price`, `discount`, `tax_id`, `tax_rate`, `tax_amount`, `subtotal`, `total`, `is_taxed`, `is_exonerated`, `is_unaffected`, `observations`, `created_by`, `company_id`, `created_at`, `updated_at`) VALUES
-	(7, 7, 21, 1, 46000.00, 46000.00, 0.00, 5, 19.00, 8740.00, 46000.00, 54740.00, 1, 0, 0, NULL, 1, 1, '2025-10-19 22:32:48', '2025-10-19 22:32:48'),
-	(8, 8, 22, 1, 42500.00, 42500.00, 0.00, 5, 19.00, 8075.00, 42500.00, 50575.00, 1, 0, 0, NULL, 1, 1, '2025-10-19 22:37:16', '2025-10-19 22:37:16'),
-	(9, 9, 21, 1, 46000.00, 46000.00, 0.00, 5, 19.00, 8740.00, 46000.00, 54740.00, 1, 0, 0, NULL, 1, 1, '2025-10-23 00:41:55', '2025-10-23 00:41:55'),
-	(10, 12, 22, 1, 42500.00, NULL, 0.00, 5, 19.00, 8075.00, 42500.00, 50575.00, 1, 0, 0, NULL, 1, 1, '2025-10-23 00:50:47', '2025-10-23 00:50:47'),
-	(11, 13, 22, 1, 42500.00, NULL, 0.00, 5, 19.00, 8075.00, 42500.00, 50575.00, 1, 0, 0, NULL, 1, 1, '2025-10-23 01:08:57', '2025-10-23 01:08:57'),
-	(12, 14, 24, 1, 240000.00, NULL, 0.00, 5, 19.00, 45600.00, 240000.00, 285600.00, 1, 0, 0, NULL, 1, 1, '2025-10-23 01:17:30', '2025-10-23 01:17:30'),
-	(13, 15, 23, 1, 98000.00, 98000.00, 0.00, 5, 19.00, 18620.00, 98000.00, 116620.00, 1, 0, 0, NULL, 1, 1, '2025-10-23 01:34:22', '2025-10-23 01:34:22'),
-	(14, 16, 23, 1, 98000.00, NULL, 0.00, 5, 19.00, 18620.00, 98000.00, 116620.00, 1, 0, 0, NULL, 1, 1, '2025-10-23 01:35:39', '2025-10-23 01:35:39');
+	(54, 27, 21, 1, 46000.00, 46000.00, 0.00, 5, 19.00, 8740.00, 46000.00, 54740.00, 1, 0, 0, NULL, 1, 1, '2025-12-01 01:04:39', '2025-12-01 01:04:39'),
+	(55, 28, 22, 1, 42500.00, NULL, 0.00, 5, 19.00, 8075.00, 42500.00, 50575.00, 1, 0, 0, NULL, 1, 1, '2025-12-09 00:11:07', '2025-12-09 00:11:07'),
+	(56, 29, 24, 1, 240000.00, 240000.00, 0.00, 5, 19.00, 45600.00, 240000.00, 285600.00, 1, 0, 0, NULL, 1, 1, '2025-12-10 01:16:14', '2025-12-10 01:16:14'),
+	(57, 30, 26, 1, 38000.00, NULL, 0.00, 5, 19.00, 7220.00, 38000.00, 45220.00, 1, 0, 0, NULL, 1, 1, '2025-12-12 01:06:21', '2025-12-12 01:06:21'),
+	(58, 30, 30, 1, 49000.00, NULL, 0.00, 5, 19.00, 9310.00, 49000.00, 58310.00, 1, 0, 0, NULL, 1, 1, '2025-12-12 01:06:21', '2025-12-12 01:06:21');
 
 -- Volcando estructura para tabla point_pos.invoice_groups
 CREATE TABLE IF NOT EXISTS `invoice_groups` (
@@ -1924,7 +1928,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `sku` text DEFAULT NULL,
   `reference` text DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
-  `sub_category` int(11) DEFAULT NULL,
+  `sub_category_id` int(11) DEFAULT NULL,
   `currency_id` int(11) DEFAULT NULL,
   `expiration` tinyint(1) DEFAULT 0,
   `expiration_date` date DEFAULT NULL,
@@ -1939,6 +1943,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `invoice_group_id` int(11) DEFAULT NULL,
   `cost_price` decimal(20,6) DEFAULT NULL,
   `selling_price` decimal(20,6) DEFAULT NULL,
+  `percentage_profit` decimal(20,6) DEFAULT NULL,
   `tax_id` int(11) DEFAULT NULL,
   `price_total` decimal(20,6) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -1958,46 +1963,46 @@ CREATE TABLE IF NOT EXISTS `items` (
 ) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='productos';
 
 -- Volcando datos para la tabla point_pos.items: ~39 rows (aproximadamente)
-INSERT INTO `items` (`id`, `item_type_id`, `product_name`, `slug`, `barcode`, `internal_code`, `sku`, `reference`, `category_id`, `sub_category`, `currency_id`, `expiration`, `expiration_date`, `lots_enabled`, `lot_code`, `description`, `short_description`, `aditional_information`, `shipping_returns`, `brand_id`, `measure_id`, `invoice_group_id`, `cost_price`, `selling_price`, `tax_id`, `price_total`, `created_by`, `updated_by`, `company_id`, `status`, `is_delete`, `created_at`, `updated_at`) VALUES
-	(21, 1, 'ZAPATOS DE DAMA', NULL, '0001', '0001', NULL, NULL, 53, NULL, 170, 0, NULL, 0, NULL, 'TALLA XL', NULL, NULL, NULL, 1, 1, NULL, 28000.000000, 46000.000000, 5, 54740.000000, 4, 1, 1, 0, 0, '2025-05-29 21:15:58', '2025-06-09 19:49:06'),
-	(22, 1, '0002', NULL, '0002', '0002', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'Silla Frescura', NULL, NULL, NULL, 1, 1, NULL, 35000.000000, 42500.000000, 5, 50575.000000, 4, NULL, 1, 0, 0, '2025-05-29 21:19:39', '2025-05-29 21:19:39'),
-	(23, 1, 'LICUADORA ALTEZA PRAKTI MIX', NULL, '0003', '0003', NULL, 'gn', 26, NULL, 170, 0, NULL, 0, NULL, 'negra', NULL, NULL, NULL, 16, 1, NULL, 58000.000000, 98000.000000, 5, 116620.000000, 4, NULL, 1, 0, 0, '2025-05-29 21:21:40', '2025-05-29 21:21:40'),
-	(24, 1, 'VENTILADOR ALTEZA 2 EN 1 PEDESTAL MALLA METALICA', NULL, '0004', '0004', NULL, NULL, 3, NULL, 170, 0, NULL, 0, NULL, 'MALLA METALICA', NULL, NULL, NULL, 15, 1, NULL, 182104.000000, 240000.000000, 5, 285600.000000, 4, NULL, 1, 0, 0, '2025-05-29 21:53:10', '2025-05-29 21:53:10'),
-	(25, 1, 'estencion 3 metros', NULL, '7450077032009', '7450077032009', NULL, 'GN', 64, NULL, 170, 0, NULL, 0, NULL, 'EXTENSION', NULL, NULL, NULL, 1, 1, NULL, 6200.000000, 9499.000000, 5, 11303.810000, 4, NULL, 1, 0, 0, '2025-05-29 21:57:00', '2025-05-29 21:57:00'),
-	(26, 1, 'SILLA VANIPLAS SIN BRAZO', NULL, '0005', '0005', NULL, 'gn', 8, NULL, 170, 0, NULL, 0, NULL, 'SIN BRAZO', NULL, NULL, NULL, 1, 1, NULL, 32000.000000, 38000.000000, 5, 45220.000000, 4, NULL, 1, 0, 0, '2025-05-29 21:59:22', '2025-05-29 21:59:22'),
-	(27, 1, 'Silla Colplas SIN BRAZO', NULL, '0006', '0006', NULL, 'gn', 8, NULL, 170, 0, NULL, 0, NULL, 'Sin Brazo', NULL, NULL, NULL, 6, 1, NULL, 26145.000000, 38000.000000, 5, 45220.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:02:47', '2025-05-29 22:02:47'),
-	(28, 1, 'SILLA RIMAX SAMBA SIN BRAZO', NULL, '0007', '0007', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'SIN BRAZO', NULL, NULL, NULL, 1, 1, NULL, 367637.000000, 48000.000000, 5, 48000.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:04:54', '2025-05-29 22:04:54'),
-	(29, 1, 'SILLA RIMAX PLAYERA', NULL, '0008', '0008', NULL, 'gn', 8, NULL, 170, 0, NULL, 0, NULL, 'Silla playera', NULL, NULL, NULL, 4, 1, NULL, 55000.000000, 64000.000000, 5, 76160.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:07:02', '2025-05-29 22:07:02'),
-	(30, 1, 'SILLA COLPLAS HALLURE', NULL, '0009', '0009', NULL, NULL, 8, NULL, 170, 0, NULL, 0, NULL, 'Hallure', NULL, NULL, NULL, 1, 1, NULL, 38864.000000, 49000.000000, 5, 58310.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:08:40', '2025-05-29 22:08:40'),
-	(31, 1, 'SILLA COLPLAS OCEANIA', NULL, '0010', '0010', NULL, NULL, 8, NULL, 170, 0, NULL, 0, NULL, 'Oceania', NULL, NULL, NULL, 1, 1, NULL, 27500.000000, 32500.000000, 5, 38675.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:11:14', '2025-05-29 22:11:14'),
-	(32, 1, 'SILLA VANIPPLAS  FRESCURA', NULL, '0011', '0011', NULL, NULL, 8, NULL, 170, 0, NULL, 0, NULL, 'Frescura', NULL, NULL, NULL, 1, 1, NULL, 38000.000000, 44000.000000, 5, 52360.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:12:29', '2025-05-29 22:12:29'),
-	(33, 1, 'SILLA RIMAX ECOLOGICA CON BRAZO', NULL, '0012', '0012', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'ECOLOGICA', NULL, NULL, NULL, 1, 1, NULL, 38000.000000, 39000.000000, 5, 46410.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:16:28', '2025-05-29 22:16:28'),
-	(34, 1, 'SILLA RIMAX ORIGINAL CON BRAZO', NULL, '0013', '0013', NULL, NULL, 8, NULL, 170, 0, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 29000.000000, 34000.000000, 5, 40460.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:18:07', '2025-05-29 22:18:07'),
-	(35, 1, 'SILLA RIMO BANBU', NULL, '0014', '0014', NULL, NULL, 8, NULL, 170, 0, NULL, 0, NULL, 'BANBU', NULL, NULL, NULL, 1, 1, NULL, 29000.000000, 34000.000000, 5, 40460.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:26:23', '2025-05-29 22:26:23'),
-	(36, 1, 'SILLA EUSSE', NULL, '0015', '0015', NULL, NULL, 8, NULL, 170, 0, NULL, 0, NULL, 'CON BRAZO', NULL, NULL, NULL, 7, 1, NULL, 20000.000000, 26000.000000, 5, 30940.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:27:39', '2025-05-29 22:27:39'),
-	(37, 1, 'SILLA RIMAX ETERNA', NULL, '0016', '0016', NULL, 'gn', 8, NULL, 170, 0, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 40000.000000, 47000.000000, 5, 55930.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:29:57', '2025-05-29 22:29:57'),
-	(39, 1, 'SILLA SUPER NIÑO PLASTIZ', NULL, '3308', '3308', NULL, 'GE', 8, NULL, 170, 0, NULL, 0, NULL, 'SILLA SUPER NIÑO PLASTIZ', NULL, NULL, NULL, 1, 1, NULL, 10500.000000, 14000.000000, 5, 16660.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:22:02', '2025-06-02 18:22:02'),
-	(41, 1, 'BUTACO PLASTIZ', NULL, '3318', '3318', NULL, 'GE', 8, NULL, 170, 0, NULL, 0, NULL, 'BUTACO PLASTIZ', NULL, NULL, NULL, 1, 1, NULL, 15100.000000, 21000.000000, 5, 24990.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:26:06', '2025-06-02 18:26:06'),
-	(43, 1, 'BUTACO PEQUEÑO RIMAX', NULL, '3780', '3780', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'BUTACO PEQUEÑO RIMAX', NULL, NULL, NULL, 7, 1, NULL, 18500.000000, 23500.000000, 5, 27965.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:27:47', '2025-06-02 18:27:47'),
-	(44, 1, 'SILLA RIMO BRISA', NULL, '0019', '0019', 'BRISA', 'GE', 8, NULL, 170, 0, NULL, 0, NULL, 'BRISA', NULL, NULL, NULL, 1, 1, NULL, 31000.000000, 37500.000000, 5, 44625.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:31:01', '2025-06-02 18:31:01'),
-	(46, 1, 'BUTACO RIMAX RATTAN', NULL, '0021', '0021', NULL, 'GE', 8, NULL, 170, 0, NULL, 0, NULL, 'BUTACO RIMAX RATTAN', NULL, NULL, NULL, 7, 1, NULL, 20000.000000, 25000.000000, 5, 29750.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:33:15', '2025-06-02 18:33:15'),
-	(48, 1, 'MESA RIMAX NIÑO', NULL, '0051', '0051', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'SILLAS', NULL, NULL, NULL, 1, 1, NULL, 58933.000000, 72000.000000, 5, 85680.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:35:01', '2025-06-02 18:35:01'),
-	(50, 1, 'MESA RIMAX GRANDE 4 PUESTOS', NULL, '0054', '0054', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'ORIGINAL', NULL, NULL, NULL, 1, 1, NULL, 73699.000000, 88000.000000, 5, 104720.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:37:18', '2025-06-02 18:37:18'),
-	(52, 1, 'MESA MULTIUSO 3 NIVELES RIMAX', NULL, '0766', '0766', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'MULTIUSOS', NULL, NULL, NULL, 1, 2, NULL, 31500.000000, 42000.000000, 5, 49980.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:39:12', '2025-06-02 18:39:12'),
-	(54, 1, 'MESA PORTATIL RIMAX', NULL, '0768', '0768', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'SILLAS', NULL, NULL, NULL, 1, 1, NULL, 33000.000000, 45000.000000, 5, 53550.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:41:14', '2025-06-02 18:41:14'),
-	(56, 1, 'MESA ETERNA WENGUE RIMAX', NULL, '3442', '3442', NULL, 'GE', 8, NULL, 170, 0, NULL, 0, NULL, 'MESA ETERNA WENGUE RIMAX', NULL, NULL, NULL, 1, 1, NULL, 99798.000000, 125000.000000, 5, 148750.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:43:31', '2025-06-02 18:43:31'),
-	(58, 1, 'MESA RIMO 4 PUESTOS', NULL, '0055', '0055', NULL, 'gn', 8, NULL, 170, 0, NULL, 0, NULL, 'MESA RIMO 4 PUESTOS', NULL, NULL, NULL, 7, 1, NULL, 60000.000000, 78000.000000, 5, 92820.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:51:49', '2025-06-02 18:51:49'),
-	(60, 1, 'BUTACO COLPLAS', NULL, '0020', '0020', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'BUTACO COLPLAS', NULL, NULL, NULL, 1, 1, NULL, 11400.000000, 15500.000000, 5, 18445.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:56:48', '2025-06-02 18:56:48'),
-	(62, 1, 'SILLA PLAYERA VANIPLAS', NULL, '3400', '3400', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'SILLA PLAYERA VANIPLAS', NULL, NULL, NULL, 1, 1, NULL, 48000.000000, 47500.000000, 5, 56525.000000, 1, NULL, 1, 0, 0, '2025-06-02 19:04:57', '2025-06-02 19:04:57'),
-	(66, 1, 'BUTACO RATTAN ECONOMICO', NULL, '0023', '0023', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'BUTACO RATTAN ECONOMICO', NULL, NULL, NULL, 1, 1, NULL, 7000.000000, 11500.000000, 5, 13685.000000, 1, NULL, 1, 0, 0, '2025-06-02 19:25:20', '2025-06-02 19:25:20'),
-	(68, 1, 'BUTACO CERRABLE', NULL, '0049', '0049', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'BUTACO', NULL, NULL, NULL, 1, 1, NULL, 19000.000000, 24000.000000, 5, 28560.000000, 1, NULL, 1, 0, 0, '2025-06-02 19:32:23', '2025-06-02 19:32:23'),
-	(69, 1, 'PANEL CUADRADO 9W', NULL, '3446', '3446', NULL, NULL, 73, NULL, 170, 0, NULL, 0, NULL, 'PANEL CUADRADO 9W', NULL, NULL, NULL, 1, 1, NULL, 40000.000000, 47000.000000, 5, 55930.000000, 4, NULL, 1, 0, 0, '2025-06-02 20:50:42', '2025-06-02 20:50:42'),
-	(70, 1, 'fusible de olla grande', NULL, '2673', '2673', NULL, NULL, 76, NULL, 170, 0, NULL, 0, NULL, 'fusible de olla grande', NULL, NULL, NULL, 1, 1, NULL, 1000.000000, 2000.000000, 5, 2380.000000, 4, NULL, 1, 0, 0, '2025-06-02 20:55:36', '2025-06-02 20:55:36'),
-	(71, 1, 'Celular Android', 'celular-android', '10452655', '10235666', '0123', 'GN', 64, NULL, 170, 0, NULL, 0, NULL, 'MIS TECNOLOGIAS', NULL, NULL, NULL, 1, 1, NULL, 10000.000000, 12000.000000, 5, 14280.000000, 1, NULL, 1, 0, 0, '2025-06-21 05:10:14', '2025-06-21 05:10:14'),
-	(72, 2, 'Impresiones a color', 'impresiones-a-color', NULL, '02365', '1002', 'GN', 73, NULL, 170, 0, NULL, 0, NULL, 'Esto es una prueba de&nbsp; los servicios', NULL, NULL, NULL, 1, 1, NULL, 800.000000, 1000.000000, 1, 1000.000000, 1, NULL, 1, 0, 0, '2025-06-23 18:42:20', '2025-06-23 18:42:20'),
-	(73, 1, 'Computador de  ESCRITORIO', 'computador-de-escritorio', '7785555', '01233', '1035555', 'GE', 64, NULL, 170, 0, NULL, 0, NULL, 'COMPUTADOR', NULL, 'computador', NULL, 1, 1, 1, 1000000.000000, 120000.000000, 5, 142800.000000, 1, NULL, 1, 0, 0, '2025-08-02 00:37:39', '2025-08-02 00:37:39'),
-	(74, 4, 'Carne de res', 'carne-de-res', NULL, '12365222', NULL, 'Carnes', 64, NULL, 170, 0, NULL, 0, NULL, 'CARNES DE RES', NULL, NULL, NULL, 1, 8, 12, 8000.000000, 10000.000000, 1, 10000.000000, 1, NULL, 1, 0, 0, '2025-08-12 06:30:31', '2025-08-12 06:30:31'),
-	(75, 2, 'CLASES VACHILLERATO', 'clases-vachillerato', NULL, '1478555', NULL, 'GN', 64, NULL, 170, 0, NULL, 0, NULL, 'SERVICIOS DE CLASES&nbsp;', NULL, NULL, NULL, 1, 1, 9, 10000.000000, 10000.000000, 1, 10000.000000, 1, NULL, 1, 0, 0, '2025-08-14 20:09:25', '2025-08-14 20:09:25');
+INSERT INTO `items` (`id`, `item_type_id`, `product_name`, `slug`, `barcode`, `internal_code`, `sku`, `reference`, `category_id`, `sub_category_id`, `currency_id`, `expiration`, `expiration_date`, `lots_enabled`, `lot_code`, `description`, `short_description`, `aditional_information`, `shipping_returns`, `brand_id`, `measure_id`, `invoice_group_id`, `cost_price`, `selling_price`, `percentage_profit`, `tax_id`, `price_total`, `created_by`, `updated_by`, `company_id`, `status`, `is_delete`, `created_at`, `updated_at`) VALUES
+	(21, 1, 'ZAPATOS DE DAMA', NULL, '0001', '0001', NULL, NULL, 53, NULL, 170, 0, NULL, 0, NULL, 'TALLA XL', NULL, NULL, NULL, 1, 1, NULL, 28000.000000, 46000.000000, NULL, 5, 54740.000000, 4, 1, 1, 0, 0, '2025-05-29 21:15:58', '2025-11-16 06:27:52'),
+	(22, 1, '0002', NULL, '0002', '0002', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'Silla Frescura', NULL, NULL, NULL, 1, 1, NULL, 35000.000000, 42500.000000, NULL, 5, 50575.000000, 4, NULL, 1, 0, 0, '2025-05-29 21:19:39', '2025-05-29 21:19:39'),
+	(23, 1, 'LICUADORA ALTEZA PRAKTI MIX', NULL, '0003', '0003', NULL, 'gn', 26, NULL, 170, 0, NULL, 0, NULL, 'negra', NULL, NULL, NULL, 16, 1, NULL, 58000.000000, 98000.000000, NULL, 5, 116620.000000, 4, NULL, 1, 0, 0, '2025-05-29 21:21:40', '2025-05-29 21:21:40'),
+	(24, 1, 'VENTILADOR ALTEZA 2 EN 1 PEDESTAL MALLA METALICA', NULL, '0004', '0004', NULL, NULL, 3, NULL, 170, 0, NULL, 0, NULL, 'MALLA METALICA', NULL, NULL, NULL, 15, 1, NULL, 182104.000000, 240000.000000, NULL, 5, 285600.000000, 4, NULL, 1, 0, 0, '2025-05-29 21:53:10', '2025-05-29 21:53:10'),
+	(25, 1, 'estencion 3 metros', NULL, '7450077032009', '7450077032009', NULL, 'GN', 64, NULL, 170, 0, NULL, 0, NULL, 'EXTENSION', NULL, NULL, NULL, 1, 1, NULL, 6200.000000, 9499.000000, NULL, 5, 11303.810000, 4, NULL, 1, 0, 0, '2025-05-29 21:57:00', '2025-05-29 21:57:00'),
+	(26, 1, 'SILLA VANIPLAS SIN BRAZO', NULL, '0005', '0005', NULL, 'gn', 8, NULL, 170, 0, NULL, 0, NULL, 'SIN BRAZO', NULL, NULL, NULL, 1, 1, NULL, 32000.000000, 38000.000000, NULL, 5, 45220.000000, 4, NULL, 1, 0, 0, '2025-05-29 21:59:22', '2025-05-29 21:59:22'),
+	(27, 1, 'Silla Colplas SIN BRAZO', NULL, '0006', '0006', NULL, 'gn', 8, NULL, 170, 0, NULL, 0, NULL, 'Sin Brazo', NULL, NULL, NULL, 6, 1, NULL, 26145.000000, 38000.000000, NULL, 5, 45220.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:02:47', '2025-05-29 22:02:47'),
+	(28, 1, 'SILLA RIMAX SAMBA SIN BRAZO', NULL, '0007', '0007', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'SIN BRAZO', NULL, NULL, NULL, 1, 1, NULL, 367637.000000, 48000.000000, NULL, 5, 48000.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:04:54', '2025-05-29 22:04:54'),
+	(29, 1, 'SILLA RIMAX PLAYERA', NULL, '0008', '0008', NULL, 'gn', 8, NULL, 170, 0, NULL, 0, NULL, 'Silla playera', NULL, NULL, NULL, 4, 1, NULL, 55000.000000, 64000.000000, NULL, 5, 76160.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:07:02', '2025-05-29 22:07:02'),
+	(30, 1, 'SILLA COLPLAS HALLURE', NULL, '0009', '0009', NULL, NULL, 8, NULL, 170, 0, NULL, 0, NULL, 'Hallure', NULL, NULL, NULL, 1, 1, NULL, 38864.000000, 49000.000000, NULL, 5, 58310.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:08:40', '2025-05-29 22:08:40'),
+	(31, 1, 'SILLA COLPLAS OCEANIA', NULL, '0010', '0010', NULL, NULL, 8, NULL, 170, 0, NULL, 0, NULL, 'Oceania', NULL, NULL, NULL, 1, 1, NULL, 27500.000000, 32500.000000, NULL, 5, 38675.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:11:14', '2025-05-29 22:11:14'),
+	(32, 1, 'SILLA VANIPPLAS  FRESCURA', NULL, '0011', '0011', NULL, NULL, 8, NULL, 170, 0, NULL, 0, NULL, 'Frescura', NULL, NULL, NULL, 1, 1, NULL, 38000.000000, 44000.000000, NULL, 5, 52360.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:12:29', '2025-05-29 22:12:29'),
+	(33, 1, 'SILLA RIMAX ECOLOGICA CON BRAZO', NULL, '0012', '0012', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'ECOLOGICA', NULL, NULL, NULL, 1, 1, NULL, 38000.000000, 39000.000000, NULL, 5, 46410.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:16:28', '2025-05-29 22:16:28'),
+	(34, 1, 'SILLA RIMAX ORIGINAL CON BRAZO', NULL, '0013', '0013', NULL, NULL, 8, NULL, 170, 0, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 29000.000000, 34000.000000, NULL, 5, 40460.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:18:07', '2025-05-29 22:18:07'),
+	(35, 1, 'SILLA RIMO BANBU', NULL, '0014', '0014', NULL, NULL, 8, NULL, 170, 0, NULL, 0, NULL, 'BANBU', NULL, NULL, NULL, 1, 1, NULL, 29000.000000, 34000.000000, NULL, 5, 40460.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:26:23', '2025-05-29 22:26:23'),
+	(36, 1, 'SILLA EUSSE', NULL, '0015', '0015', NULL, NULL, 8, NULL, 170, 0, NULL, 0, NULL, 'CON BRAZO', NULL, NULL, NULL, 7, 1, NULL, 20000.000000, 26000.000000, NULL, 5, 30940.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:27:39', '2025-05-29 22:27:39'),
+	(37, 1, 'SILLA RIMAX ETERNA', NULL, '0016', '0016', NULL, 'gn', 8, NULL, 170, 0, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 40000.000000, 47000.000000, NULL, 5, 55930.000000, 4, NULL, 1, 0, 0, '2025-05-29 22:29:57', '2025-05-29 22:29:57'),
+	(39, 1, 'SILLA SUPER NIÑO PLASTIZ', NULL, '3308', '3308', NULL, 'GE', 8, NULL, 170, 0, NULL, 0, NULL, 'SILLA SUPER NIÑO PLASTIZ', NULL, NULL, NULL, 1, 1, NULL, 10500.000000, 14000.000000, NULL, 5, 16660.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:22:02', '2025-06-02 18:22:02'),
+	(41, 1, 'BUTACO PLASTIZ', NULL, '3318', '3318', NULL, 'GE', 8, NULL, 170, 0, NULL, 0, NULL, 'BUTACO PLASTIZ', NULL, NULL, NULL, 1, 1, NULL, 15100.000000, 21000.000000, NULL, 5, 24990.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:26:06', '2025-06-02 18:26:06'),
+	(43, 1, 'BUTACO PEQUEÑO RIMAX', NULL, '3780', '3780', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'BUTACO PEQUEÑO RIMAX', NULL, NULL, NULL, 7, 1, NULL, 18500.000000, 23500.000000, NULL, 5, 27965.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:27:47', '2025-06-02 18:27:47'),
+	(44, 1, 'SILLA RIMO BRISA', NULL, '0019', '0019', 'BRISA', 'GE', 8, NULL, 170, 0, NULL, 0, NULL, 'BRISA', NULL, NULL, NULL, 1, 1, NULL, 31000.000000, 37500.000000, NULL, 5, 44625.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:31:01', '2025-06-02 18:31:01'),
+	(46, 1, 'BUTACO RIMAX RATTAN', NULL, '0021', '0021', NULL, 'GE', 8, NULL, 170, 0, NULL, 0, NULL, 'BUTACO RIMAX RATTAN', NULL, NULL, NULL, 7, 1, NULL, 20000.000000, 25000.000000, NULL, 5, 29750.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:33:15', '2025-06-02 18:33:15'),
+	(48, 1, 'MESA RIMAX NIÑO', NULL, '0051', '0051', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'SILLAS', NULL, NULL, NULL, 1, 1, NULL, 58933.000000, 72000.000000, NULL, 5, 85680.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:35:01', '2025-06-02 18:35:01'),
+	(50, 1, 'MESA RIMAX GRANDE 4 PUESTOS', NULL, '0054', '0054', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'ORIGINAL', NULL, NULL, NULL, 1, 1, NULL, 73699.000000, 88000.000000, NULL, 5, 104720.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:37:18', '2025-06-02 18:37:18'),
+	(52, 1, 'MESA MULTIUSO 3 NIVELES RIMAX', NULL, '0766', '0766', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'MULTIUSOS', NULL, NULL, NULL, 1, 2, NULL, 31500.000000, 42000.000000, NULL, 5, 49980.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:39:12', '2025-06-02 18:39:12'),
+	(54, 1, 'MESA PORTATIL RIMAX', NULL, '0768', '0768', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'SILLAS', NULL, NULL, NULL, 1, 1, NULL, 33000.000000, 45000.000000, NULL, 5, 53550.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:41:14', '2025-06-02 18:41:14'),
+	(56, 1, 'MESA ETERNA WENGUE RIMAX', NULL, '3442', '3442', NULL, 'GE', 8, NULL, 170, 0, NULL, 0, NULL, 'MESA ETERNA WENGUE RIMAX', NULL, NULL, NULL, 1, 1, NULL, 99798.000000, 125000.000000, NULL, 5, 148750.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:43:31', '2025-06-02 18:43:31'),
+	(58, 1, 'MESA RIMO 4 PUESTOS', NULL, '0055', '0055', NULL, 'gn', 8, NULL, 170, 0, NULL, 0, NULL, 'MESA RIMO 4 PUESTOS', NULL, NULL, NULL, 7, 1, NULL, 60000.000000, 78000.000000, NULL, 5, 92820.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:51:49', '2025-06-02 18:51:49'),
+	(60, 1, 'BUTACO COLPLAS', NULL, '0020', '0020', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'BUTACO COLPLAS', NULL, NULL, NULL, 1, 1, NULL, 11400.000000, 15500.000000, NULL, 5, 18445.000000, 1, NULL, 1, 0, 0, '2025-06-02 18:56:48', '2025-06-02 18:56:48'),
+	(62, 1, 'SILLA PLAYERA VANIPLAS', NULL, '3400', '3400', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'SILLA PLAYERA VANIPLAS', NULL, NULL, NULL, 1, 1, NULL, 48000.000000, 47500.000000, NULL, 5, 56525.000000, 1, NULL, 1, 0, 0, '2025-06-02 19:04:57', '2025-06-02 19:04:57'),
+	(66, 1, 'BUTACO RATTAN ECONOMICO', NULL, '0023', '0023', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'BUTACO RATTAN ECONOMICO', NULL, NULL, NULL, 1, 1, NULL, 7000.000000, 11500.000000, NULL, 5, 13685.000000, 1, NULL, 1, 0, 0, '2025-06-02 19:25:20', '2025-06-02 19:25:20'),
+	(68, 1, 'BUTACO CERRABLE', NULL, '0049', '0049', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'BUTACO', NULL, NULL, NULL, 1, 1, NULL, 19000.000000, 24000.000000, NULL, 5, 28560.000000, 1, NULL, 1, 0, 0, '2025-06-02 19:32:23', '2025-06-02 19:32:23'),
+	(69, 1, 'PANEL CUADRADO 9W', NULL, '3446', '3446', NULL, NULL, 73, NULL, 170, 0, NULL, 0, NULL, 'PANEL CUADRADO 9W', NULL, NULL, NULL, 1, 1, NULL, 40000.000000, 47000.000000, NULL, 5, 55930.000000, 4, NULL, 1, 0, 0, '2025-06-02 20:50:42', '2025-06-02 20:50:42'),
+	(70, 1, 'fusible de olla grande', NULL, '2673', '2673', NULL, NULL, 76, NULL, 170, 0, NULL, 0, NULL, 'fusible de olla grande', NULL, NULL, NULL, 1, 1, NULL, 1000.000000, 2000.000000, NULL, 5, 2380.000000, 4, NULL, 1, 0, 0, '2025-06-02 20:55:36', '2025-06-02 20:55:36'),
+	(71, 1, 'Celular Android', 'celular-android', '10452655', '10235666', '0123', 'GN', 64, NULL, 170, 0, NULL, 0, NULL, 'MIS TECNOLOGIAS', NULL, NULL, NULL, 1, 1, NULL, 10000.000000, 12000.000000, NULL, 5, 14280.000000, 1, NULL, 1, 0, 0, '2025-06-21 05:10:14', '2025-06-21 05:10:14'),
+	(72, 2, 'Impresiones a color', 'impresiones-a-color', NULL, '02365', '1002', 'GN', 73, NULL, 170, 0, NULL, 0, NULL, 'Esto es una prueba de&nbsp; los servicios', NULL, NULL, NULL, 1, 1, NULL, 800.000000, 1000.000000, NULL, 1, 1000.000000, 1, NULL, 1, 0, 0, '2025-06-23 18:42:20', '2025-06-23 18:42:20'),
+	(73, 1, 'Computador de  ESCRITORIO', 'computador-de-escritorio', '7785555', '01233', '1035555', 'GE', 64, NULL, 170, 0, NULL, 0, NULL, 'COMPUTADOR', NULL, 'computador', NULL, 1, 1, 1, 1000000.000000, 120000.000000, NULL, 5, 142800.000000, 1, NULL, 1, 0, 0, '2025-08-02 00:37:39', '2025-08-02 00:37:39'),
+	(74, 4, 'Carne de res', 'carne-de-res', NULL, '12365222', NULL, 'Carnes', 64, NULL, 170, 0, NULL, 0, NULL, 'CARNES DE RES', NULL, NULL, NULL, 1, 8, 12, 8000.000000, 10000.000000, NULL, 1, 10000.000000, 1, NULL, 1, 0, 0, '2025-08-12 06:30:31', '2025-08-12 06:30:31'),
+	(75, 2, 'CLASES VACHILLERATO', 'clases-vachillerato', NULL, '1478555', NULL, 'GN', 64, NULL, 170, 0, NULL, 0, NULL, 'SERVICIOS DE CLASES&nbsp;', NULL, NULL, NULL, 1, 1, 9, 10000.000000, 10000.000000, NULL, 1, 10000.000000, 1, NULL, 1, 0, 0, '2025-08-14 20:09:25', '2025-08-14 20:09:25');
 
 -- Volcando estructura para tabla point_pos.items_color
 CREATE TABLE IF NOT EXISTS `items_color` (
@@ -2147,9 +2152,9 @@ CREATE TABLE IF NOT EXISTS `item_movements` (
   KEY `idx_item_movements_company` (`company_id`,`is_delete`),
   KEY `idx_item_movements_date` (`movement_date`,`is_delete`),
   KEY `idx_item_movements_user` (`created_by`,`is_delete`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla point_pos.item_movements: ~8 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.item_movements: ~53 rows (aproximadamente)
 INSERT INTO `item_movements` (`id`, `item_id`, `warehouse_id`, `movement_type_id`, `movement_date`, `quantity`, `previous_stock`, `new_stock`, `reason`, `reference_id`, `reference_type`, `created_by`, `company_id`, `is_delete`, `created_at`, `updated_at`) VALUES
 	(1, 21, 1, 6, '2025-10-19', 1, 47, 46, 'Venta #FV-000007', 7, 'Salida', 1, 1, 0, '2025-10-20 03:32:48', '2025-10-20 03:32:48'),
 	(2, 22, 1, 6, '2025-10-19', 1, 52, 51, 'Venta #FV-000008', 8, 'Salida', 1, 1, 0, '2025-10-20 03:37:16', '2025-10-20 03:37:16'),
@@ -2158,7 +2163,56 @@ INSERT INTO `item_movements` (`id`, `item_id`, `warehouse_id`, `movement_type_id
 	(5, 22, 1, 6, '2025-10-23', 1, 50, 49, 'Venta POS #SETP990000003', 13, 'Salida', 1, 1, 0, '2025-10-23 06:08:57', '2025-10-23 06:08:57'),
 	(6, 24, 1, 6, '2025-10-23', 1, 6, 5, 'Venta POS #SETP990000004', 14, 'Salida', 1, 1, 0, '2025-10-23 06:17:30', '2025-10-23 06:17:30'),
 	(7, 23, 1, 6, '2025-10-23', 1, 13, 12, 'Venta #SETP990000006', 15, 'Salida', 1, 1, 0, '2025-10-23 06:34:22', '2025-10-23 06:34:22'),
-	(8, 23, 1, 6, '2025-10-23', 1, 12, 11, 'Venta POS #SETP990000007', 16, 'Salida', 1, 1, 0, '2025-10-23 06:35:39', '2025-10-23 06:35:39');
+	(8, 23, 1, 6, '2025-10-23', 1, 12, 11, 'Venta POS #SETP990000007', 16, 'Salida', 1, 1, 0, '2025-10-23 06:35:39', '2025-10-23 06:35:39'),
+	(9, 23, 1, 6, '2025-10-26', 1, 11, 10, 'Venta #SETP990000009', 17, 'Salida', 1, 1, 0, '2025-10-27 04:33:34', '2025-10-27 04:33:34'),
+	(10, 24, 1, 6, '2025-10-26', 1, 5, 4, 'Venta #SETP990000011', 18, 'Salida', 1, 1, 0, '2025-10-27 04:34:39', '2025-10-27 04:34:39'),
+	(11, 24, 1, 6, '2025-10-26', 1, 4, 3, 'Venta #SETP990000012', 19, 'Salida', 1, 1, 0, '2025-10-27 04:46:06', '2025-10-27 04:46:06'),
+	(12, 22, 1, 6, '2025-11-10', 1, 49, 48, 'Venta POS #SETP990000013', 20, 'Salida', 1, 1, 0, '2025-11-11 03:58:25', '2025-11-11 03:58:25'),
+	(13, 23, 1, 6, '2025-11-10', 1, 10, 9, 'Venta POS #SETP990000013', 20, 'Salida', 1, 1, 0, '2025-11-11 03:58:25', '2025-11-11 03:58:25'),
+	(14, 26, 1, 6, '2025-11-10', 1, 34, 33, 'Venta POS #SETP990000014', 21, 'Salida', 1, 1, 0, '2025-11-11 04:06:33', '2025-11-11 04:06:33'),
+	(15, 27, 1, 6, '2025-11-10', 1, 35, 34, 'Venta POS #SETP990000015', 22, 'Salida', 1, 1, 0, '2025-11-11 04:17:01', '2025-11-11 04:17:01'),
+	(16, 28, 1, 6, '2025-11-10', 1, 34, 33, 'Venta POS #SETP990000015', 22, 'Salida', 1, 1, 0, '2025-11-11 04:17:01', '2025-11-11 04:17:01'),
+	(17, 60, 1, 6, '2025-11-10', 1, 21, 20, 'Venta POS #SETP990000015', 22, 'Salida', 1, 1, 0, '2025-11-11 04:17:01', '2025-11-11 04:17:01'),
+	(18, 62, 1, 6, '2025-11-10', 1, 8, 7, 'Venta POS #SETP990000015', 22, 'Salida', 1, 1, 0, '2025-11-11 04:17:01', '2025-11-11 04:17:01'),
+	(19, 32, 1, 6, '2025-11-10', 1, 10, 9, 'Venta POS #SETP990000016', 23, 'Salida', 1, 1, 0, '2025-11-11 04:23:14', '2025-11-11 04:23:14'),
+	(20, 36, 1, 6, '2025-11-10', 1, 11, 10, 'Venta POS #SETP990000016', 23, 'Salida', 1, 1, 0, '2025-11-11 04:23:14', '2025-11-11 04:23:14'),
+	(21, 35, 1, 6, '2025-11-10', 1, 25, 24, 'Venta POS #SETP990000016', 23, 'Salida', 1, 1, 0, '2025-11-11 04:23:14', '2025-11-11 04:23:14'),
+	(22, 50, 1, 6, '2025-11-10', 1, 15, 14, 'Venta POS #SETP990000016', 23, 'Salida', 1, 1, 0, '2025-11-11 04:23:14', '2025-11-11 04:23:14'),
+	(23, 60, 1, 6, '2025-11-10', 1, 20, 19, 'Venta POS #SETP990000016', 23, 'Salida', 1, 1, 0, '2025-11-11 04:23:14', '2025-11-11 04:23:14'),
+	(24, 28, 1, 6, '2025-11-10', 1, 33, 32, 'Venta POS #SETP990000017', 24, 'Salida', 1, 1, 0, '2025-11-11 04:31:00', '2025-11-11 04:31:00'),
+	(25, 27, 1, 6, '2025-11-10', 1, 34, 33, 'Venta POS #SETP990000017', 24, 'Salida', 1, 1, 0, '2025-11-11 04:31:00', '2025-11-11 04:31:00'),
+	(26, 29, 1, 6, '2025-11-10', 1, 2, 1, 'Venta POS #SETP990000017', 24, 'Salida', 1, 1, 0, '2025-11-11 04:31:00', '2025-11-11 04:31:00'),
+	(27, 30, 1, 6, '2025-11-10', 1, 39, 38, 'Venta POS #SETP990000017', 24, 'Salida', 1, 1, 0, '2025-11-11 04:31:00', '2025-11-11 04:31:00'),
+	(28, 32, 1, 6, '2025-11-10', 1, 9, 8, 'Venta POS #SETP990000017', 24, 'Salida', 1, 1, 0, '2025-11-11 04:31:00', '2025-11-11 04:31:00'),
+	(29, 36, 1, 6, '2025-11-10', 1, 10, 9, 'Venta POS #SETP990000017', 24, 'Salida', 1, 1, 0, '2025-11-11 04:31:00', '2025-11-11 04:31:00'),
+	(30, 35, 1, 6, '2025-11-10', 1, 24, 23, 'Venta POS #SETP990000017', 24, 'Salida', 1, 1, 0, '2025-11-11 04:31:00', '2025-11-11 04:31:00'),
+	(31, 48, 1, 6, '2025-11-10', 1, 2, 1, 'Venta POS #SETP990000017', 24, 'Salida', 1, 1, 0, '2025-11-11 04:31:00', '2025-11-11 04:31:00'),
+	(32, 26, 1, 6, '2025-11-10', 2, 33, 31, 'Venta POS #SETP990000018', 25, 'Salida', 1, 1, 0, '2025-11-11 04:34:07', '2025-11-11 04:34:07'),
+	(33, 24, 1, 6, '2025-11-10', 1, 3, 2, 'Venta POS #SETP990000018', 25, 'Salida', 1, 1, 0, '2025-11-11 04:34:07', '2025-11-11 04:34:07'),
+	(34, 23, 1, 6, '2025-11-10', 1, 9, 8, 'Venta POS #SETP990000018', 25, 'Salida', 1, 1, 0, '2025-11-11 04:34:07', '2025-11-11 04:34:07'),
+	(35, 33, 1, 6, '2025-11-10', 1, 2, 1, 'Venta POS #SETP990000018', 25, 'Salida', 1, 1, 0, '2025-11-11 04:34:07', '2025-11-11 04:34:07'),
+	(36, 34, 1, 6, '2025-11-10', 1, 36, 35, 'Venta POS #SETP990000018', 25, 'Salida', 1, 1, 0, '2025-11-11 04:34:07', '2025-11-11 04:34:07'),
+	(37, 39, 1, 6, '2025-11-10', 1, 2, 1, 'Venta POS #SETP990000018', 25, 'Salida', 1, 1, 0, '2025-11-11 04:34:07', '2025-11-11 04:34:07'),
+	(38, 37, 1, 6, '2025-11-10', 1, 20, 19, 'Venta POS #SETP990000018', 25, 'Salida', 1, 1, 0, '2025-11-11 04:34:07', '2025-11-11 04:34:07'),
+	(39, 69, 1, 6, '2025-11-12', 2, 16, 14, 'Venta #SETP990000019', 26, 'Salida', 1, 1, 0, '2025-11-13 04:38:13', '2025-11-13 04:38:13'),
+	(40, 66, 1, 6, '2025-11-12', 1, 7, 6, 'Venta #SETP990000019', 26, 'Salida', 1, 1, 0, '2025-11-13 04:38:13', '2025-11-13 04:38:13'),
+	(41, 62, 1, 6, '2025-11-12', 1, 7, 6, 'Venta #SETP990000019', 26, 'Salida', 1, 1, 0, '2025-11-13 04:38:13', '2025-11-13 04:38:13'),
+	(42, 39, 1, 6, '2025-11-12', 1, 1, 0, 'Venta #SETP990000019', 26, 'Salida', 1, 1, 0, '2025-11-13 04:38:13', '2025-11-13 04:38:13'),
+	(43, 37, 1, 6, '2025-11-12', 1, 19, 18, 'Venta #SETP990000019', 26, 'Salida', 1, 1, 0, '2025-11-13 04:38:13', '2025-11-13 04:38:13'),
+	(44, 36, 1, 6, '2025-11-12', 1, 9, 8, 'Venta #SETP990000019', 26, 'Salida', 1, 1, 0, '2025-11-13 04:38:13', '2025-11-13 04:38:13'),
+	(45, 35, 1, 6, '2025-11-12', 1, 23, 22, 'Venta #SETP990000019', 26, 'Salida', 1, 1, 0, '2025-11-13 04:38:13', '2025-11-13 04:38:13'),
+	(46, 33, 1, 6, '2025-11-12', 1, 1, 0, 'Venta #SETP990000019', 26, 'Salida', 1, 1, 0, '2025-11-13 04:38:13', '2025-11-13 04:38:13'),
+	(47, 32, 1, 6, '2025-11-12', 1, 8, 7, 'Venta #SETP990000019', 26, 'Salida', 1, 1, 0, '2025-11-13 04:38:13', '2025-11-13 04:38:13'),
+	(48, 69, 1, 2, NULL, 1, 14, 15, 'Compra de producto', 52, 'Entrada', 1, 1, 0, '2025-11-13 04:43:23', '2025-11-13 04:43:23'),
+	(49, 39, 1, 2, NULL, 1, 0, 1, 'Compra de producto', 52, 'Entrada', 1, 1, 0, '2025-11-13 04:43:23', '2025-11-13 04:43:23'),
+	(50, 32, 1, 2, NULL, 1, 7, 8, 'Compra de producto', 52, 'Entrada', 1, 1, 0, '2025-11-13 04:43:23', '2025-11-13 04:43:23'),
+	(51, 21, 1, 6, '2025-12-01', 1, 45, 44, 'Venta #SETP990000020', 27, 'Salida', 1, 1, 0, '2025-12-01 06:04:39', '2025-12-01 06:04:39'),
+	(52, 21, 1, 2, NULL, 2, 44, 46, 'Compra de producto', 53, 'Entrada', 1, 1, 0, '2025-12-01 06:09:37', '2025-12-01 06:09:37'),
+	(53, 22, 1, 6, '2025-12-09', 1, 48, 47, 'Venta POS #SETP990000021', 28, 'Salida', 1, 1, 0, '2025-12-09 05:11:07', '2025-12-09 05:11:07'),
+	(54, 23, 1, 2, NULL, 1, 8, 9, 'Compra de producto', 54, 'Entrada', 1, 1, 0, '2025-12-09 06:14:13', '2025-12-09 06:14:13'),
+	(55, 24, 1, 6, '2025-12-10', 1, 2, 1, 'Venta #SETP990000022', 29, 'Salida', 1, 1, 0, '2025-12-10 06:16:14', '2025-12-10 06:16:14'),
+	(56, 26, 1, 6, '2025-12-12', 1, 31, 30, 'Venta POS #SETP990000023', 30, 'Salida', 1, 1, 0, '2025-12-12 06:06:21', '2025-12-12 06:06:21'),
+	(57, 30, 1, 6, '2025-12-12', 1, 38, 37, 'Venta POS #SETP990000023', 30, 'Salida', 1, 1, 0, '2025-12-12 06:06:21', '2025-12-12 06:06:21');
 
 -- Volcando estructura para tabla point_pos.item_warehouse
 CREATE TABLE IF NOT EXISTS `item_warehouse` (
@@ -2184,40 +2238,40 @@ CREATE TABLE IF NOT EXISTS `item_warehouse` (
 
 -- Volcando datos para la tabla point_pos.item_warehouse: ~38 rows (aproximadamente)
 INSERT INTO `item_warehouse` (`id`, `item_id`, `warehouse_id`, `stock`, `min_quantity`, `max_quantity`, `reorder_level`, `created_by`, `company_id`, `is_delete`, `created_at`, `updated_at`) VALUES
-	(56, 21, 1, 45, 10, 100, 20, 4, 1, 0, '2025-05-29 21:15:58', '2025-10-23 05:41:55'),
-	(57, 22, 1, 49, 5, 100, 20, 4, 1, 0, '2025-05-29 21:19:39', '2025-10-23 06:08:57'),
-	(58, 23, 1, 11, 10, 100, 20, 4, 1, 0, '2025-05-29 21:21:40', '2025-10-23 06:35:39'),
-	(59, 24, 1, 5, 10, 100, 20, 4, 1, 0, '2025-05-29 21:53:10', '2025-10-23 06:17:30'),
+	(56, 21, 1, 46, 10, 100, 20, 4, 1, 0, '2025-05-29 21:15:58', '2025-12-01 06:09:37'),
+	(57, 22, 1, 47, 5, 100, 20, 4, 1, 0, '2025-05-29 21:19:39', '2025-12-09 05:11:07'),
+	(58, 23, 1, 9, 10, 100, 20, 4, 1, 0, '2025-05-29 21:21:40', '2025-12-09 06:14:13'),
+	(59, 24, 1, 1, 10, 100, 20, 4, 1, 0, '2025-05-29 21:53:10', '2025-12-10 06:16:14'),
 	(60, 25, 1, 11, 10, 100, 20, 4, 1, 0, '2025-05-29 21:57:00', '2025-07-31 00:46:44'),
-	(61, 26, 1, 34, 10, 100, 20, 4, 1, 0, '2025-05-29 21:59:22', '2025-06-06 23:06:58'),
-	(62, 27, 1, 35, 10, 100, 20, 4, 1, 0, '2025-05-29 22:02:47', '2025-06-06 23:06:58'),
-	(63, 28, 1, 34, NULL, 100, 20, 4, 1, 0, '2025-05-29 22:04:54', '2025-06-06 23:06:58'),
-	(64, 29, 1, 2, 10, 100, 20, 4, 1, 0, '2025-05-29 22:07:02', '2025-07-02 18:30:33'),
-	(65, 30, 1, 39, 10, 200, 20, 4, 1, 0, '2025-05-29 22:08:40', '2025-05-29 22:08:40'),
+	(61, 26, 1, 30, 10, 100, 20, 4, 1, 0, '2025-05-29 21:59:22', '2025-12-12 06:06:21'),
+	(62, 27, 1, 33, 10, 100, 20, 4, 1, 0, '2025-05-29 22:02:47', '2025-11-11 04:31:00'),
+	(63, 28, 1, 32, NULL, 100, 20, 4, 1, 0, '2025-05-29 22:04:54', '2025-11-11 04:31:00'),
+	(64, 29, 1, 1, 10, 100, 20, 4, 1, 0, '2025-05-29 22:07:02', '2025-11-11 04:31:00'),
+	(65, 30, 1, 37, 10, 200, 20, 4, 1, 0, '2025-05-29 22:08:40', '2025-12-12 06:06:21'),
 	(66, 31, 1, 33, 10, 100, 10, 4, 1, 0, '2025-05-29 22:11:15', '2025-06-06 23:06:58'),
-	(67, 32, 1, 10, 10, 100, 20, 4, 1, 0, '2025-05-29 22:12:30', '2025-06-06 23:06:58'),
-	(68, 33, 1, 2, 100, 200, 10, 4, 1, 0, '2025-05-29 22:16:28', '2025-05-29 22:16:28'),
-	(69, 34, 1, 36, 50, 200, 20, 4, 1, 0, '2025-05-29 22:18:07', '2025-05-29 22:18:07'),
-	(70, 35, 1, 25, 20, 200, 20, 4, 1, 0, '2025-05-29 22:26:23', '2025-05-29 22:26:23'),
-	(71, 36, 1, 11, 100, 200, 30, 4, 1, 0, '2025-05-29 22:27:39', '2025-07-05 02:15:55'),
-	(72, 37, 1, 20, NULL, NULL, NULL, 4, 1, 0, '2025-05-29 22:29:57', '2025-05-29 22:29:57'),
-	(74, 39, 1, 2, 2, 100, 5, 1, 1, 0, '2025-06-02 18:22:02', '2025-06-02 18:22:02'),
+	(67, 32, 1, 8, 10, 100, 20, 4, 1, 0, '2025-05-29 22:12:30', '2025-11-13 04:43:23'),
+	(68, 33, 1, 0, 100, 200, 10, 4, 1, 0, '2025-05-29 22:16:28', '2025-11-13 04:38:13'),
+	(69, 34, 1, 35, 50, 200, 20, 4, 1, 0, '2025-05-29 22:18:07', '2025-11-11 04:34:07'),
+	(70, 35, 1, 22, 20, 200, 20, 4, 1, 0, '2025-05-29 22:26:23', '2025-11-13 04:38:13'),
+	(71, 36, 1, 8, 100, 200, 30, 4, 1, 0, '2025-05-29 22:27:39', '2025-11-13 04:38:13'),
+	(72, 37, 1, 18, NULL, NULL, NULL, 4, 1, 0, '2025-05-29 22:29:57', '2025-11-13 04:38:13'),
+	(74, 39, 1, 1, 2, 100, 5, 1, 1, 0, '2025-06-02 18:22:02', '2025-11-13 04:43:23'),
 	(76, 41, 1, 7, 5, 100, 20, 1, NULL, 0, '2025-06-02 18:26:06', '2025-07-30 23:43:53'),
 	(78, 43, 1, 12, 10, 200, 20, 1, NULL, 0, '2025-06-02 18:27:47', '2025-07-30 23:43:53'),
 	(80, 45, 1, 4, 10, 100, 20, 1, NULL, 0, '2025-06-02 18:31:01', '2025-06-02 18:31:01'),
 	(81, 46, 1, 2, 10, 200, 30, 1, NULL, 0, '2025-06-02 18:33:15', '2025-06-02 18:33:15'),
-	(83, 48, 1, 2, 20, 100, 30, 1, NULL, 0, '2025-06-02 18:35:01', '2025-06-02 18:35:01'),
-	(85, 50, 1, 15, 20, 200, 25, 1, NULL, 0, '2025-06-02 18:37:18', '2025-06-02 18:37:18'),
+	(83, 48, 1, 1, 20, 100, 30, 1, NULL, 0, '2025-06-02 18:35:01', '2025-11-11 04:31:00'),
+	(85, 50, 1, 14, 20, 200, 25, 1, NULL, 0, '2025-06-02 18:37:18', '2025-11-11 04:23:14'),
 	(87, 52, 1, 8, 10, 100, 20, 1, NULL, 0, '2025-06-02 18:39:12', '2025-06-02 18:39:12'),
 	(89, 54, 1, 3, 10, 100, 20, 1, NULL, 0, '2025-06-02 18:41:14', '2025-06-02 18:41:14'),
 	(91, 56, 1, 3, 10, 100, 20, 1, NULL, 0, '2025-06-02 18:43:31', '2025-06-02 18:43:31'),
 	(93, 58, 1, 7, 10, 200, 20, 1, NULL, 0, '2025-06-02 18:51:49', '2025-06-02 18:51:49'),
-	(95, 60, 1, 21, 20, 200, 25, 1, NULL, 0, '2025-06-02 18:56:48', '2025-06-02 18:56:48'),
+	(95, 60, 1, 19, 20, 200, 25, 1, NULL, 0, '2025-06-02 18:56:48', '2025-11-11 04:23:14'),
 	(96, 61, 1, 21, 20, 200, 25, 1, NULL, 0, '2025-06-02 18:56:48', '2025-06-02 18:56:48'),
-	(97, 62, 1, 8, 20, 200, 30, 1, 1, 0, '2025-06-02 19:04:57', '2025-07-05 02:11:08'),
-	(101, 66, 1, 7, 30, 100, 20, 1, 1, 0, '2025-06-02 19:25:20', '2025-06-02 19:25:20'),
+	(97, 62, 1, 6, 20, 200, 30, 1, 1, 0, '2025-06-02 19:04:57', '2025-11-13 04:38:13'),
+	(101, 66, 1, 6, 30, 100, 20, 1, 1, 0, '2025-06-02 19:25:20', '2025-11-13 04:38:13'),
 	(103, 68, 1, 2, 10, 200, 30, 1, 1, 0, '2025-06-02 19:32:23', '2025-06-02 19:32:23'),
-	(104, 69, 1, 16, 10, 200, 20, 4, 1, 0, '2025-06-02 20:50:42', '2025-07-31 00:53:50'),
+	(104, 69, 1, 15, 10, 200, 20, 4, 1, 0, '2025-06-02 20:50:42', '2025-11-13 04:43:23'),
 	(105, 70, 1, 21, 10, 50, 25, 4, 1, 0, '2025-06-02 20:55:36', '2025-07-31 00:53:50'),
 	(106, 71, 1, 30, 10, 100, 25, 1, 1, 0, '2025-06-21 05:10:14', '2025-07-31 00:53:50'),
 	(107, 73, 1, 10, 5, 30, 5, 1, 1, 0, '2025-08-02 00:37:39', '2025-08-02 00:37:39'),
@@ -2711,7 +2765,7 @@ CREATE TABLE IF NOT EXISTS `persons` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `email` (`email`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='terceros';
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='terceros';
 
 -- Volcando datos para la tabla point_pos.persons: ~26 rows (aproximadamente)
 INSERT INTO `persons` (`id`, `type_third_id`, `identification_type_id`, `identification_number`, `dv`, `company_name`, `name_trade`, `first_name`, `second_name`, `last_name`, `second_last_name`, `type_person_id`, `type_regimen_id`, `type_liability_id`, `activity_economic`, `ciiu_code`, `country_id`, `department_id`, `city_id`, `address`, `phone`, `email`, `avatar_url`, `created_by`, `company_id`, `status`, `is_delete`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -2740,7 +2794,9 @@ INSERT INTO `persons` (`id`, `type_third_id`, `identification_type_id`, `identif
 	(34, 2, 3, '8909225861', NULL, 'TEXT COMERCIAL', NULL, NULL, NULL, NULL, NULL, 2, 2, 2, NULL, NULL, 46, 2, 3, 'KM 5 VIA GALAPAGO BARRANQUILLA', NULL, 'facturacion@TEXTCOMERCIAL.com.co', NULL, 1, 1, 0, 0, '2025-06-02 18:08:26', '2025-06-02 18:08:26', NULL),
 	(35, 2, 3, '9003341322', NULL, 'PLASDECPOR SAS', NULL, NULL, NULL, NULL, NULL, 2, 2, 2, NULL, NULL, 46, 1, 2, 'CL 37 # 1B MONTERIA', '7842812', 'info@plasdecor.com.co', NULL, 1, 1, 0, 0, '2025-06-02 18:10:52', '2025-06-02 18:10:52', NULL),
 	(36, 1, 1, '1052080150', '1', NULL, NULL, 'Anderson', NULL, 'Cohen Luna', NULL, 1, 2, 2, NULL, NULL, 46, 1, 1, 'EL CARMEN', '32014555551', 'annderson@gmail.com', NULL, 1, 1, 0, 0, '2025-06-02 18:14:51', '2025-07-09 07:15:25', NULL),
-	(37, 2, 3, '14782222478', '2', 'EMPRESA PROVEEDOR', 'PROVEEDOR DE PRUEBAS', 'PROVEEDOR DE PRUEBAS', NULL, 'PROVEEDOR DE PRUEBAS', NULL, 1, 2, 2, NULL, NULL, 46, 1, 2, 'EL CARMEN DE BOLIVAR', '3014778888', 'proveedor@gmail.com', NULL, 1, 1, 0, 0, '2025-09-18 00:16:35', '2025-09-18 00:16:35', NULL);
+	(37, 2, 3, '14782222478', '2', 'EMPRESA PROVEEDOR', 'PROVEEDOR DE PRUEBAS', 'PROVEEDOR DE PRUEBAS', NULL, 'PROVEEDOR DE PRUEBAS', NULL, 1, 2, 2, NULL, NULL, 46, 1, 2, 'EL CARMEN DE BOLIVAR', '3014778888', 'proveedor@gmail.com', NULL, 1, 1, 0, 0, '2025-09-18 00:16:35', '2025-09-18 00:16:35', NULL),
+	(38, 1, 1, '120578888', '1', NULL, NULL, 'Daniela', NULL, 'Martinez', NULL, 1, 1, 2, NULL, NULL, 46, 1, 1, 'EL CARMEN DE BOLIVAR', '3013230867', 'daniela@gmail.com', NULL, 1, NULL, 0, 0, '2025-11-11 04:19:45', '2025-11-11 04:19:45', NULL),
+	(39, 1, 1, '4575587444', '2', NULL, NULL, 'Melany', NULL, 'Arroyo', NULL, 1, 2, 2, NULL, NULL, 46, 1, 2, 'centro amurallado', '16656545494', 'melany@gmail.com', NULL, 1, NULL, 0, 0, '2025-11-11 04:27:12', '2025-11-11 04:27:12', NULL);
 
 -- Volcando estructura para tabla point_pos.product_color
 CREATE TABLE IF NOT EXISTS `product_color` (
@@ -2776,9 +2832,9 @@ CREATE TABLE IF NOT EXISTS `puc_accounts` (
   UNIQUE KEY `account_code` (`account_code`),
   KEY `idx_parent_code` (`parent_code`),
   KEY `idx_account_type` (`account_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla point_pos.puc_accounts: ~21 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.puc_accounts: ~45 rows (aproximadamente)
 INSERT INTO `puc_accounts` (`id`, `account_code`, `account_name`, `level`, `parent_code`, `account_type`, `nature`, `third_party_handling`, `cost_center_handling`, `accept_movement`, `company_id`, `created_by`, `status`, `created_at`, `updated_at`) VALUES
 	(1, '1', 'ACTIVO', 1, NULL, 'ASSETS', 'DEBIT', 0, 0, 0, 1, 1, 1, '2025-08-14 21:22:21', '2025-08-14 21:22:38'),
 	(2, '11', 'DISPONIBLE', 2, '1', 'ASSETS', 'DEBIT', 0, 0, 0, 1, 1, 1, '2025-08-15 02:41:40', '2025-08-14 21:44:50'),
@@ -2811,7 +2867,22 @@ INSERT INTO `puc_accounts` (`id`, `account_code`, `account_name`, `level`, `pare
 	(29, '135515', 'Retención en la fuente', 4, '1355', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-27 02:27:26', '2025-10-27 02:27:26'),
 	(30, '135517', 'Impuesto a las ventas retenido', 4, '1355', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-27 02:28:08', '2025-10-27 02:28:08'),
 	(31, '135518', 'Impuesto de industria y comercio retenido', 4, '1355', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-27 02:28:50', '2025-10-27 02:28:50'),
-	(32, '135595', 'Otros', 4, '1355', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-27 02:29:21', '2025-10-27 02:29:21');
+	(32, '135595', 'Otros', 4, '1355', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-27 02:29:21', '2025-10-27 02:29:21'),
+	(33, '1365', 'Cuentas por cobrar a trabajadores', 4, '13', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-27 02:40:01', '2025-10-27 02:40:01'),
+	(34, '136505', 'Vivienda', 4, '1355', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-27 02:44:53', '2025-10-27 02:44:53'),
+	(35, '136510', 'Vehiculos', 4, '1355', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-27 02:45:29', '2025-10-27 02:45:29'),
+	(36, '136515', 'Educacion', 4, '1355', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-27 02:46:21', '2025-10-27 02:46:21'),
+	(37, '136525', 'Calamidad domestica', 4, '1355', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-27 02:48:17', '2025-10-27 02:48:17'),
+	(38, '1380', 'Deudores Varios', 3, '13', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-27 02:50:19', '2025-10-27 02:50:19'),
+	(39, '138020', 'Cuentas por cobrar de terceros', 4, '1380', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-28 06:10:00', '2025-10-28 06:10:00'),
+	(40, '1390', 'Deudas de difícil cobro', 3, '13', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-28 06:10:44', '2025-10-28 06:10:44'),
+	(41, '139001', 'Deudas de difícil cobro', 1, '1390', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-28 06:11:41', '2025-10-28 06:11:41'),
+	(42, '1399', 'Provisiones', 3, '13', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-28 06:12:14', '2025-10-28 06:12:14'),
+	(43, '139910', 'Cuentas corrientes comerciales', 4, '1399', 'ASSETS', 'DEBIT', 1, 0, 1, 1, 1, 1, '2025-10-28 06:13:29', '2025-10-28 06:13:29'),
+	(44, '14', 'Inventarios', 2, '1', 'ASSETS', 'DEBIT', 0, 1, 1, 1, 1, 1, '2025-10-28 06:14:39', '2025-10-28 06:14:39'),
+	(45, '1405', 'Materias primas', 3, '14', 'ASSETS', 'DEBIT', 0, 1, 1, 1, 1, 1, '2025-10-28 06:16:11', '2025-10-28 06:16:11'),
+	(46, '140501', 'Materias primas', 4, '1405', 'ASSETS', 'DEBIT', 0, 1, 1, 1, 1, 1, '2025-10-28 06:16:39', '2025-10-28 06:16:39'),
+	(47, '1435', 'Mercancías no fabricadas por la empresa', 3, '14', 'ASSETS', 'DEBIT', 0, 1, 1, 1, 1, 1, '2025-10-28 06:17:56', '2025-10-28 06:17:56');
 
 -- Volcando estructura para tabla point_pos.purchases
 CREATE TABLE IF NOT EXISTS `purchases` (
@@ -2853,11 +2924,12 @@ CREATE TABLE IF NOT EXISTS `purchases` (
   KEY `currency_id` (`currency_id`),
   KEY `payment_method_type_id` (`payment_method_id`) USING BTREE,
   KEY `document_type_id` (`voucher_type_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='compras';
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='compras';
 
--- Volcando datos para la tabla point_pos.purchases: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.purchases: ~1 rows (aproximadamente)
 INSERT INTO `purchases` (`id`, `voucher_type_id`, `supplier_id`, `created_by`, `invoice_no`, `state_type_id`, `warehouse_id`, `payment_form_id`, `date_of_issue`, `date_of_due`, `time_of_issue`, `series`, `number`, `currency_id`, `payment_method_id`, `purchase_order_id`, `total_subtotal`, `total_tax`, `total_discount`, `total_purchase`, `total_prepayment`, `total_charge`, `total_taxed`, `total_unaffected`, `total_exonerated`, `cufe`, `payment_status_id`, `electronic_document_status`, `observations`, `company_id`, `is_delete`, `created_at`, `updated_at`) VALUES
-	(51, 1, 12, 1, 'fc01233', 1, 1, 2, '2025-06-11', '2025-06-25', '14:25:50', NULL, NULL, 170, 3, NULL, 28000.00, 5320.00, 0.00, 33320.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'factura de credito', 1, 0, '2025-06-11 19:25:50', '2025-06-11 19:25:50');
+	(53, 1, 11, 1, '5212233', 1, 1, 1, '2025-12-01', '2025-12-01', '01:09:37', 'FC', 145222, 170, 1, NULL, 56000.00, 10640.00, 0.00, 66640.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2025-12-01 06:09:37', '2025-12-01 06:09:37'),
+	(54, 3, 12, 1, '1452333', 1, 1, 1, '2025-12-09', '2025-12-09', '01:14:13', 'FC', 145227, 170, 1, NULL, 58000.00, 11020.00, 0.00, 69020.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2025-12-09 06:14:13', '2025-12-09 06:14:13');
 
 -- Volcando estructura para tabla point_pos.purchase_items
 CREATE TABLE IF NOT EXISTS `purchase_items` (
@@ -2871,11 +2943,12 @@ CREATE TABLE IF NOT EXISTS `purchase_items` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla point_pos.purchase_items: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.purchase_items: ~1 rows (aproximadamente)
 INSERT INTO `purchase_items` (`id`, `purchase_id`, `item_id`, `quantity`, `cost_price`, `discount_percent`, `created_by`, `created_at`, `updated_at`) VALUES
-	(31, 51, 21, 1, 28000.00, 0.00, NULL, '2025-06-11 19:25:50', '2025-06-11 19:25:50');
+	(35, 53, 21, 2, 28000.00, 0.00, NULL, '2025-12-01 06:09:37', '2025-12-01 06:09:37'),
+	(36, 54, 23, 1, 58000.00, 0.00, NULL, '2025-12-09 06:14:13', '2025-12-09 06:14:13');
 
 -- Volcando estructura para tabla point_pos.purchase_orders
 CREATE TABLE IF NOT EXISTS `purchase_orders` (
@@ -3034,9 +3107,16 @@ CREATE TABLE IF NOT EXISTS `receipt_types` (
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla point_pos.receipt_types: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.receipt_types: ~5 rows (aproximadamente)
+INSERT INTO `receipt_types` (`id`, `code`, `name`, `prefix`, `current_sequential`, `modify_third_parties`, `modify_inventories`, `status`, `company_id`, `created_by`, `created_at`, `updated_at`) VALUES
+	(1, 'FV', 'Factura Venta', 'FV', 1, 1, 1, 1, 1, 1, '2025-10-26 21:58:12', '2025-10-27 00:53:23'),
+	(2, 'FC', 'Factura de compra', 'FC', 2, 1, 1, 1, 1, 1, '2025-10-27 06:07:08', '2025-10-27 01:09:00'),
+	(3, 'NC', 'Nota Crédito', 'NC', 3, 1, 1, 1, 1, 1, '2025-10-27 06:10:44', '2025-10-27 06:10:44'),
+	(4, 'CZ', 'Cotizacion', 'COT', 4, 1, 0, 1, 1, 1, '2025-10-27 06:11:32', '2025-10-27 06:11:32'),
+	(5, 'RC', 'Recibo de caja', 'FC', 5, 1, 0, 1, 1, 1, '2025-10-27 06:16:08', '2025-10-27 06:16:08'),
+	(6, 'NCC', 'Nota Crédito Compra', 'NCC', 6, 1, 1, 1, 1, 1, '2025-10-27 06:26:31', '2025-10-27 06:26:31');
 
 -- Volcando estructura para tabla point_pos.resolutions
 CREATE TABLE IF NOT EXISTS `resolutions` (
@@ -3075,9 +3155,10 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   KEY `sessions_last_activity_index` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla point_pos.sessions: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.sessions: ~2 rows (aproximadamente)
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-	('tk7bO4IpRWpGvWyUtJ5faCcx9AsxVG5T5cl7EdMm', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMEFjdWhOYjJZa000c3o1cnNramhrYnNMdkdZcjJEeVU1UzBUUjludSI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo2ODoiaHR0cDovL2xvY2FsaG9zdC9wcm9qZWN0cy9wb3MtcG9pbnQvcHVibGljL2FkbWluL3B1Yy1hY2NvdW50cz9wYWdlPTIiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1761514168);
+	('9WvnUAMSZ8luIvSu4lvxksIyglaErTGBXwA00VHe', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoicE9DMThra0pEejljN0VDOTZWeWU3ZlFFUFpUR3RDSFN0eEIwMERHMSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTg6Imh0dHA6Ly9sb2NhbGhvc3QvcHJvamVjdHMvcG9zLXBvaW50L3B1YmxpYy9hZG1pbi9wZXJzb24vMTYiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1765501629),
+	('wWxZbv0ec3gSSFysKavmNLkWl2mr5PPPLJ4ATbaZ', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZXRJYzF1M2FMOGc3NUNtM2VHbHlpd3h1eG8yYjFwdlpBM2xiVmpuYiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTk6Imh0dHA6Ly9sb2NhbGhvc3QvcHJvamVjdHMvcG9zLXBvaW50L3B1YmxpYy9hZG1pbi9pdGVtcy9saXN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1765500250);
 
 -- Volcando estructura para tabla point_pos.state_types
 CREATE TABLE IF NOT EXISTS `state_types` (
@@ -3283,7 +3364,7 @@ CREATE TABLE IF NOT EXISTS `tmp_purchases` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='tabla temporal';
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='tabla temporal';
 
 -- Volcando datos para la tabla point_pos.tmp_purchases: ~3 rows (aproximadamente)
 INSERT INTO `tmp_purchases` (`id`, `quantity`, `cost_price`, `discount_percent`, `item_id`, `session_id`, `created_at`, `updated_at`) VALUES
@@ -3481,7 +3562,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Volcando datos para la tabla point_pos.users: ~4 rows (aproximadamente)
 INSERT INTO `users` (`id`, `name`, `last_name`, `email`, `email_verified_at`, `password`, `remember_token`, `is_role`, `is_delete`, `status`, `company_id`, `created_at`, `updated_at`) VALUES
-	(1, 'Jerson', 'Batista', 'ingjerson2014@gmail.com', '2024-12-02 21:37:20', '$2y$12$N6UMi3P79UUaPyC.LnALJOD3jiWZ8cAaRsrAnd6lQ74iGigPfGu7S', 'x6kTzeejv2Br06ePlezdn0LKwWg1NT14MtJ3LPhVuseywuOwrfYGtFevhTZx', 1, 0, 1, 1, '2024-12-02 21:37:26', '2024-12-02 21:37:27'),
+	(1, 'Jerson', 'Batista', 'ingjerson2014@gmail.com', '2024-12-02 21:37:20', '$2y$12$N6UMi3P79UUaPyC.LnALJOD3jiWZ8cAaRsrAnd6lQ74iGigPfGu7S', 'LmLQ8qUU4cloO3zqph1GyIMgmMasjLfk8ZKR8VOpIrX3PABOs8lOpISb98i5', 1, 0, 1, 1, '2024-12-02 21:37:26', '2024-12-02 21:37:27'),
 	(2, 'Daniel', 'Batista', 'daniel@gmail.com', '2024-12-03 01:06:24', '$2y$12$N6UMi3P79UUaPyC.LnALJOD3jiWZ8cAaRsrAnd6lQ74iGigPfGu7S', 'dokA4zTPnuyyTzD1F9YmTCfToaHJpRAfRcz8autBW40pbEDlR5JEbccHcbfs', 2, 0, 1, 1, '2024-12-03 01:06:35', '2024-12-03 01:06:36'),
 	(4, 'Alberto Eloy Conde Ferrer', NULL, 'almacenalcon1@gmail.com', '2025-05-29 19:59:50', '$2y$12$JNxOmxtk6oKR0deYcK1HL.NNXm7eX9uFlRmD.9qRf.9q0Wvrdws3O', 'a5vT6kJzv6JCe6DSmJ33hwKsKZbfw6T0XzRPVYt3PMEAaJ0PdqiE34aCQO4o', 1, 0, 1, 1, '2025-05-29 20:51:25', '2025-05-29 20:51:25'),
 	(5, 'Jerson', 'Batista', 'test2024@gmail.com', NULL, '$2y$12$ugQvLt3YU6eA8ci6jjF11ebNs7PmWuEALKhZx19k0D.H1SEgpA/su', NULL, 3, 0, 1, 1, '2025-08-11 23:50:08', '2025-08-11 23:50:08');

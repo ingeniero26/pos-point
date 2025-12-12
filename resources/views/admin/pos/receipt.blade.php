@@ -4,265 +4,476 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recibo de Venta #{{ $sale->invoice_no }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: 'Arial', sans-serif;
-            font-size: 12px;
-            line-height: 1.4;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 11px;
+            line-height: 1.5;
             margin: 0;
-            padding: 0;
-            background-color: #fff;
+            padding: 10px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
         }
-        .receipt {
-            width: 80mm;
+        
+        .receipt-container {
+            max-width: 320px;
             margin: 0 auto;
-            padding: 5mm;
-            background-color: #fff;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
         }
+        
+        .receipt-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .receipt {
+            padding: 20px;
+            background: #ffffff;
+        }
+        
         .header {
             text-align: center;
-            margin-bottom: 5mm;
-            border-bottom: 2px dashed #000;
-            padding-bottom: 5mm;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed #e2e8f0;
+            position: relative;
         }
+        
         .logo {
-            max-width: 60mm;
+            max-width: 80px;
             height: auto;
-            margin-bottom: 2mm;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        
         .company-name {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 1mm;
-            color: #000;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #1a202c;
+            letter-spacing: -0.5px;
         }
+        
         .company-details {
             font-size: 10px;
-            margin-bottom: 3mm;
-            color: #666;
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 0;
         }
+        
         .receipt-title {
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 600;
             text-align: center;
-            border-top: 2px dashed #000;
-            border-bottom: 2px dashed #000;
-            padding: 2mm 0;
-            margin: 3mm 0;
-            color: #000;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            margin: 15px -5px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
+        
+        .info-section {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 3px solid #667eea;
+        }
+        
         .info-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1mm;
-            font-size: 11px;
+            align-items: center;
+            margin-bottom: 6px;
+            font-size: 10px;
         }
+        
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+        
         .info-label {
-            font-weight: bold;
-            color: #666;
+            font-weight: 600;
+            color: #4a5568;
+            min-width: 80px;
         }
+        
+        .info-value {
+            color: #2d3748;
+            font-weight: 500;
+            text-align: right;
+            flex: 1;
+        }
+        
+        .items-section {
+            margin: 15px 0;
+        }
+        
         .items {
             width: 100%;
             border-collapse: collapse;
-            margin: 3mm 0;
-            font-size: 11px;
+            font-size: 10px;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
+        
+        .items thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
         .items th {
-            text-align: left;
-            border-bottom: 1px solid #000;
-            padding-bottom: 1mm;
-            font-weight: bold;
-            color: #000;
+            padding: 10px 8px;
+            font-weight: 600;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
+        
         .items td {
-            padding: 1mm 0;
-            border-bottom: 1px dotted #ccc;
+            padding: 8px;
+            border-bottom: 1px solid #e2e8f0;
         }
+        
+        .items tbody tr:hover {
+            background-color: #f8fafc;
+        }
+        
+        .items tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
         .item-name {
-            width: 40%;
+            width: 45%;
+            font-weight: 500;
+            color: #2d3748;
         }
+        
         .item-quantity {
             width: 15%;
             text-align: center;
+            font-weight: 600;
+            color: #667eea;
         }
-        .item-price {
+        
+        .item-price, .item-total {
             width: 20%;
             text-align: right;
+            font-weight: 500;
+            color: #2d3748;
         }
-        .item-total {
-            width: 25%;
-            text-align: right;
-        }
+        
         .item-tax {
-            font-size: 9px;
-            color: #666;
-            text-align: right;
+            font-size: 8px;
+            color: #718096;
+            font-style: italic;
+            padding: 4px 8px !important;
+            background: #f8fafc;
         }
+        
+        .no-items {
+            text-align: center;
+            padding: 20px;
+            color: #718096;
+            font-style: italic;
+        }
+        
         .totals {
-            margin-top: 3mm;
-            border-top: 2px dashed #000;
-            padding-top: 3mm;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px dashed #e2e8f0;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
         }
+        
         .total-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1mm;
+            align-items: center;
+            margin-bottom: 8px;
             font-size: 11px;
         }
+        
+        .total-row:last-child {
+            margin-bottom: 0;
+        }
+        
         .total-label {
-            font-weight: bold;
-            color: #666;
+            font-weight: 500;
+            color: #4a5568;
         }
+        
+        .total-value {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
         .grand-total {
-            font-weight: bold;
-            font-size: 14px;
-            color: #000;
-            border-top: 1px solid #000;
-            padding-top: 1mm;
-            margin-top: 1mm;
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a202c;
+            border-top: 2px solid #667eea;
+            padding-top: 10px;
+            margin-top: 10px;
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .footer {
-            text-align: center;
-            margin-top: 5mm;
-            border-top: 2px dashed #000;
-            padding-top: 3mm;
-            font-size: 10px;
-            color: #666;
-        }
+        
         .tax-summary {
-            margin-top: 2mm;
-            font-size: 10px;
-            color: #666;
+            margin: 10px 0;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
         }
+        
         .tax-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.5mm;
+            margin-bottom: 4px;
+            font-size: 10px;
+            color: #718096;
         }
+        
+        .tax-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px dashed #e2e8f0;
+            font-size: 9px;
+            color: #718096;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+        
+        .footer .thank-you {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 11px;
+        }
+        
+        .qr-section {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 6px;
+        }
+        
+        .timestamp {
+            font-size: 8px;
+            color: #a0aec0;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
         @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .receipt-container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 80mm;
+            }
+            
+            .receipt {
+                padding: 10px;
+            }
+            
             @page {
                 size: 80mm auto;
                 margin: 0;
             }
-            body {
-                width: 80mm;
+        }
+        
+        @media (max-width: 480px) {
+            .receipt-container {
+                margin: 10px;
+                max-width: calc(100% - 20px);
             }
         }
     </style>
 </head>
 <body>
-    <div class="receipt">
-        <div class="header">
-            @if($sale->company && $sale->company->logo)
-                <img src="{{ asset('storage/' . $sale->company->logo) }}" alt="Logo" class="logo">
-            @endif
-            <div class="company-name">{{ $sale->company->name ?? 'Empresa' }}</div>
-            <div class="company-details">
-                NIT: {{ $sale->company->identification_number ?? '' }}<br>
-                {{ $sale->company->address ?? '' }}<br>
-                Tel: {{ $sale->company->phone ?? '' }}
-            </div>
-        </div>
-
-        <div class="receipt-title">RECIBO DE VENTA #{{ $sale->invoice_no }}</div>
-
-        <div class="info-row">
-            <span class="info-label">Fecha:</span>
-            <span>{{ \Carbon\Carbon::parse($sale->date_of_issue)->format('d/m/Y H:i') }}</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Cliente:</span>
-            <span>{{ $sale->customers->name ?? 'Cliente General' }}</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Identificación:</span>
-            <span>{{ $sale->customers->identification_number ?? 'N/A' }}</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Vendedor:</span>
-            <span>{{ $sale->users->name ?? 'N/A' }}</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Método de Pago:</span>
-            <span>{{ $sale->payment_method->name ?? 'N/A' }}</span>
-        </div>
-
-        <table class="items">
-            <thead>
-                <tr>
-                    <th class="item-name">Producto</th>
-                    <th class="item-quantity">Cant.</th>
-                    <th class="item-price">Precio</th>
-                    <th class="item-total">Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $taxSummary = [];
-                @endphp
-                @if($sale->invoiceItems && count($sale->invoiceItems) > 0)
-                @foreach($sale->invoiceItems as $item)
-                @php
-                    $taxRate = $item->tax_rate ?? 0;
-                    if (!isset($taxSummary[$taxRate])) {
-                        $taxSummary[$taxRate] = 0;
-                    }
-                    $taxSummary[$taxRate] += $item->tax_amount;
-                @endphp
-                <tr>
-                    <td class="item-name">{{ $item->item->product_name ?? 'Producto' }}</td>
-                    <td class="item-quantity">{{ $item->quantity }}</td>
-                    <td class="item-price">${{ number_format($item->unit_price, 0, ',', '.') }}</td>
-                    <td class="item-total">${{ number_format($item->total, 0, ',', '.') }}</td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="item-tax">
-                        IVA {{ $taxRate }}%: ${{ number_format($item->tax_amount, 0, ',', '.') }}
-                    </td>
-                </tr>
-                @endforeach
-                @else
-                <tr>
-                    <td colspan="4" style="text-align: center; padding: 10px;">No hay productos en esta venta</td>
-                </tr>
+    <div class="receipt-container">
+        <div class="receipt">
+            <div class="header">
+                @if($sale->company && $sale->company->logo)
+                    <img src="{{ asset('storage/' . $sale->company->logo) }}" alt="Logo" class="logo">
                 @endif
-            </tbody>
-        </table>
-
-        <div class="totals">
-            <div class="total-row">
-                <span class="total-label">Subtotal:</span>
-                <span>${{ number_format($sale->total_subtotal, 0, ',', '.') }}</span>
-            </div>
-            
-            <div class="tax-summary">
-                @if($taxSummary && count($taxSummary) > 0)
-                @foreach($taxSummary as $rate => $amount)
-                <div class="tax-row">
-                    <span>IVA {{ $rate }}%:</span>
-                    <span>${{ number_format($amount, 0, ',', '.') }}</span>
+                <div class="company-name">{{ $sale->company->name ?? 'Empresa' }}</div>
+                <div class="company-details">
+                    @if($sale->company->identification_number)
+                        <strong>NIT:</strong> {{ $sale->company->identification_number }}<br>
+                    @endif
+                    @if($sale->company->address)
+                        <strong>Dirección:</strong> {{ $sale->company->address }}<br>
+                    @endif
+                    @if($sale->company->phone)
+                        <strong>Teléfono:</strong> {{ $sale->company->phone }}
+                    @endif
                 </div>
-                @endforeach
-                @endif
             </div>
 
-            @if($sale->total_discount > 0)
-            <div class="total-row">
-                <span class="total-label">Descuento:</span>
-                <span>${{ number_format($sale->total_discount, 0, ',', '.') }}</span>
+            <div class="receipt-title">Recibo #{{ $sale->invoice_no }}</div>
+
+            <div class="info-section">
+                <div class="info-row">
+                    <span class="info-label">📅 Fecha:</span>
+                    <span class="info-value">{{ \Carbon\Carbon::parse($sale->date_of_issue)->format('d/m/Y H:i') }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">👤 Cliente:</span>
+                    <span class="info-value">{{ $sale->customers->name ?? 'Cliente General' }}</span>
+                </div>
+                @if($sale->customers && $sale->customers->identification_number)
+                <div class="info-row">
+                    <span class="info-label">🆔 ID:</span>
+                    <span class="info-value">{{ $sale->customers->identification_number }}</span>
+                </div>
+                @endif
+                <div class="info-row">
+                    <span class="info-label">👨‍💼 Vendedor:</span>
+                    <span class="info-value">{{ $sale->users->name ?? 'N/A' }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">💳 Pago:</span>
+                    <span class="info-value">{{ $sale->payment_method->name ?? 'N/A' }}</span>
+                </div>
+            </div>
+
+            <div class="items-section">
+                <table class="items">
+                    <thead>
+                        <tr>
+                            <th class="item-name">Producto</th>
+                            <th class="item-quantity">Cant.</th>
+                            <th class="item-price">Precio</th>
+                            <th class="item-total">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $taxSummary = [];
+                        @endphp
+                        @if($sale->invoiceItems && count($sale->invoiceItems) > 0)
+                        @foreach($sale->invoiceItems as $item)
+                        @php
+                            $taxRate = $item->tax_rate ?? 0;
+                            if (!isset($taxSummary[$taxRate])) {
+                                $taxSummary[$taxRate] = 0;
+                            }
+                            $taxSummary[$taxRate] += $item->tax_amount ?? 0;
+                        @endphp
+                        <tr>
+                            <td class="item-name">{{ $item->item->product_name ?? 'Producto' }}</td>
+                            <td class="item-quantity">{{ number_format($item->quantity) }}</td>
+                            <td class="item-price">${{ number_format($item->unit_price, 0, ',', '.') }}</td>
+                            <td class="item-total">${{ number_format($item->total, 0, ',', '.') }}</td>
+                        </tr>
+                        @if($item->tax_amount > 0)
+                        <tr>
+                            <td colspan="4" class="item-tax">
+                                💰 IVA {{ $taxRate }}%: ${{ number_format($item->tax_amount, 0, ',', '.') }}
+                            </td>
+                        </tr>
+                        @endif
+                        @endforeach
+                        @else
+                        <tr>
+                            <td colspan="4" class="no-items">
+                                📦 No hay productos en esta venta
+                            </td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="totals">
+                <div class="total-row">
+                    <span class="total-label">💵 Subtotal:</span>
+                    <span class="total-value">${{ number_format($sale->total_subtotal ?? 0, 0, ',', '.') }}</span>
+                </div>
+                
+                @if($taxSummary && count($taxSummary) > 0)
+                <div class="tax-summary">
+                    @foreach($taxSummary as $rate => $amount)
+                    @if($amount > 0)
+                    <div class="tax-row">
+                        <span>🏛️ IVA {{ $rate }}%:</span>
+                        <span>${{ number_format($amount, 0, ',', '.') }}</span>
+                    </div>
+                    @endif
+                    @endforeach
+                </div>
+                @endif
+
+                @if($sale->total_discount > 0)
+                <div class="total-row">
+                    <span class="total-label">🎯 Descuento:</span>
+                    <span class="total-value">-${{ number_format($sale->total_discount, 0, ',', '.') }}</span>
+                </div>
+                @endif
+                
+                <div class="total-row grand-total">
+                    <span>💰 TOTAL A PAGAR:</span>
+                    <span>${{ number_format($sale->total_sale ?? 0, 0, ',', '.') }}</span>
+                </div>
+            </div>
+
+            @if($sale->observations)
+            <div class="info-section">
+                <div class="info-row">
+                    <span class="info-label">📝 Observaciones:</span>
+                </div>
+                <div style="margin-top: 5px; font-size: 10px; color: #4a5568;">
+                    {{ $sale->observations }}
+                </div>
             </div>
             @endif
-            
-            <div class="total-row grand-total">
-                <span>TOTAL:</span>
-                <span>${{ number_format($sale->total_sale, 0, ',', '.') }}</span>
-            </div>
-        </div>
 
-        <div class="footer">
-            <p>¡Gracias por su compra!</p>
-            <p>Este documento no es una factura oficial.</p>
-            <p>{{ $sale->observations ?? '' }}</p>
+            <div class="footer">
+                <p class="thank-you">🎉 ¡Gracias por su compra!</p>
+                <p>Este documento no es una factura oficial.</p>
+                <p>Conserve este recibo para cualquier reclamo.</p>
+                
+                <div class="timestamp">
+                    🕒 Generado el {{ now()->format('d/m/Y H:i:s') }}
+                </div>
+            </div>
         </div>
     </div>
 

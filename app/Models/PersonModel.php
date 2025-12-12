@@ -90,10 +90,22 @@ class PersonModel extends Model
         return $this->belongsTo(User::class, 'updated_by');
     }
 
+    // Relación con compras (como proveedor)
+    public function purchases()
+    {
+        return $this->hasMany(PurchaseModel::class, 'supplier_id');
+    }
+
+    // Relación con ventas (como cliente)
+    public function sales()
+    {
+        return $this->hasMany(Invoices::class, 'customer_id');
+    }
+
     public function hasRelatedRecords()
     {
         // Verificar si hay registros relacionados en otras tablas
         // Por ejemplo, si hay ventas, compras, etc. asociadas a esta persona
-        return false; // Por ahora retornamos false, pero aquí deberías implementar las verificaciones necesarias
+        return $this->purchases()->exists() || $this->sales()->exists();
     }
 }
