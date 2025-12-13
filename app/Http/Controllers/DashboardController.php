@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Invoices;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\Sales;
 use App\Models\PurchaseModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -50,7 +51,7 @@ class DashboardController extends Controller
             ]);
 
             // Verificar si existen registros en las tablas
-            $totalRegistrosVentas = Sales::count();
+            $totalRegistrosVentas = Invoices::count();
             $totalRegistrosCompras = PurchaseModel::count();
             
             
@@ -60,7 +61,7 @@ class DashboardController extends Controller
             ]);
 
             // Obtener totales con verificación adicional
-            $totalVentas = Sales::whereBetween('created_at', [$fechaInicio, $fechaFin])
+            $totalVentas = Invoices::whereBetween('created_at', [$fechaInicio, $fechaFin])
                 ->sum('total_sale') ?? 0;
                 
             $totalCompras = PurchaseModel::whereBetween('created_at', [$fechaInicio, $fechaFin])
@@ -73,7 +74,7 @@ class DashboardController extends Controller
             ]);
 
             // Obtener datos para el gráfico con mejor manejo de fechas
-            $ventasPorDia = Sales::whereBetween('created_at', [$fechaInicio, $fechaFin])
+            $ventasPorDia = Invoices::whereBetween('created_at', [$fechaInicio, $fechaFin])
                 ->select(
                     DB::raw('DATE(created_at) as fecha'), 
                     DB::raw('COALESCE(SUM(total_sale), 0) as total')
@@ -169,7 +170,7 @@ class DashboardController extends Controller
     {
         try {
             // Verificar conexión a modelos
-            $ventasTest = Sales::first();
+            $ventasTest = Invoices::first();
             $comprasTest = PurchaseModel::first();
             
             // Verificar estructura de tablas
@@ -177,7 +178,7 @@ class DashboardController extends Controller
             $comprasColumns = DB::getSchemaBuilder()->getColumnListing('purchases'); // o el nombre real de tu tabla
             
             // Obtener registros recientes
-            $ventasRecientes = Sales::latest()->take(3)->get();
+            $ventasRecientes = Invoices::latest()->take(3)->get();
             $comprasRecientes = PurchaseModel::latest()->take(3)->get();
 
             return response()->json([
@@ -186,7 +187,7 @@ class DashboardController extends Controller
                     'compras_existe' => $comprasTest ? true : false,
                 ],
                 'contadores' => [
-                    'ventas_count' => Sales::count(),
+                    'ventas_count' => Invoices::count(),
                     'compras_count' => PurchaseModel::count(),
                 ],
                 'estructura' => [
