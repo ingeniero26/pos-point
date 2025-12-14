@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Models\AccountTypesModel;
 use App\Models\InvoiceItems;
+use App\Http\Controllers\uuidv4;
 use Stripe\Invoice;
 
 class InvoicesController extends Controller
@@ -227,6 +228,8 @@ class InvoicesController extends Controller
             $sale->observations = $data['observations'] ?? null;
             $sale->company_id = $companyId;
             $sale->created_by = Auth::user()->id;
+            $sale->operation_type = $data['operation_type'] ?? '10';
+            $sale->uuid = \Illuminate\Support\Str::uuid()->toString();
             
             if (!$sale->save()) {
                 throw new \Exception('Error al guardar la venta');

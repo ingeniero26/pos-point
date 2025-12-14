@@ -99,6 +99,12 @@
                                                 <th>Régimen</th>   
                                                 <th>Obligación</th>  
                                                 <th>CIUU</th>
+                                                <th>Contribuyente</th>
+                                                <th>Autorretedor</th>
+                                                <th>Actividad ICA</th>
+                                                <th>Tasa ICA</th>
+                                                <th>Registro Comercial</th>
+                                                <th>Fecha Registro</th>
                                                 <th>País</th>                       
                                                 <th>Departamento</th>
                                                 <th>Ciudad</th>
@@ -270,6 +276,50 @@
                                   id="ciiu_code"
                                  name="ciiu_code">
                             </div>
+                            <div class="col-md-3">
+                                <label for="">Gran Contribuyente</label>
+                                <select name="great_taxpayer" id="great_taxpayer" class="form-control">
+                                    <option value="">Seleccione</option>
+                                    <option value="1">Sí</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="">Auto Retenido</label>
+                                <select name="self_withholder" id="self_withholder" class="form-control">
+                                    <option value="">Seleccione</option>
+                                    <option value="1">Sí</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="">Actividad ICA</label>
+                               <input type="text" class="form-control"
+                                  id="ica_activity"
+                                 name="ica_activity">
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-3">
+                            <label for="">Tasa ICA</label>
+                               <input type="number" class="form-control"
+                                  id="ica_rate"
+                                 name="ica_rate">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="">Registro Comercial</label>
+                               <input type="text" class="form-control"
+                                  id="commercial_registry"
+                                 name="commercial_registry">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="">Fecha Registro</label>
+                               <input type="date" class="form-control"
+                                  id="registration_date"
+                                 name="registration_date">
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label for="">Pais</label>
                                  <select name="country_id" id="country_id" class="form-control">
@@ -520,6 +570,12 @@
                                 <td>${customer.type_regimen ? customer.type_regimen.regimen_name : 'N/A'}</td>
                                 <td>${customer.type_liability ? customer.type_liability.liability_name : 'N/A'}</td>
                                 <td>${customer.ciiu_code ? customer.ciiu_code : 'N/A'}</td>
+                                <td>${customer.great_taxpayer ? 'Sí' : 'No'}</td>
+                                <td>${customer.self_withholder ? 'Sí' : 'No'}</td>
+                                <td>${customer.ica_activity ? customer.ica_activity : 'N/A'}</td>
+                                <td>${customer.ica_rate ? formatCurrency(customer.ica_rate) : 'N/A'}</td>
+                                <td>${customer.commercial_registry ? customer.commercial_registry : 'N/A'}</td>
+                                <td>${customer.registration_date ? dayjs(customer.registration_date).format('DD/MM/YYYY') : 'N/A'}</td>
                                 <td>${customer.countries ? customer.countries.country_name : 'N/A'}</td>
                                 <td>${customer.departments ? customer.departments.name_department : 'N/A'}</td>
                                 <td>${customer.cities ? customer.cities.city_name : 'N/A'}</td>
@@ -612,13 +668,20 @@ $(document).ready(function() {
             $('#identification_type_id').val(customer.identification_type_id);
             $('#identification_number').val(customer.identification_number);
             $('#dv').val(customer.dv);
-            $
+            
             $('#name').val(customer.name);
             $('#last_name').val(customer.last_name);
             $('#type_person_id').val(customer.type_person_id);
             $('#type_liability_id').val(customer.type_liability_id);
             $('#type_regimen_id').val(customer.type_regimen_id);
             $('#type_third_id').val(customer.type_third_id);
+            $('#ciiu_code').val(customer.ciiu_code);
+            $('#great_taxpayer').val(customer.great_taxpayer);
+            $('#self_withholder').val(customer.self_withholder);
+            $('#ica_activity').val(customer.ica_activity);
+            $('#ica_rate').val(customer.ica_rate);
+            $('#commercial_registry').val(customer.commercial_registry);
+            $('#registration_date').val(customer.registration_date);
             
             $('#department_id').val(customer.department_id);
             $('#city_id').val(customer.city_id);

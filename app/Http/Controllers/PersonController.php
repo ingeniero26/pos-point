@@ -89,6 +89,12 @@ class PersonController extends Controller
         $customer->type_regimen_id = $request->type_regimen_id;
         $customer->type_liability_id = $request->type_liability_id;
         $customer->ciiu_code = $request->ciiu_code;
+        $customer->great_taxpayer = $request->great_taxpayer;
+        $customer->self_withholder = $request->self_withholder;
+        $customer->ica_activity = $request->ica_activity;
+        $customer->ica_rate = $request->ica_rate;
+        $customer->commercial_registry = $request->commercial_registry;
+        $customer->registration_date = $request->registration_date;
         $customer->country_id = $request->country_id;
         $customer->department_id = $request->department_id;
         $customer->city_id = $request->city_id;
@@ -163,6 +169,12 @@ class PersonController extends Controller
         $customer->type_liability_id = $request->type_liability_id;
         $customer->type_third_id = $request->type_third_id;
         $customer->ciiu_code = $request->ciiu_code;
+        $customer->great_taxpayer = $request->great_taxpayer;
+        $customer->self_withholder = $request->self_withholder;
+        $customer->ica_activity = $request->ica_activity;
+        $customer->ica_rate = $request->ica_rate;
+        $customer->commercial_registry = $request->commercial_registry;
+        $customer->registration_date = $request->registration_date;
         $customer->country_id = $request->country_id;
         $customer->city_id = $request->city_id;
         $customer->department_id = $request->department_id;

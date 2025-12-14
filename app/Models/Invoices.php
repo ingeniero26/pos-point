@@ -20,6 +20,7 @@ class Invoices extends Model
         'date_of_due',
         'company_id',
         'created_by',
+        'operation_type',
         'invoice_no',
         'total_sale',
         'total_tax',

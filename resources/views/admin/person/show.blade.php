@@ -89,6 +89,34 @@
                                                 <th>Tipo de Obligación</th>
                                                 <td>{{ $person->type_liability ? $person->type_liability->liability_name : 'N/A' }}</td>
                                             </tr>
+                                            <tr>
+                                                <th>CIUU</th>
+                                                <td>{{ $person->ciiu_code ?? 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Contribuyente</th>
+                                                <td>{{ $person->great_taxpayer ? 'Sí' : 'No' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Autorretedor</th>
+                                                <td>{{ $person->self_withholder ? 'Sí' : 'No' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Actividad ICA</th>
+                                                <td>{{ $person->ica_activity ?? 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Tasa ICA</th>
+                                                <td>{{ $person->ica_rate ? '$' . number_format($person->ica_rate, 0, ',', '.') : 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Registro Comercial</th>
+                                                <td>{{ $person->commercial_registry ?? 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Fecha Registro</th>
+                                                <td>{{ $person->registration_date ? \Carbon\Carbon::parse($person->registration_date)->format('d/m/Y') : 'N/A' }}</td>
+                                            </tr>
                                         </table>
                                     </div>
                                 </div>
@@ -386,4 +414,13 @@
         </div>
     </div>
 </main>
+@endsection
+@section('script')
+<script type="text/javascript">
+$(document).ready(function(){
+    function formatCurrency(value) {
+        return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
+    }
+});
+</script>
 @endsection
