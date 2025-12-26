@@ -393,7 +393,7 @@ CREATE TABLE IF NOT EXISTS `bank_accounts` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='cuentas bancarias';
 
--- Volcando datos para la tabla point_pos.bank_accounts: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.bank_accounts: ~1 rows (aproximadamente)
 INSERT INTO `bank_accounts` (`id`, `bank_id`, `account_type_id`, `currency_id`, `number`, `description`, `amount`, `available_balance`, `reconciled_balance`, `last_reconciliation_date`, `created_by`, `company_id`, `status`, `is_delete`, `created_at`, `updated_at`) VALUES
 	(10, 1, 1, 170, '1203', 'Cuenta bancaria', 133320.00, 133320.00, 100000.00, '2025-05-28 17:36:00', 1, 1, 1, 0, '2025-05-28 17:36:00', '2025-05-28 17:57:01');
 
@@ -441,7 +441,7 @@ CREATE TABLE IF NOT EXISTS `branches` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla point_pos.branches: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.branches: ~1 rows (aproximadamente)
 INSERT INTO `branches` (`id`, `name`, `address`, `email`, `phone`, `country_id`, `department_id`, `city_id`, `status`, `is_delete`, `created_by`, `company_id`, `created_at`, `updated_at`) VALUES
 	(1, 'CENTRAL', 'EL CARMEN', 'note@gmail.com', '3021455', 46, 1, 1, 1, 0, 1, 1, '2025-03-21 00:18:51', '2025-03-21 00:18:51');
 
@@ -503,7 +503,7 @@ CREATE TABLE IF NOT EXISTS `business_types` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='tipo empresa';
 
--- Volcando datos para la tabla point_pos.business_types: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.business_types: ~1 rows (aproximadamente)
 INSERT INTO `business_types` (`id`, `name`, `slug`, `description`, `features`, `status`, `is_delete`, `created_by`, `created_at`, `updated_at`) VALUES
 	(1, 'Comercial', 'comercial', 'empresa de comercio', NULL, 1, 0, 1, '2025-08-13 23:56:03', '2025-08-13 23:56:05');
 
@@ -515,7 +515,17 @@ CREATE TABLE IF NOT EXISTS `cache` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla point_pos.cache: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.cache: ~9 rows (aproximadamente)
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+	('brands_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:28:{i:1;s:13:"MARCA GENERAL";i:4;s:7:"samuray";i:5;s:5:"india";i:6;s:8:"vaniplas";i:7;s:5:"rimax";i:8;s:5:"imusa";i:9;s:5:"haceb";i:10;s:6:"corona";i:11;s:9:"universal";i:12;s:10:"hogar plas";i:13;s:5:"masso";i:14;s:6:"grulla";i:15;s:5:"venus";i:16;s:5:"oster";i:17;s:4:"ABBA";i:18;s:4:"lynx";i:19;s:11:"continental";i:20;s:11:"sueño flex";i:21;s:5:"relax";i:22;s:7:"serraty";i:23;s:6:"alteza";i:24;s:13:"home elements";i:25;s:5:"DKasa";i:26;s:7:"Colplas";i:27;s:7:"Sorplas";i:28;s:11:"Multimarcas";i:29;s:5:"KENDY";i:30;s:6:"VEREDA";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765928035),
+	('categories_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:77:{i:1;s:7:"Estufas";i:2;s:12:"FERRETERIA 2";i:3;s:12:"ventiladores";i:7;s:20:"repuesto verntilador";i:8;s:6:"Sillas";i:9;s:8:"Chanclas";i:10;s:12:"herramientas";i:11;s:16:"repuesto estufas";i:12;s:18:"repuesto licuadora";i:13;s:17:"repuesto lavadora";i:14;s:9:"colchones";i:15;s:5:"camas";i:16;s:11:"colchonetas";i:17;s:9:"cacharros";i:18;s:15:"BOTA VENUS TELA";i:19;s:20:"BOTA PANTANERA VENUS";i:20;s:11:"BOTA GRULLA";i:21;s:20:"utensilios de cocina";i:22;s:18:"loza y cristaleria";i:23;s:10:"jugueteria";i:24;s:18:"morrales y maletas";i:25;s:6:"mallas";i:26;s:10:"licuadoras";i:27;s:7:"neveras";i:28;s:15:"OLLAS A PRESION";i:29;s:19:"molinos y repuestos";i:30;s:9:"cuchillos";i:31;s:17:"ollas de aluminio";i:32;s:12:"CAVAS ICOPOR";i:33;s:11:"tornilleria";i:34;s:6:"cables";i:35;s:7:"cuerdas";i:36;s:11:"televisores";i:37;s:18:"ponchera y tazones";i:38;s:17:"tanques plasticos";i:39;s:16:"baldes plasticos";i:40;s:7:"hamacas";i:41;s:16:"MESAS PLASTICAS ";i:42;s:18:"loza y cristaleria";i:43;s:13:"ASEO PERSONAL";i:44;s:24:"LOZEROS Y PORTACUBIERTOS";i:45;s:21:"BOTA PANTANERA VEREDA";i:46;s:20:"BOTA PANTANERA MACHA";i:47;s:20:"BOTA PANTANERA TITAN";i:48;s:20:"BOTA VENUS ESTAMPADA";i:49;s:19:"BOTA ANDINA DE DAMA";i:50;s:19:"BOTA VENUS DE NIÑO";i:51;s:11:"BOTA MAXTER";i:52;s:10:"BOTA ARGOS";i:53;s:15:"ZAPATO DE DAMA ";i:54;s:21:"ZAPATO COLEGIAL NIÑO";i:55;s:19:"GUAYOS Y ZAPATILLAS";i:56;s:30:"BOTA DE TRABAJO ARGOS Y WELLCO";i:57;s:16:"termos cafeteros";i:58;s:16:"PESOS Y BASCULAS";i:59;s:26:"NEVERAS Y TERMOS PLASTICOS";i:60;s:22:"CHANCLA SOLIMAR HOMBRE";i:61;s:20:"CHANCLA SOLIMAR DAMA";i:62;s:9:"LAVADORAS";i:63;s:16:"UTILES ESCOLARES";i:64;s:6:"VARIOS";i:65;s:17:"COBIJAS Y SABANAS";i:66;s:19:"ENVASES HERMETICOS ";i:67;s:16:"JARRAS PLASTICAS";i:68;s:21:"UTENCILIOS PARA BAÑO";i:69;s:18:"UTENSILIOS DE ASEO";i:70;s:7:"MACETAS";i:71;s:9:"CALDEROS ";i:72;s:18:"ELECTRODOMESTICOS ";i:73;s:8:"VARIOS 2";i:74;s:11:"FERRETERIA ";i:75;s:17:"repuesto estufa 2";i:76;s:28:"repuestos de olla  a presion";i:77;s:18:"herramienta manual";i:78;s:21:"herramienta electrica";i:79;s:8:"pinturas";i:80;s:10:"Tecnologia";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765928035),
+	('currencies_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:156:{i:8;s:12:"Lek Albanés";i:12;s:14:"Dinar Algerino";i:32;s:14:"Peso Argentino";i:36;s:18:"Dólar Australiano";i:44;s:16:"Dólar Bahameño";i:48;s:15:"Dinar Bahreiní";i:50;s:18:"Taka De Bangladesh";i:51;s:12:"Dram Armenio";i:52;s:18:"Dólar De Barbados";i:60;s:17:"Dólar Bermudeño";i:64;s:18:"Ngultrum De Bután";i:68;s:9:"Boliviano";i:72;s:16:"Pula De Botsuana";i:84;s:16:"Dólar De Belice";i:90;s:28:"Dólar De Las Islas Salomón";i:96;s:17:"Dólar De Brunéi";i:104;s:12:"Kyat Birmano";i:108;s:16:"Franco Burundés";i:116;s:14:"Riel Camboyano";i:124;s:17:"Dólar Canadiense";i:132;s:19:"Escudo Caboverdiano";i:136;s:14:"Dólar Caimano";i:144;s:18:"Rupia De Sri Lanka";i:152;s:12:"Peso Chileno";i:156;s:10:"Yuan Chino";i:170;s:15:"Peso Colombiano";i:174;s:16:"Franco Comoriano";i:188;s:20:"Colón Costarricense";i:191;s:11:"Kuna Croata";i:192;s:11:"Peso Cubano";i:203;s:12:"Koruna Checa";i:208;s:13:"Corona Danesa";i:214;s:15:"Peso Dominicano";i:230;s:12:"Birr Etíope";i:232;s:13:"Nakfa Eritreo";i:238;s:16:"Libra Malvinense";i:242;s:14:"Dólar Fiyiano";i:262;s:16:"Franco Yibutiano";i:270;s:15:"Dalasi Gambiano";i:292;s:18:"Libra De Gibraltar";i:320;s:20:"Quetzal Guatemalteco";i:324;s:15:"Franco Guineano";i:328;s:15:"Dólar Guyanés";i:332;s:15:"Gourde Haitiano";i:340;s:18:"Lempira Hondureño";i:344;s:19:"Dólar De Hong Kong";i:348;s:15:"Forint Húngaro";i:352;s:16:"Króna Islandesa";i:356;s:11:"Rupia India";i:360;s:16:"Rupiah Indonesia";i:364;s:11:"Rial Iraní";i:368;s:13:"Dinar Iraquí";i:376;s:23:"Nuevo Shéquel Israelí";i:388;s:16:"Dólar Jamaicano";i:392;s:12:"Yen Japonés";i:398;s:12:"Tenge Kazajo";i:400;s:13:"Dinar Jordano";i:404;s:15:"Chelín Keniata";i:408;s:14:"Won Norcoreano";i:410;s:14:"Won Surcoreano";i:414;s:14:"Dinar Kuwaití";i:417;s:12:"Som Kirguís";i:418;s:7:"Kip Lao";i:422;s:14:"Libra Libanesa";i:426;s:14:"Loti Lesotense";i:430;s:16:"Dólar Liberiano";i:434;s:11:"Dinar Libio";i:440;s:13:"Litas Lituano";i:446;s:15:"Pataca De Macao";i:454;s:14:"Kwacha Malauí";i:458;s:14:"Ringgit Malayo";i:462;s:15:"Rufiyaa Maldiva";i:478;s:17:"Ouguiya Mauritana";i:480;s:14:"Rupia Mauricia";i:484;s:13:"Peso Mexicano";i:496;s:14:"Tughrik Mongol";i:498;s:11:"Leu Moldavo";i:504;s:16:"Dirham Marroquí";i:512;s:11:"Rial Omaní";i:516;s:14:"Dólar Namibio";i:524;s:14:"Rupia Nepalesa";i:532;s:29:"Florín Antillano Neerlandés";i:533;s:16:"Florín Arubeño";i:548;s:15:"Vatu Vanuatense";i:554;s:19:"Dólar Neozelandés";i:558;s:22:"Córdoba Nicaragüense";i:566;s:15:"Naira Nigeriana";i:578;s:14:"Corona Noruega";i:586;s:16:"Rupia Pakistaní";i:590;s:16:"Balboa Panameña";i:598;s:27:"Kina De Papúa Nueva Guinea";i:600;s:18:"Guaraní Paraguayo";i:604;s:17:"Nuevo Sol Peruano";i:608;s:13:"Peso Filipino";i:634;s:12:"Rial Qatarí";i:643;s:10:"Rublo Ruso";i:646;s:15:"Franco Ruandés";i:654;s:21:"Libra De Santa Helena";i:678;s:32:"Dobra De Santo Tomé Y Príncipe";i:682;s:12:"Riyal Saudí";i:690;s:19:"Rupia De Seychelles";i:694;s:21:"Leone De Sierra Leona";i:702;s:18:"Dólar De Singapur";i:704;s:15:"Dong Vietnamita";i:706;s:15:"Chelín Somalí";i:710;s:16:"Rand Sudafricano";i:728;s:5:"Libra";i:748;s:15:"Lilangeni Suazi";i:752;s:12:"Corona Sueca";i:756;s:12:"Franco Suizo";i:760;s:11:"Libra Siria";i:764;s:15:"Baht Tailandés";i:776;s:15:"Pa\'anga Tongano";i:780;s:27:"Dólar De Trinidad Y Tobago";i:784;s:37:"Dirham De Los Emiratos Árabes Unidos";i:788;s:14:"Dinar Tunecino";i:800;s:16:"Chelín Ugandés";i:807;s:15:"Denar Macedonio";i:818;s:13:"Libra Egipcia";i:826;s:15:"Libra Esterlina";i:834;s:15:"Chelín Tanzano";i:840;s:21:"Dólar Estadounidense";i:858;s:13:"Peso Uruguayo";i:860;s:10:"Som Uzbeko";i:882;s:12:"Tala Samoana";i:886;s:12:"Rial Yemení";i:901;s:16:"Dólar Taiwanés";i:931;s:23:"Peso Cubano Convertible";i:934;s:15:"Manat Turcomano";i:936;s:12:"Cedi Ghanés";i:937;s:26:"Bolívar Fuerte Venezolano";i:938;s:14:"Dinar Sudanés";i:941;s:12:"Dinar Serbio";i:943;s:21:"Metical Mozambiqueño";i:944;s:17:"Manat Azerbaiyano";i:946;s:10:"Leu Rumano";i:949;s:10:"Lira Turca";i:950;s:29:"Franco Cfa De África Central";i:951;s:26:"Dólar Del Caribe Oriental";i:952;s:32:"Franco Cfa De África Occidental";i:953;s:10:"Franco Cfp";i:967;s:15:"Kwacha Zambiano";i:968;s:17:"Dólar Surinamés";i:969;s:15:"Ariary Malgache";i:971;s:13:"Afgani Afgano";i:972;s:12:"Somoni Tayik";i:973;s:16:"Kwanza Angoleño";i:974;s:16:"Rublo Bielorruso";i:975;s:12:"Lev Búlgaro";i:976;s:17:"Franco Congoleño";i:977;s:39:"Marco Convertible De Bosnia-Herzegovina";i:978;s:4:"Euro";i:980;s:16:"Grivna Ucraniana";i:981;s:14:"Lari Georgiano";i:985;s:12:"Zloty Polaco";i:986;s:15:"Real Brasileño";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765928035),
+	('invoice_groups_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:78:{i:1;s:23:"Equipos de Computación";i:2;s:18:"Motores y Turbinas";i:3;s:21:"Instrumentos Médicos";i:4;s:23:"Medicamentos Esenciales";i:5;s:33:"Productos Farmacéuticos Básicos";i:6;s:26:"Leche y Productos Lácteos";i:7;s:29:"Pan y Productos de Panadería";i:8;s:5:"Café";i:9;s:25:"Servicios de Consultoría";i:10;s:24:"Servicios de Ingeniería";i:11;s:25:"Servicios de Contabilidad";i:12;s:12:"Carne de Res";i:13;s:22:"Productos Veterinarios";i:14;s:7:"Cemento";i:15;s:24:"Acero para Construcción";i:16;s:8:"Gasolina";i:17;s:6:"Diesel";i:18;s:5:"Arroz";i:19;s:5:"Maíz";i:20;s:19:"Transporte de Carga";i:21;s:23:"Transporte de Pasajeros";i:22;s:14:"Ropa de Vestir";i:23;s:7:"Calzado";i:24;s:19:"Servicios Bancarios";i:25;s:7:"Seguros";i:26;s:21:"Productos de Limpieza";i:27;s:21:"Servicios de Internet";i:28;s:23:"Servicios de Telefonía";i:29;s:22:"Computadores y Laptops";i:30;s:34:"Teléfonos Celulares y Smartphones";i:31;s:31:"Tablets y Dispositivos Móviles";i:32;s:26:"Accesorios de Computación";i:33;s:23:"Televisores y Pantallas";i:34;s:24:"Refrigeradores y Neveras";i:35;s:21:"Lavadoras y Secadoras";i:36;s:16:"Estufas y Hornos";i:37;s:18:"Aire Acondicionado";i:38;s:12:"Ventiladores";i:39;s:15:"Muebles de Sala";i:40;s:18:"Muebles de Comedor";i:41;s:25:"Colchones y Bases de Cama";i:42;s:20:"Herramientas de Mano";i:43;s:24:"Herramientas Eléctricas";i:44;s:16:"Papel de Oficina";i:45;s:21:"Útiles de Escritorio";i:46;s:29:"Impresoras y Multifuncionales";i:47;s:19:"Material de Empaque";i:48;s:37:"Cemento y Materiales de Construcción";i:49;s:21:"Tubería y Accesorios";i:50;s:24:"Pintura y Recubrimientos";i:51;s:28:"Cables y Material Eléctrico";i:52;s:25:"Repuestos de Automóviles";i:53;s:21:"Llantas y Neumáticos";i:54;s:21:"Aceites y Lubricantes";i:55;s:23:"Baterías de Vehículos";i:56;s:26:"Productos de Aseo Personal";i:57;s:31:"Productos de Limpieza del Hogar";i:58;s:25:"Cosméticos y Perfumería";i:59;s:33:"Juguetes y Artículos para Niños";i:60;s:16:"Ropa para Hombre";i:61;s:15:"Ropa para Mujer";i:62;s:16:"Ropa para Niños";i:63;s:18:"Calzado en General";i:64;s:20:"Accesorios de Vestir";i:65;s:21:"Artículos Deportivos";i:66;s:20:"Equipos de Ejercicio";i:67;s:23:"Bicicletas y Accesorios";i:68;s:22:"Alimento para Mascotas";i:69;s:24:"Accesorios para Mascotas";i:70;s:28:"Libros y Material Didáctico";i:71;s:20:"Software y Licencias";i:72;s:18:"Semillas y Plantas";i:73;s:22:"Fertilizantes y Abonos";i:74;s:27:"Herramientas de Jardinería";i:75;s:32:"Servicio de Transporte y Entrega";i:76;s:24:"Servicio de Instalación";i:77;s:31:"Servicio Técnico y Reparación";i:78;s:25:"Servicio de Mantenimiento";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765928035),
+	('items_type_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:4:{i:1;s:21:"Producto Inventariado";i:2;s:9:"Servicios";i:3;s:12:"Auto Consumo";i:4;s:24:"Producto no Inventariado";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765928035),
+	('measures_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:6:{i:1;s:6:"UNIDAD";i:2;s:9:"KILOGRAMO";i:5;s:5:"Metro";i:6;s:9:"Miligramo";i:7;s:10:"Centimetro";i:8;s:5:"Libra";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765928035),
+	('subcategories_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:1:{i:1;s:34:"Ventiladores Samuray Mejor Calidad";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765928035),
+	('taxes_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:5:{i:1;s:7:"Ninguno";i:2;s:11:"Iva Excento";i:3;s:12:"Iva Excluido";i:4;s:7:"IVA(5%)";i:5;s:8:"Iva(19%)";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765928035),
+	('warehouses_list', 'O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:3:{i:1;s:9:"Principal";i:7;s:8:"Bodega 2";i:8;s:9:"Eliminame";}s:28:"\0*\0escapeWhenCastingToString";b:0;}', 1765928035);
 
 -- Volcando estructura para tabla point_pos.cache_locks
 CREATE TABLE IF NOT EXISTS `cache_locks` (
@@ -551,7 +561,7 @@ CREATE TABLE IF NOT EXISTS `cash_movements` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Registro detallado de todos los movimientos de efectivo en caja';
 
--- Volcando datos para la tabla point_pos.cash_movements: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.cash_movements: ~11 rows (aproximadamente)
 INSERT INTO `cash_movements` (`id`, `cash_register_session_id`, `cash_movement_type_id`, `amount`, `description`, `reference_document_type`, `reference_document_number`, `related_sale_id`, `related_purchase_id`, `related_third_party_id`, `third_party_document_type`, `third_party_document_number`, `third_party_name`, `transaction_time`, `user_id`, `company_id`, `created_by`, `created_at`, `updated_at`) VALUES
 	(19, 19, 1, 100000.00, 'Saldo inicial de apertura de caja', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-11-30 22:23:15', 1, 1, 1, '2025-12-01 03:23:15', '2025-12-01 03:23:15'),
 	(20, 19, 2, 54740.00, 'Venta #SETP990000020', 'SALE', 'SETP990000020', 27, NULL, 16, NULL, NULL, NULL, '2025-12-01 01:04:39', 1, 1, 1, '2025-12-01 06:04:39', '2025-12-01 06:04:39'),
@@ -969,7 +979,7 @@ CREATE TABLE IF NOT EXISTS `contact_types` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla point_pos.contact_types: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.contact_types: ~6 rows (aproximadamente)
 INSERT INTO `contact_types` (`id`, `company_id`, `created_by`, `updated_by`, `name`, `description`, `colour`, `status`, `is_delete`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, NULL, 'Suscritptor', 'Empieza la vida del contacto', '#07e916', 1, 0, '2025-09-19 00:35:13', '2025-09-19 01:07:27'),
 	(2, 1, 1, 1, 'ALMACEN  eliminar y editar', 'erwerwer', '#000000', 1, 1, '2025-09-19 00:58:58', '2025-09-19 01:03:54'),
@@ -1802,7 +1812,7 @@ CREATE TABLE IF NOT EXISTS `invoices_items` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='detalle ventas';
 
--- Volcando datos para la tabla point_pos.invoices_items: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.invoices_items: ~2 rows (aproximadamente)
 INSERT INTO `invoices_items` (`id`, `invoice_id`, `item_id`, `quantity`, `unit_price`, `total_price`, `discount`, `tax_id`, `tax_rate`, `tax_amount`, `subtotal`, `total`, `is_taxed`, `is_exonerated`, `is_unaffected`, `observations`, `created_by`, `company_id`, `created_at`, `updated_at`) VALUES
 	(59, 31, 24, 1, 240000.00, 240000.00, 0.00, 5, 19.00, 45600.00, 240000.00, 285600.00, 1, 0, 0, NULL, 1, 1, '2025-12-14 19:59:12', '2025-12-14 19:59:12'),
 	(60, 32, 23, 1, 98000.00, 98000.00, 0.00, 5, 19.00, 18620.00, 98000.00, 116620.00, 1, 0, 0, NULL, 1, 1, '2025-12-14 20:08:55', '2025-12-14 20:08:55');
@@ -1953,7 +1963,7 @@ CREATE TABLE IF NOT EXISTS `items` (
 
 -- Volcando datos para la tabla point_pos.items: ~39 rows (aproximadamente)
 INSERT INTO `items` (`id`, `item_type_id`, `product_name`, `slug`, `barcode`, `internal_code`, `sku`, `reference`, `category_id`, `sub_category_id`, `currency_id`, `expiration`, `expiration_date`, `lots_enabled`, `lot_code`, `description`, `short_description`, `aditional_information`, `shipping_returns`, `brand_id`, `measure_id`, `invoice_group_id`, `cost_price`, `selling_price`, `percentage_profit`, `tax_id`, `price_total`, `created_by`, `updated_by`, `company_id`, `status`, `is_delete`, `created_at`, `updated_at`) VALUES
-	(21, 1, 'ZAPATOS DE DAMA', NULL, '0001', '0001', NULL, NULL, 53, NULL, 170, 0, NULL, 0, NULL, 'TALLA XL', NULL, NULL, NULL, 1, 1, NULL, 28000.000000, 46000.000000, NULL, 5, 54740.000000, 4, 1, 1, 0, 0, '2025-05-29 21:15:58', '2025-11-16 06:27:52'),
+	(21, 1, 'ZAPATOS DE DAMA', NULL, '0001', '0001', '012', NULL, 53, NULL, 170, 0, NULL, 0, NULL, 'TALLA XL', NULL, NULL, NULL, 1, 1, NULL, 28000.000000, 46000.000000, NULL, 5, 54740.000000, 4, 1, 1, 0, 0, '2025-05-29 21:15:58', '2025-12-17 04:29:21'),
 	(22, 1, '0002', NULL, '0002', '0002', NULL, 'GN', 8, NULL, 170, 0, NULL, 0, NULL, 'Silla Frescura', NULL, NULL, NULL, 1, 1, NULL, 35000.000000, 42500.000000, NULL, 5, 50575.000000, 4, NULL, 1, 0, 0, '2025-05-29 21:19:39', '2025-05-29 21:19:39'),
 	(23, 1, 'LICUADORA ALTEZA PRAKTI MIX', NULL, '0003', '0003', NULL, 'gn', 26, NULL, 170, 0, NULL, 0, NULL, 'negra', NULL, NULL, NULL, 16, 1, NULL, 58000.000000, 98000.000000, NULL, 5, 116620.000000, 4, NULL, 1, 0, 0, '2025-05-29 21:21:40', '2025-05-29 21:21:40'),
 	(24, 1, 'VENTILADOR ALTEZA 2 EN 1 PEDESTAL MALLA METALICA', NULL, '0004', '0004', NULL, NULL, 3, NULL, 170, 0, NULL, 0, NULL, 'MALLA METALICA', NULL, NULL, NULL, 15, 1, NULL, 182104.000000, 240000.000000, NULL, 5, 285600.000000, 4, NULL, 1, 0, 0, '2025-05-29 21:53:10', '2025-05-29 21:53:10'),
@@ -2143,7 +2153,7 @@ CREATE TABLE IF NOT EXISTS `item_movements` (
   KEY `idx_item_movements_user` (`created_by`,`is_delete`)
 ) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla point_pos.item_movements: ~49 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.item_movements: ~59 rows (aproximadamente)
 INSERT INTO `item_movements` (`id`, `item_id`, `warehouse_id`, `movement_type_id`, `movement_date`, `quantity`, `previous_stock`, `new_stock`, `reason`, `reference_id`, `reference_type`, `created_by`, `company_id`, `is_delete`, `created_at`, `updated_at`) VALUES
 	(1, 21, 1, 6, '2025-10-19', 1, 47, 46, 'Venta #FV-000007', 7, 'Salida', 1, 1, 0, '2025-10-20 03:32:48', '2025-10-20 03:32:48'),
 	(2, 22, 1, 6, '2025-10-19', 1, 52, 51, 'Venta #FV-000008', 8, 'Salida', 1, 1, 0, '2025-10-20 03:37:16', '2025-10-20 03:37:16'),
@@ -2438,7 +2448,7 @@ CREATE TABLE IF NOT EXISTS `opportunities` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla point_pos.opportunities: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.opportunities: ~2 rows (aproximadamente)
 INSERT INTO `opportunities` (`id`, `name`, `description`, `third_id`, `contact_name`, `contact_email`, `contact_phone`, `source_id`, `stage_id`, `estimated_value`, `probability`, `estimated_closing_date`, `closing_date`, `reason_lost`, `responsible_user_id`, `priority_id`, `status`, `company_id`, `created_by`, `is_delete`, `created_at`, `updated_at`) VALUES
 	(1, 'JDSYSTEMAS', 'oportunidad de pruebas', 14, 'Pruebas', 'pruebas@gmail.com', '654656465', 1, 1, 100000.00, 5.00, '2025-10-16', NULL, NULL, 1, NULL, 'Open', 1, 1, 0, '2025-10-14 03:54:24', '2025-10-14 03:54:24'),
 	(2, 'Intermedia', 'otra oportunidad', 16, 'otro', 'otro@gmail.com', '8998', 1, 1, 45000.00, 2.00, '2025-10-23', NULL, NULL, 1, NULL, 'Open', 1, 1, 0, '2025-10-16 07:47:40', '2025-10-16 07:47:40');
@@ -2832,7 +2842,7 @@ CREATE TABLE IF NOT EXISTS `puc_accounts` (
   KEY `idx_account_type` (`account_type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla point_pos.puc_accounts: ~45 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.puc_accounts: ~47 rows (aproximadamente)
 INSERT INTO `puc_accounts` (`id`, `account_code`, `account_name`, `level`, `parent_code`, `account_type`, `nature`, `third_party_handling`, `cost_center_handling`, `accept_movement`, `company_id`, `created_by`, `status`, `created_at`, `updated_at`) VALUES
 	(1, '1', 'ACTIVO', 1, NULL, 'ASSETS', 'DEBIT', 0, 0, 0, 1, 1, 1, '2025-08-14 21:22:21', '2025-08-14 21:22:38'),
 	(2, '11', 'DISPONIBLE', 2, '1', 'ASSETS', 'DEBIT', 0, 0, 0, 1, 1, 1, '2025-08-15 02:41:40', '2025-08-14 21:44:50'),
@@ -2924,7 +2934,7 @@ CREATE TABLE IF NOT EXISTS `purchases` (
   KEY `document_type_id` (`voucher_type_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='compras';
 
--- Volcando datos para la tabla point_pos.purchases: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.purchases: ~2 rows (aproximadamente)
 INSERT INTO `purchases` (`id`, `voucher_type_id`, `supplier_id`, `created_by`, `invoice_no`, `state_type_id`, `warehouse_id`, `payment_form_id`, `date_of_issue`, `date_of_due`, `time_of_issue`, `series`, `number`, `currency_id`, `payment_method_id`, `purchase_order_id`, `total_subtotal`, `total_tax`, `total_discount`, `total_purchase`, `total_prepayment`, `total_charge`, `total_taxed`, `total_unaffected`, `total_exonerated`, `cufe`, `payment_status_id`, `electronic_document_status`, `observations`, `company_id`, `is_delete`, `created_at`, `updated_at`) VALUES
 	(53, 1, 11, 1, '5212233', 1, 1, 1, '2025-12-01', '2025-12-01', '01:09:37', 'FC', 145222, 170, 1, NULL, 56000.00, 10640.00, 0.00, 66640.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2025-12-01 06:09:37', '2025-12-01 06:09:37'),
 	(54, 3, 12, 1, '1452333', 1, 1, 1, '2025-12-09', '2025-12-09', '01:14:13', 'FC', 145227, 170, 1, NULL, 58000.00, 11020.00, 0.00, 69020.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2025-12-09 06:14:13', '2025-12-09 06:14:13');
@@ -2943,7 +2953,7 @@ CREATE TABLE IF NOT EXISTS `purchase_items` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla point_pos.purchase_items: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.purchase_items: ~2 rows (aproximadamente)
 INSERT INTO `purchase_items` (`id`, `purchase_id`, `item_id`, `quantity`, `cost_price`, `discount_percent`, `created_by`, `created_at`, `updated_at`) VALUES
 	(35, 53, 21, 2, 28000.00, 0.00, NULL, '2025-12-01 06:09:37', '2025-12-01 06:09:37'),
 	(36, 54, 23, 1, 58000.00, 0.00, NULL, '2025-12-09 06:14:13', '2025-12-09 06:14:13');
@@ -3049,7 +3059,7 @@ CREATE TABLE IF NOT EXISTS `quotations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='cotizaciones';
 
--- Volcando datos para la tabla point_pos.quotations: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.quotations: ~1 rows (aproximadamente)
 INSERT INTO `quotations` (`id`, `voucher_type_id`, `user_id`, `state_type_id`, `prefix`, `number`, `date_of_issue`, `date_of_expiration`, `validity_days`, `customer_id`, `warehouse_id`, `payment_conditions`, `payment_form_id`, `currency_id`, `payment_method_id`, `exchange_rate`, `subtotal`, `total_discount`, `total_tax`, `total`, `withholding_tax`, `ica_tax`, `iva_tax`, `notes`, `approved_by`, `approval_date`, `status_quotation_id`, `converted_to_invoice`, `sale_id`, `company_id`, `is_delete`, `created_at`, `updated_at`) VALUES
 	(8, 12, 1, NULL, NULL, '000008', '2025-07-09 00:00:00', '2025-07-09', 15, 36, 1, NULL, 1, 170, 1, NULL, 460000.00, 0.00, 87400.00, 547400.00, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, 1, 0, '2025-07-09 18:32:54', '2025-07-17 03:01:26');
 
@@ -3072,7 +3082,7 @@ CREATE TABLE IF NOT EXISTS `quotation_items` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla point_pos.quotation_items: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.quotation_items: ~1 rows (aproximadamente)
 INSERT INTO `quotation_items` (`id`, `quotation_id`, `item_id`, `company_id`, `unit_type_id`, `tax_id`, `total_tax`, `subtotal`, `discount`, `quantity`, `unit_price`, `total`, `created_at`, `updated_at`) VALUES
 	(7, 8, 21, 1, 1, 5, 87400.00, 460000.00, 0.00, 10.0000, 46000.000000, 460000.00, '2025-07-09 18:32:54', '2025-07-09 18:32:54');
 
@@ -3107,7 +3117,7 @@ CREATE TABLE IF NOT EXISTS `receipt_types` (
   UNIQUE KEY `code` (`code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla point_pos.receipt_types: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.receipt_types: ~6 rows (aproximadamente)
 INSERT INTO `receipt_types` (`id`, `code`, `name`, `prefix`, `current_sequential`, `modify_third_parties`, `modify_inventories`, `status`, `company_id`, `created_by`, `created_at`, `updated_at`) VALUES
 	(1, 'FV', 'Factura Venta', 'FV', 1, 1, 1, 1, 1, 1, '2025-10-26 21:58:12', '2025-10-27 00:53:23'),
 	(2, 'FC', 'Factura de compra', 'FC', 2, 1, 1, 1, 1, 1, '2025-10-27 06:07:08', '2025-10-27 01:09:00'),
@@ -3153,9 +3163,11 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   KEY `sessions_last_activity_index` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla point_pos.sessions: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.sessions: ~3 rows (aproximadamente)
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-	('P6T0RRsVCo1LT7RUOJMmkOdFeGquHhuP7HCfmKET', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiT1pNYlZoTGpnMVFrSmZ6cTU1emxreXZ2b1ZhRktYR3EzR05WNDRyNSI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1OToiaHR0cDovL2xvY2FsaG9zdC9wcm9qZWN0cy9wb3MtcG9pbnQvcHVibGljL2FkbWluL3NhbGVzL2xpc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1765743037);
+	('9nay2puGvonPNlfDwtEQix2jB9MBrDF5ysWSvefV', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoib05LaFBWWllvemhnM1VQb3dCV29IeUxoOHBRdHZJd2hoMmRUeUFwaSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTg6Imh0dHA6Ly9sb2NhbGhvc3QvcHJvamVjdHMvcG9zLXBvaW50L3B1YmxpYy9hZG1pbi9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1766763919),
+	('P6T0RRsVCo1LT7RUOJMmkOdFeGquHhuP7HCfmKET', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiT1pNYlZoTGpnMVFrSmZ6cTU1emxreXZ2b1ZhRktYR3EzR05WNDRyNSI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo1OToiaHR0cDovL2xvY2FsaG9zdC9wcm9qZWN0cy9wb3MtcG9pbnQvcHVibGljL2FkbWluL3NhbGVzL2xpc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1765743037),
+	('Viixy33MSJr7L7qC5nP6jjM1kb6hIcSZ2XdFltcb', 1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiOVdVMG1DSWNEZ1JFZHZGWU51T1ZOTXlLbGtYNDJtOXU4Yk9XdGN0YyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTk6Imh0dHA6Ly9sb2NhbGhvc3QvcHJvamVjdHMvcG9zLXBvaW50L3B1YmxpYy9hZG1pbi9pdGVtcy9saXN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1765927773);
 
 -- Volcando estructura para tabla point_pos.state_types
 CREATE TABLE IF NOT EXISTS `state_types` (
@@ -3265,7 +3277,7 @@ CREATE TABLE IF NOT EXISTS `sub_categories` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla point_pos.sub_categories: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.sub_categories: ~1 rows (aproximadamente)
 INSERT INTO `sub_categories` (`id`, `category_id`, `name`, `slug`, `description`, `meta_title`, `meta_description`, `meta_keywords`, `created_by`, `company_id`, `is_delete`, `status`, `created_at`, `updated_at`) VALUES
 	(1, 3, 'Ventiladores Samuray Mejor Calidad', 'Ventiladores', 'Ventiladores excelentes', 'Ventiladores', 'Ventiladores', 'Ventiladores, Abanicos', 1, 1, 0, 1, '2025-06-19 06:40:07', '2025-06-19 07:08:58');
 
@@ -3308,7 +3320,7 @@ CREATE TABLE IF NOT EXISTS `supplier_comments` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='comentarios del proveedor';
 
--- Volcando datos para la tabla point_pos.supplier_comments: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla point_pos.supplier_comments: ~1 rows (aproximadamente)
 INSERT INTO `supplier_comments` (`id`, `comment`, `supplier_id`, `created_at`, `updated_at`) VALUES
 	(1, 'proveedor de pruebas', 8, NULL, NULL);
 

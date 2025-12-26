@@ -54,6 +54,28 @@
                     </a> </li>
                 </ul>
               </div>
+               <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Configuración Nómina
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                 
+                    <li > <a href="{{url('admin/eps/list')}}" class="dropdown-item">
+                        
+                       EPS
+                    </a> </li>
+                
+                    <li> <a href="{{url('admin/city/list')}}"class="dropdown-item">
+                        ARL
+                    </a> </li>
+                    <li> <a href="{{url('admin/branch_type/list')}}"class="dropdown-item">
+                        Fondo de Pensiones
+                    </a> </li>
+                    <li> <a href="{{url('admin/branch/list')}}"class="dropdown-item">
+                        Caja de Compensación
+                    </a> </li>
+                </ul>
+              </div>
                {{-- <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     CRM

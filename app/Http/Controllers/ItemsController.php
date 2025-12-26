@@ -404,6 +404,15 @@ class ItemsController extends Controller
             return response()->json(['exists' => false]);
         }
     }
+    public function checkSku(Request $request) {
+         $sku = $request->input('sku');
+        $sku = ItemsModel::where('sku', $sku)->first();
+        if ($sku) {
+            return response()->json(['exists' => true]);
+        } else {
+            return response()->json(['exists' => false]);
+        }
+    }
     public function checkInternalCode(Request $request)
     {
         $internalCode = $request->input('internal_code');

@@ -73,6 +73,7 @@ use App\Http\Controllers\ReceiptTypeController;
 use App\Http\Controllers\AdjustmentReasonController;
 use App\Http\Controllers\BranchTypeController;
 use App\Http\Controllers\ContactSourceController;
+use App\Http\Controllers\EpsController;
 use App\Http\Controllers\InventoryAjustmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
@@ -202,6 +203,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/sales/search-items', [ItemsController::class, 'itemSearch'])->name('admin.items.search');
     Route::post('admin/items/check-barcode', [ItemsController::class, 'checkBarcode'])->name('admin.items.check-barcode');
     Route::post('admin/items/check-internal-code', [ItemsController::class, 'checkInternalCode'])->name('admin.items.check-internal-code');
+   Route::post('admin/items/check-sku',[ItemsController::class, 'checkSku'])->name('admin.items.check-Sku');
     // lista de precios
     Route::get('admin/list_price/list', [ListPriceController::class, 'list'])->name('admin.list_price.list');
     Route::get('admin/list_price/data', [ListPriceController::class, 'getListPrices'])->name('admin.list_price.data');
@@ -819,6 +821,15 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/opportunity/add-comment/{id}', [OpportunityController::class, 'addComment'])->name('admin.opportunity.add_comment');
     Route::post('admin/opportunity/change-stage/{id}', [OpportunityController::class, 'changeStage'])->name('admin.opportunity.change_stage');
 
+
+    // ... existing routes ...
+    Route::get('admin/eps/list', [EpsController::class, 'list'])->name('admin.eps.list');
+    Route::get('admin/eps/data', [EpsController::class, 'getEps'])->name('admin.eps.fetch');
+    Route::post('admin/eps/store', [EpsController::class, 'store'])->name('admin.eps.store');
+    Route::get('admin/eps/edit/{id}', [EpsController::class, 'edit'])->name('admin.eps.edit');
+    Route::post('admin/eps/update/{id}', [EpsController::class, 'update'])->name('admin.eps.update');
+    Route::delete('admin/eps/delete/{id}', [EpsController::class, 'destroy'])->name('admin.eps.delete');
+    Route::put('admin/eps/toggle-status/{id}', [EpsController::class, 'toggleStatus'])->name('admin.eps.toggle-status');
 
 });
 

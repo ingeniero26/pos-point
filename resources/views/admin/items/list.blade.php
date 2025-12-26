@@ -163,7 +163,7 @@
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="sku" class="form-label"><b>SKU </b></label>
-                                    <input type="text" class="form-control" id="sku" name="sku" >
+                                    <input type="text" class="form-control" id="sku" name="sku" onblur="duplicateSku(this)">
                                 </div>
                             </div>
                         </div>
@@ -1061,7 +1061,32 @@
                     });
                 }
             }
-            // funcion duplicado internal code 
+function duplicateSku(input) {
+   var sku  = input.value;
+        if (sku) {
+        $.ajax({
+         url: '{{ url('admin/items/check-sku') }}',
+        type: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+             sku: sku
+            },
+                        success: function(response) {
+                            if (response.exists) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'Ya existe un producto con este codigo sku.'
+                                }).then(() => {
+                                    input.value = '';
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+    
+    // funcion duplicado internal code 
     function duplicateInternalCode(input) {
         var internalCode = input.value;
                 if (internalCode) {

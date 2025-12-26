@@ -6,13 +6,13 @@
             <div class="container-fluid"> 
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3 class="mb-0">Departamentos</h3>
+                        <h3 class="mb-0">EPS</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-end">
                             <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Inicio</a></li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Departamentos
+                                    
                             </li>
                         </ol>
                     </div>
@@ -25,12 +25,12 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Listado de Departamentos</h3>
+                                <h3 class="card-title">Listado de Eps</h3>
                                 <div class="card-tools">
                                     <ul class="pagination pagination-sm float-end">
                                         <a href="" class="btn btn-sm btn-primary"
                                          data-bs-toggle="modal" data-bs-target="#addDepartmentModal">
-                                            Agregar Departamento
+                                            Agregar EPS
                                         </a>
                                     </ul>
                                 </div>
@@ -41,11 +41,14 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Código Dane</th>
-                                                 <th>País</th>
+                                                <th>Nit</th>
                                                 <th>Nombre</th>
-                                               
+                                                 <th>Ciudad</th>
+                                                 <th>Dirección</th>
+                                                 <th>Teléfono</th>
+                                                 <th>Email</th>
                                                  <th>Creado</th>
+                                                 <th>Estado</th>
                                                  <th>Actualizado</th>
                                                 <th>Acciones</th>
                                             </tr>
@@ -69,32 +72,46 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addDepartmentModalLabel">Agregar Departamento</h5>
+                    <h5 class="modal-title" id="addDepartmentModalLabel">Agregar Eps</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="addDepartmentForm">
                         {{ @csrf_field() }}
                         <div class="mb-3">
-                            <label for="dane_code" class="form-label"><b>Código Dane</b></label>
-                            <input type="text" class="form-control" id="dane_code" name="dane_code" required>
+                            <label for="dane_code" class="form-label"><b>Nit</b></label>
+                            <input type="text" class="form-control" id="nit" name="nit" required>
                         </div>
                         <div class="mb-3">
-                            <label for="">Pais</label>
-                            <select name="country_id" id="country_id"
-                             class="form-control" name="state">
-                                <option value="">Seleccione</option>
-                                @foreach ($countries as $key => $item)
-                                <option value="{{ $key }}" {{ $key == '46' ? 'selected' : '' }}>{{ $item }}</option>
-                            @endforeach
-                               </select>
+                            <label for="">Nombre Eps</label>
+                            <input type="text" class="form-control" id="name_eps" name="name_eps" required>
                         </div>
                         <div class="mb-3">
-                            <label for="department" class="form-label"><b></b></label>
-                            <input type="text" class="form-control" id="name_department" name="name_department" required>
+                            <div class="mb-3">
+                                    <label for="city_id" class="form-label"><b>Ciudad</b></label>
+                                  
+                                    <select name="city_id" id="city_id" class="form-control">
+                                        <option value="">Seleccione</option>
+                                       @foreach ($cities as $key =>$item)
+                                       <option value="{{$key }}">{{$item}}</option>
+                                           
+                                       @endforeach
+                                    </select>
+                                </div>
                         </div>
-                       
-                    
+                        <div class="mb-3">
+                            <label for="">Dirección</label>
+                            <input type="text" class="form-control" id="address" name="address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Teléfono</label>
+                            <input type="text" class="form-control" id="phone" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-primary">Agregar</button>
@@ -118,34 +135,39 @@
             
             function fechtDepartment(){
                 $.ajax({
-                    url: "{{url('admin/department/data')}}",
+                    url: "{{url('admin/eps/data')}}",
                     type: 'GET',
                     success: function(response){
                         let tableBody='';
-                        $.each(response, function(index,departments){
-                            let createdAt = dayjs(departments.created_at).format('DD/MM/YYYY h:mm A');
-                            let updatedAt = dayjs(departments.updated_at).format('DD/MM/YYYY h:mm A');
+                        $.each(response, function(index,eps){
+                            let createdAt = dayjs(eps.created_at).format('DD/MM/YYYY h:mm A');
+                            let updatedAt = dayjs(eps.updated_at).format('DD/MM/YYYY h:mm A');
+                            let statusText = eps.status == 0 ? 'Inactivo' : 'Activo';
+              
+                            let toggleStatusText = eps.status == 0 ? 'Activar' : 'Desactivar';
+                          let toggleIcon = eps.status == 0 ? 'fa-toggle-on' : 'fa-toggle-off';
                             tableBody += `<tr>
                                         <td>${index + 1}</td>
-                                        <td>${departments.dane_code}</td>
-                                         <td>${departments.countries ? departments.countries.country_name : 'N/A'}</td>
-
-                                        <td>${departments.name_department}</td>
-                                       
+                                        <td>${eps.nit}</td>
+                                        <td>${eps.name_eps}</td>
+                                         <td>${eps.city ? eps.city.city_name : 'N/A'}</td>
+                                        <td>${eps.address}</td>
+                                        <td>${eps.phone}</td>
+                                        <td>${eps.email}</td>
+                                        <td>${statusText}</td>
                                         <td>${createdAt}</td>
                                         <td>${updatedAt}</td>
                                         <td>
-                                            <button class="btn btn-warning btn-sm edit-btn" data-id="${departments.id}"><i class="fa-solid fa-pen"></i></button>
-                                            <button class="btn btn-danger btn-sm delete-btn" data-id="${departments.id}"><i class="fa-solid fa-trash"></i></button>
+                                            <button class="btn btn-warning btn-sm edit-btn" data-id="${eps.id}"><i class="fa-solid fa-pen"></i></button>
+                                            <button class="btn btn-danger btn-sm delete-btn" data-id="${eps.id}"><i class="fa-solid fa-trash"></i></button>
+                                            <button class="btn btn-secondary btn-sm toggle-status-btn" data-id="${eps.id}" data-status="${eps.status}"><i class="fa ${toggleIcon}"></i> ${toggleStatusText}</button>
                                         </td>
-                                      
-                                     
-                                       
                                     </tr>`;
                         });
                         $('#department-table tbody').html(tableBody);
                         $('.edit-btn').on('click', handleEdit);
                         $('.delete-btn').on('click', handleDelete);
+                          $('.toggle-status-btn').on('click', handleToggleStatus);
                         $('#department-table').DataTable();
                     },
                     error: function(xhr, status, error){
@@ -154,24 +176,54 @@
         
                 });
             }
-            // edit
+            // 
+        function handleToggleStatus(e) {
+            e.preventDefault();
+            const button = $(this);
+            const epsId = button.data('id');
+            const currentStatus = button.data('status');
+            const newStatus = currentStatus == 1 ? 0 : 1;
+
+            $.ajax({
+                url: "{{ url('admin/eps/toggle-status') }}/" + epsId,
+                type: 'PUT',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    status: newStatus
+                },
+                success: function(response) {
+                    Swal.fire(
+                        'Éxito!',
+                        response.success,
+                        'success'
+                    );
+                    fechtDepartment(); // Refrescar la lista de eps
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al cambiar el estado de la eps: ', error);
+                }
+            });
+        }
          
-            function handleEdit(e) {
-                 e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace o botón 
+    function handleEdit(e) {
+         e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace o botón 
                 let departmentId = $(this).data('id');
                  $.ajax({
-                     url: "{{ url('admin/department/edit') }}/" + departmentId,
+                     url: "{{ url('admin/eps/edit') }}/" + departmentId,
                   type: 'GET', success: function(departments)
                    { // Establecer los valores en los campos del modal
-                        $('#dane_code').val(departments.dane_code);
-                    $('#country_id').val(departments.country_id);
-                     $('#name_department').val(departments.name_department);
+                        $('#nit').val(departments.nit);
+                    $('#city_id').val(departments.city_id);
+                     $('#name_eps').val(departments.name_eps);
+                        $('#address').val(departments.address);
+                         $('#phone').val(departments.phone);
+                        $('#email').val(departments.email);
                       
                       $('#addDepartmentModal').modal('show'); // Manejar el envío del formulario de edición
                        $('#addDepartmentForm').off('submit').on('submit', function(e) {
                          e.preventDefault(); // Prevenir el envío del formulario 
                          const formData = $(this).serialize();
-                          $.ajax({ url: "{{ url('admin/department/update') }}/" + departmentId, 
+                          $.ajax({ url: "{{ url('admin/eps/update') }}/" + departmentId, 
                           type: 'POST', 
                           data: formData,
                            success: function(response)
@@ -189,11 +241,11 @@
                                 }, error: function(xhr, status, error) {
                                      console.error('Error al editar el registro: ', error);
                                      } 
-                                    });
+                        });
             }
             
             // delete
-            function handleDelete(e) {
+    function handleDelete(e) {
             e.preventDefault();
             const departmentId = $(this).data('id');
 
@@ -209,7 +261,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "{{ url('admin/department/delete') }}/" + departmentId,
+                        url: "{{ url('admin/eps/delete') }}/" + departmentId,
                         type: 'DELETE',
                         data: {
                             _token: "{{ csrf_token() }}"
@@ -242,9 +294,7 @@
 $(document).ready(function() {
     $('.deleteButton').on('click', handleDelete); // Asignar la función de manejo a los botones de eliminación
 });
-
-         
-        });
+});
    </script>
    <script type="text/javascript">
    $(document).ready(function(){
@@ -252,7 +302,7 @@ $(document).ready(function() {
         e.preventDefault();
         let formData = $(this).serialize();
         $.ajax({
-            url: "{{ url('admin/department/store') }}",
+            url: "{{ url('admin/eps/store') }}",
             type: 'POST',
             data: formData,
             success: function(response){

@@ -641,7 +641,7 @@ $(document).ready(function() {
                     fechtCustomers(); // Refrescar la lista de ciudades
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error al cambiar el estado de la ciudad: ', error);
+                    console.error('Error al cambiar el estado del tercero: ', error);
                 }
             });
         }
