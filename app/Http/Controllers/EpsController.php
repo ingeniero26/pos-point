@@ -45,6 +45,7 @@ class EpsController extends Controller
     {
         //
         $eps = new Eps();
+        $eps->dane_code = $request->input('dane_code');
         $eps->nit = $request->input('nit');
         $eps->name_eps = $request->input('name_eps');
         $eps->city_id = $request->input('city_id');
@@ -90,6 +91,7 @@ class EpsController extends Controller
         if (!$eps) {
             return response()->json(['error' => 'Registro no Encontrado']);
         }
+        $eps->dane_code = $request->input('dane_code');
         $eps->nit = $request->input('nit');
         $eps->name_eps = $request->input('name_eps');
         $eps->city_id = $request->input('city_id');

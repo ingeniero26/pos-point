@@ -6,7 +6,7 @@
             <div class="container-fluid"> 
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3 class="mb-0">Entidades Promotoras de Salud (EPS)</h3>
+                        <h3 class="mb-0">Fondo Pensiones</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-end">
@@ -25,12 +25,12 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Listado de Eps</h3>
+                                <h3 class="card-title">Listado de Fondo Pensiones</h3>
                                 <div class="card-tools">
                                     <ul class="pagination pagination-sm float-end">
                                         <a href="" class="btn btn-sm btn-primary"
                                          data-bs-toggle="modal" data-bs-target="#addDepartmentModal">
-                                            Agregar EPS
+                                            Agregar Fondo Pensiones
                                         </a>
                                     </ul>
                                 </div>
@@ -42,14 +42,13 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Código</th>
-                                                <th>Nit</th>
                                                 <th>Nombre</th>
-                                                 <th>Ciudad</th>
-                                                 <th>Dirección</th>
-                                                 <th>Teléfono</th>
-                                                 <th>Email</th>
-                                                 <th>Creado</th>
-                                                 <th>Estado</th>
+                                                <th>Nit</th>
+                                                <th>Dirección</th>
+                                                <th>Teléfono</th>
+                                                <th>Email</th>
+                                                <th>Creado</th>
+                                                <th>Estado</th>
                                                  <th>Actualizado</th>
                                                 <th>Acciones</th>
                                             </tr>
@@ -89,21 +88,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Nombre Eps</label>
-                            <input type="text" class="form-control" id="name_eps" name="name_eps" required>
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
-                        <div class="mb-3">
-                            <div class="mb-3">
-                                    <label for="city_id" class="form-label"><b>Ciudad</b></label>
-                                  
-                                    <select name="city_id" id="city_id" class="form-control">
-                                        <option value="">Seleccione</option>
-                                       @foreach ($cities as $key =>$item)
-                                       <option value="{{$key }}">{{$item}}</option>
-                                           
-                                       @endforeach
-                                    </select>
-                                </div>
-                        </div>
+                      
                         <div class="mb-3">
                             <label for="">Dirección</label>
                             <input type="text" class="form-control" id="address" name="address" required>
@@ -138,7 +125,7 @@
             
             function fechtDepartment(){
                 $.ajax({
-                    url: "{{url('admin/eps/data')}}",
+                    url: "{{url('admin/pensions/data')}}",
                     type: 'GET',
                     success: function(response){
                         let tableBody='';
@@ -151,10 +138,10 @@
                           let toggleIcon = eps.status == 0 ? 'fa-toggle-on' : 'fa-toggle-off';
                             tableBody += `<tr>
                                         <td>${index + 1}</td>
-                                        <td>${eps.dane_code}</td>
+                                        <td>${eps.code}</td>
+                                        <td>${eps.name}</td>
                                         <td>${eps.nit}</td>
-                                        <td>${eps.name_eps}</td>
-                                         <td>${eps.city ? eps.city.city_name : 'N/A'}</td>
+                                         
                                         <td>${eps.address}</td>
                                         <td>${eps.phone}</td>
                                         <td>${eps.email}</td>
@@ -181,7 +168,7 @@
                 });
             }
             // 
-        function handleToggleStatus(e) {
+    function handleToggleStatus(e) {
             e.preventDefault();
             const button = $(this);
             const epsId = button.data('id');
@@ -189,7 +176,7 @@
             const newStatus = currentStatus == 1 ? 0 : 1;
 
             $.ajax({
-                url: "{{ url('admin/eps/toggle-status') }}/" + epsId,
+                url: "{{ url('admin/pensions/toggle-status') }}/" + epsId,
                 type: 'PUT',
                 data: {
                     _token: "{{ csrf_token() }}",
@@ -214,20 +201,20 @@ function handleEdit(e) {
     let departmentId = $(this).data('id');
     
     $.ajax({
-        url: "{{ url('admin/eps/edit') }}/" + departmentId,
+        url: "{{ url('admin/pensions/edit') }}/" + departmentId,
         type: 'GET',
         success: function(departments) {
             // Establecer los valores en los campos del modal
             $('#code').val(departments.code);
             $('#nit').val(departments.nit);
-            $('#city_id').val(departments.city_id);
-            $('#name_eps').val(departments.name_eps);
+           
+            $('#name').val(departments.name);
             $('#address').val(departments.address);
             $('#phone').val(departments.phone);
             $('#email').val(departments.email);
             
             // Cambiar el título del modal a "Editar"
-            $('#addDepartmentModal .modal-title').text('Editar EPS');
+            $('#addDepartmentModal .modal-title').text('Editar Fondo Pensiones');
             
             // Cambiar el texto del botón de submit a "Actualizar" o "Editar"
             $('#addDepartmentForm button[type="submit"]').text('Actualizar');
@@ -240,7 +227,7 @@ function handleEdit(e) {
                 const formData = $(this).serialize();
                 
                 $.ajax({
-                    url: "{{ url('admin/eps/update') }}/" + departmentId,
+                    url: "{{ url('admin/pensions/update') }}/" + departmentId,
                     type: 'POST',
                     data: formData,
                     success: function(response) {
@@ -275,7 +262,7 @@ function handleEdit(e) {
 }
             
             // delete
-    function handleDelete(e) {
+function handleDelete(e) {
             e.preventDefault();
             const departmentId = $(this).data('id');
 
@@ -291,7 +278,7 @@ function handleEdit(e) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "{{ url('admin/eps/delete') }}/" + departmentId,
+                        url: "{{ url('admin/pensions/delete') }}/" + departmentId,
                         type: 'DELETE',
                         data: {
                             _token: "{{ csrf_token() }}"
@@ -332,7 +319,7 @@ $(document).ready(function() {
         e.preventDefault();
         let formData = $(this).serialize();
         $.ajax({
-            url: "{{ url('admin/eps/store') }}",
+            url: "{{ url('admin/pensions/store') }}",
             type: 'POST',
             data: formData,
             success: function(response){

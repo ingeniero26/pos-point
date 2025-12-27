@@ -64,13 +64,14 @@
                         
                        EPS
                     </a> </li>
-                
-                    <li> <a href="{{url('admin/city/list')}}"class="dropdown-item">
-                        ARL
-                    </a> </li>
-                    <li> <a href="{{url('admin/branch_type/list')}}"class="dropdown-item">
+                    <li> <a href="{{url('admin/pensions/list')}}"class="dropdown-item">
                         Fondo de Pensiones
                     </a> </li>
+                
+                    <li> <a href="{{url('admin/arl_providers/list')}}"class="dropdown-item">
+                        ARL
+                    </a> </li>
+                    
                     <li> <a href="{{url('admin/branch/list')}}"class="dropdown-item">
                         Caja de Compensación
                     </a> </li>

@@ -71,6 +71,7 @@ use App\Http\Controllers\AssetLocationController;
 use App\Http\Controllers\NotesCreditDebitController;
 use App\Http\Controllers\ReceiptTypeController;
 use App\Http\Controllers\AdjustmentReasonController;
+use App\Http\Controllers\ArlProviderController;
 use App\Http\Controllers\BranchTypeController;
 use App\Http\Controllers\ContactSourceController;
 use App\Http\Controllers\EpsController;
@@ -81,6 +82,7 @@ use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\OpportunityPriorityController;
 use App\Http\Controllers\OpportunityStageController;
 use App\Http\Controllers\OpportunityStateController;
+use App\Http\Controllers\PensionFoundController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -830,6 +832,25 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/eps/update/{id}', [EpsController::class, 'update'])->name('admin.eps.update');
     Route::delete('admin/eps/delete/{id}', [EpsController::class, 'destroy'])->name('admin.eps.delete');
     Route::put('admin/eps/toggle-status/{id}', [EpsController::class, 'toggleStatus'])->name('admin.eps.toggle-status');
+
+   //pensiones
+    Route::get('admin/pensions/list', [PensionFoundController::class, 'list'])->name('admin.pensions.list');
+    Route::get('admin/pensions/data', [PensionFoundController::class, 'getPensions'])->name('admin.pensions.fetch');
+    Route::post('admin/pensions/store', [PensionFoundController::class, 'store'])->name('admin.pensions.store');
+    Route::get('admin/pensions/edit/{id}', [PensionFoundController::class, 'edit'])->name('admin.pensions.edit');
+    Route::post('admin/pensions/update/{id}', [PensionFoundController::class, 'update'])->name('admin.pensions.update');
+    Route::delete('admin/pensions/delete/{id}', [PensionFoundController::class, 'destroy'])->name('admin.pensions.delete');
+    Route::put('admin/pensions/toggle-status/{id}', [PensionFoundController::class, 'toggleStatus'])->name('admin.pensions.toggle-status');
+
+  //arl_providers
+    Route::get('admin/arl_providers/list', [ArlProviderController::class, 'list'])->name('admin.arl_providers.list');
+    Route::get('admin/arl_providers/data', [ArlProviderController::class, 'getArlProviders'])->name('admin.arl_providers.fetch');
+    Route::post('admin/arl_providers/store', [ArlProviderController::class, 'store'])->name('admin.arl_providers.store');
+    Route::get('admin/arl_providers/edit/{id}', [ArlProviderController::class, 'edit'])->name('admin.arl_providers.edit');
+    Route::post('admin/arl_providers/update/{id}', [ArlProviderController::class, 'update'])->name('admin.arl_providers.update');
+    Route::delete('admin/arl_providers/delete/{id}', [ArlProviderController::class, 'destroy'])->name('admin.arl_providers.delete');
+    Route::put('admin/arl_providers/toggle-status/{id}', [ArlProviderController::class, 'toggleStatus'])->name('admin.arl_providers.toggle-status');
+
 
 });
 
