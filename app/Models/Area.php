@@ -53,12 +53,12 @@ protected $fillable = [
 
       public function parent()
     {
-        return $this->belongsTo(Area::class, 'parent_id');
+        return $this->belongsTo(Area::class, 'parent_id')->withTrashed();
     }
 
      public function children()
     {
-        return $this->hasMany(Area::class, 'parent_id');
+        return $this->hasMany(Area::class, 'parent_id')->withTrashed()->where('is_delete', 0);
     }
 
     public function manager()

@@ -347,5 +347,33 @@ public function storeAjax(Request $request)
         return response()->json($persons);
     }
 
+    public function updateEmail(Request $request, $id)
+{
+    $request->validate([
+        'email' => 'required|email|unique:persons,email,' . $id
+    ], [
+        'email.required' => 'El email es requerido',
+        'email.email' => 'El formato del email no es válido',
+        'email.unique' => 'Este email ya está registrado'
+    ]);
+
+    try {
+        $person = PersonModel::findOrFail($id);
+        $person->email = $request->email;
+        $person->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Email actualizado correctamente',
+            'email' => $person->email
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al actualizar el email: ' . $e->getMessage()
+        ], 500);
+    }
+}
+
 }
 

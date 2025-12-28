@@ -157,7 +157,8 @@ class AreaController extends Controller
      */
     public function show($id)
     {
-        $area = Area::with(['parent', 'children', 'manager', 'company', 'costCenter', 'creatorUser'])
+        $area = Area::withTrashed()
+            ->with(['parent', 'children', 'manager', 'company', 'costCenter', 'creatorUser'])
             ->where('company_id', Auth::user()->company_id)
             ->findOrFail($id);
             
@@ -214,7 +215,8 @@ class AreaController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $area = Area::where('company_id', Auth::user()->company_id)
+            $area = Area::withTrashed()
+                ->where('company_id', Auth::user()->company_id)
                 ->findOrFail($id);
 
             $validator = Validator::make($request->all(), [
@@ -311,9 +313,10 @@ class AreaController extends Controller
      */
     public function getAreasHierarchy()
     {
-        $areas = Area::where('company_id', Auth::user()->company_id)
-            ->notDeleted()
-            ->active()
+        $areas = Area::withTrashed()
+            ->where('company_id', Auth::user()->company_id)
+            ->where('is_delete', 0)
+            ->where('status', 1)
             ->with('children')
             ->whereNull('parent_id')
             ->orderBy('name')

@@ -72,8 +72,11 @@
                         ARL
                     </a> </li>
 
-                    <li> <a href="{{url('admin/areas/list')}}"class="dropdown-item">
-                        Areas de la Empresa
+                        <li> <a href="{{url('admin/areas/list')}}"class="dropdown-item">
+                            Areas de la Empresa
+                        </a> </li>
+                    <li><a href="{{url('admin/positions/list')}}"class="dropdown-item">
+                        Cargos
                     </a> </li>
                 </ul>
               </div>

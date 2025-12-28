@@ -84,6 +84,7 @@ use App\Http\Controllers\OpportunityPriorityController;
 use App\Http\Controllers\OpportunityStageController;
 use App\Http\Controllers\OpportunityStateController;
 use App\Http\Controllers\PensionFoundController;
+use App\Http\Controllers\PositionController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -414,9 +415,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/person/check-email', [PersonController::class, 'checkEmail'])->name('admin.person.check-email');
     Route::put('admin/person/toggle-status/{id}', [PersonController::class, 'toggleStatus'])->name('admin.person.toggle-status');
     Route::get('admin/person/{id}', [PersonController::class, 'show']);
-    Route::post(
-        'admin/person/check-identification',
-        [PersonController::class, 'checkIdentification']
+    Route::post('admin/person/check-identification', [PersonController::class, 'checkIdentification']
     )->name('admin.person.check-identification');
     Route::get('admin/person/get_departments/{id}', [PersonController::class, 'getDepartmentsByCountry']);
     Route::get('admin/person/get_cities/{id}', [PersonController::class, 'getCitiesByDepartment']);
@@ -427,7 +426,7 @@ Route::group(['middleware' => 'admin'], function () {
     // obtener los  person tipo cliente
 
     Route::get('admin/person/get-customers', [PersonController::class, 'getListPerson'])->name('admin.person.get-customers');
-
+    Route::post('admin/person/update-email/{id}', [PersonController::class, 'updateEmail'])->name('person.update.email');
     // traslados entre bodegas
     Route::get('admin/transfer/list', [TransferController::class, 'list'])->name('transfer.list');
     Route::get('admin/transfer/create', [TransferController::class, 'create'])->name('admin.transfer.create');
@@ -862,9 +861,18 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/areas/store', [AreaController::class, 'store'])->name('admin.areas.store');
     Route::get('admin/areas/show/{id}', [AreaController::class, 'show'])->name('admin.areas.show');
     Route::get('admin/areas/edit/{id}', [AreaController::class, 'edit'])->name('admin.areas.edit');
-    Route::post('admin/areas/update/{id}', [AreaController::class, 'update'])->name('admin.areas.update');
+    Route::put('admin/areas/update/{id}', [AreaController::class, 'update'])->name('admin.areas.update');
     Route::delete('admin/areas/delete/{id}', [AreaController::class, 'destroy'])->name('admin.areas.delete');
     Route::get('admin/areas/hierarchy', [AreaController::class, 'getAreasHierarchy'])->name('admin.areas.hierarchy');
+
+    //positions
+    Route::get('admin/positions/list', [PositionController::class, 'list'])->name('admin.positions.list');
+    Route::get('admin/positions/data', [PositionController::class, 'getPositions'])->name('admin.positions.fetch');
+    Route::post('admin/positions/store', [PositionController::class, 'store'])->name('admin.positions.store');
+    Route::get('admin/positions/edit/{id}', [PositionController::class, 'edit'])->name('admin.positions.edit');
+    Route::post('admin/positions/update/{id}', [PositionController::class, 'update'])->name('admin.positions.update');
+    Route::delete('admin/positions/delete/{id}', [PositionController::class, 'destroy'])->name('admin.positions.delete');
+    Route::put('admin/positions/toggle-status/{id}', [PositionController::class, 'toggleStatus'])->name('admin.positions.toggle-status');
 });
 
 Route::group(['middleware' => 'user'], function () {

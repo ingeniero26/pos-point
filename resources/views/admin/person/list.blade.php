@@ -404,7 +404,55 @@
                 </div>
             </div>
         </div>
-    </div>   
+    </div>  
+    
+    <!-- Modal para actualizar email -->
+<div class="modal fade" id="updateEmailModal" tabindex="-1" aria-labelledby="updateEmailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateEmailModalLabel">
+                    <i class="fa-solid fa-envelope me-2"></i>Actualizar Email
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateEmailForm">
+                    <input type="hidden" id="customer_id_email" name="customer_id">
+                    
+                    <div class="mb-3">
+                        <label for="current_email" class="form-label">Email Actual</label>
+                        <input type="email" class="form-control" id="current_email" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="new_email" class="form-label">Nuevo Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="new_email" name="email" required>
+                        <div class="invalid-feedback">
+                            Por favor ingrese un email válido.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="confirm_email" class="form-label">Confirmar Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="confirm_email" required>
+                        <div class="invalid-feedback">
+                            Los emails no coinciden.
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fa-solid fa-times me-1"></i>Cancelar
+                </button>
+                <button type="button" class="btn btn-primary" id="saveEmailBtn">
+                    <i class="fa-solid fa-save me-1"></i>Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
     @endsection
    @section('script')
    
@@ -581,7 +629,15 @@
                                 <td>${customer.cities ? customer.cities.city_name : 'N/A'}</td>
                                 <td>${customer.address}</td>
                                 <td>${customer.phone}</td>
-                                <td>${customer.email}</td>
+                                <td>
+                                    <span class="email-editable" 
+                                          data-id="${customer.id}" 
+                                          data-email="${customer.email}"
+                                          style="cursor: pointer; color: #0d6efd; text-decoration: underline;"
+                                          title="Click para editar">
+                                        ${customer.email}
+                                    </span>
+                                </td>
                                 <td>${statusText}</td>
                                 <td>${createdAt}</td>
                                 <td>
@@ -597,6 +653,8 @@
             $('.delete-btn').on('click', handleDelete);
             $('.view').on('click', handleView);
             $('.toggle-status-btn').on('click', handleToggleStatus);
+             // Nuevo event handler para emails
+            $('.email-editable').on('click', handleEmailEdit);
             $('#customer-table').DataTable();
         },
         error: function(xhr, status, error){
@@ -617,8 +675,102 @@ $(document).ready(function() {
         fechtCustomers();
     });
 });
+// Función para abrir el modal de edición de email
+function handleEmailEdit() {
+    let customerId = $(this).data('id');
+    let currentEmail = $(this).data('email');
+    
+    $('#customer_id_email').val(customerId);
+    $('#current_email').val(currentEmail);
+    $('#new_email').val('');
+    $('#confirm_email').val('');
+    
+    // Limpiar validaciones previas
+    $('#updateEmailForm')[0].classList.remove('was-validated');
+    $('#new_email').removeClass('is-invalid');
+    $('#confirm_email').removeClass('is-invalid');
+    
+    // Abrir modal
+    $('#updateEmailModal').modal('show');
+}
 
-        function handleToggleStatus(e) {
+// Validar que los emails coincidan
+$('#confirm_email').on('input', function() {
+    let newEmail = $('#new_email').val();
+    let confirmEmail = $(this).val();
+    
+    if (confirmEmail && newEmail !== confirmEmail) {
+        $(this).addClass('is-invalid');
+    } else {
+        $(this).removeClass('is-invalid');
+    }
+});
+
+// Guardar el nuevo email
+$('#saveEmailBtn').on('click', function() {
+    let form = $('#updateEmailForm')[0];
+    let newEmail = $('#new_email').val();
+    let confirmEmail = $('#confirm_email').val();
+    let customerId = $('#customer_id_email').val();
+    
+    // Validar formulario
+    if (!form.checkValidity() || newEmail !== confirmEmail) {
+        form.classList.add('was-validated');
+        if (newEmail !== confirmEmail) {
+            $('#confirm_email').addClass('is-invalid');
+        }
+        return;
+    }
+    
+    // Deshabilitar botón mientras se procesa
+    $(this).prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin me-1"></i>Guardando...');
+    
+    $.ajax({
+      
+        url: "{{ url('admin/person/update-email') }}/" + customerId,// Ajusta la ruta según tu configuración
+        type: 'POST',
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            email: newEmail
+        },
+        success: function(response) {
+            // Mostrar mensaje de éxito
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: 'Email actualizado correctamente',
+                timer: 2000,
+                showConfirmButton: false
+            });
+            
+            // Cerrar modal
+            $('#updateEmailModal').modal('hide');
+            
+            // Recargar tabla
+            fechtCustomers();
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al actualizar email:', error);
+            
+            let errorMessage = 'Error al actualizar el email';
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+                errorMessage = xhr.responseJSON.message;
+            }
+            
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: errorMessage
+            });
+        },
+        complete: function() {
+            // Re-habilitar botón
+            $('#saveEmailBtn').prop('disabled', false).html('<i class="fa-solid fa-save me-1"></i>Guardar Cambios');
+        }
+    });
+});
+
+    function handleToggleStatus(e) {
             e.preventDefault();
             const button = $(this);
             const customerId = button.data('id');
@@ -657,71 +809,71 @@ $(document).ready(function() {
 
         // edit
         function handleEdit(e) {
-    e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace o botón 
-    let customerId = $(this).data('id');
-    $.ajax({
-        url: "{{ url('admin/person/edit') }}/" + customerId,
-        type: 'GET',
-        success: function(customer) { 
-            // Establecer los valores en los campos del modal
-          
-            $('#identification_type_id').val(customer.identification_type_id);
-            $('#identification_number').val(customer.identification_number);
-            $('#dv').val(customer.dv);
+        e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace o botón 
+        let customerId = $(this).data('id');
+        $.ajax({
+            url: "{{ url('admin/person/edit') }}/" + customerId,
+            type: 'GET',
+            success: function(customer) { 
+                // Establecer los valores en los campos del modal
             
-            $('#name').val(customer.name);
-            $('#last_name').val(customer.last_name);
-            $('#type_person_id').val(customer.type_person_id);
-            $('#type_liability_id').val(customer.type_liability_id);
-            $('#type_regimen_id').val(customer.type_regimen_id);
-            $('#type_third_id').val(customer.type_third_id);
-            $('#ciiu_code').val(customer.ciiu_code);
-            $('#great_taxpayer').val(customer.great_taxpayer);
-            $('#self_withholder').val(customer.self_withholder);
-            $('#ica_activity').val(customer.ica_activity);
-            $('#ica_rate').val(customer.ica_rate);
-            $('#commercial_registry').val(customer.commercial_registry);
-            $('#registration_date').val(customer.registration_date);
-            
-            $('#department_id').val(customer.department_id);
-            $('#city_id').val(customer.city_id);
-            $('#address').val(customer.address);
-            $('#phone').val(customer.phone);
-           $('#email').val(customer.email);
-            
-                       
-            $('#addCustomerModal').modal('show'); 
-            
-            // Manejar el envío del formulario de edición
-            $('#addCustomerForm').off('submit').on('submit', function(e) {
-                e.preventDefault(); // Prevenir el envío del formulario 
-                const formData = $(this).serialize();
-                $.ajax({ 
-                    url: "{{ url('admin/person/update') }}/" + customerId,
-                    type: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        $('#addCustomerModal').modal('hide');
-                        fechtCustomers(); // Actualiza la lista de productos
-                        $('#addCustomerForm')[0].reset();
-                        $('.flashMessage')
-                            .text(response.success)
-                            .fadeIn()
-                            .delay(3000)
-                            .fadeOut();
-                        setTimeout(function() { location.reload(); }, 2000);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error al actualizar el cliente: ', error);
-                    }
+                $('#identification_type_id').val(customer.identification_type_id);
+                $('#identification_number').val(customer.identification_number);
+                $('#dv').val(customer.dv);
+                
+                $('#name').val(customer.name);
+                $('#last_name').val(customer.last_name);
+                $('#type_person_id').val(customer.type_person_id);
+                $('#type_liability_id').val(customer.type_liability_id);
+                $('#type_regimen_id').val(customer.type_regimen_id);
+                $('#type_third_id').val(customer.type_third_id);
+                $('#ciiu_code').val(customer.ciiu_code);
+                $('#great_taxpayer').val(customer.great_taxpayer);
+                $('#self_withholder').val(customer.self_withholder);
+                $('#ica_activity').val(customer.ica_activity);
+                $('#ica_rate').val(customer.ica_rate);
+                $('#commercial_registry').val(customer.commercial_registry);
+                $('#registration_date').val(customer.registration_date);
+                
+                $('#department_id').val(customer.department_id);
+                $('#city_id').val(customer.city_id);
+                $('#address').val(customer.address);
+                $('#phone').val(customer.phone);
+            $('#email').val(customer.email);
+                
+                        
+                $('#addCustomerModal').modal('show'); 
+                
+                // Manejar el envío del formulario de edición
+                $('#addCustomerForm').off('submit').on('submit', function(e) {
+                    e.preventDefault(); // Prevenir el envío del formulario 
+                    const formData = $(this).serialize();
+                    $.ajax({ 
+                        url: "{{ url('admin/person/update') }}/" + customerId,
+                        type: 'POST',
+                        data: formData,
+                        success: function(response) {
+                            $('#addCustomerModal').modal('hide');
+                            fechtCustomers(); // Actualiza la lista de productos
+                            $('#addCustomerForm')[0].reset();
+                            $('.flashMessage')
+                                .text(response.success)
+                                .fadeIn()
+                                .delay(3000)
+                                .fadeOut();
+                            setTimeout(function() { location.reload(); }, 2000);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error al actualizar el cliente: ', error);
+                        }
+                    });
                 });
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error al editar el contacto: ', error);
-        }
-    });
-}
+            },
+            error: function(xhr, status, error) {
+                console.error('Error al editar el contacto: ', error);
+            }
+        });
+    }
 function handleDelete(e) {
             e.preventDefault();
             const customerId = $(this).data('id');
