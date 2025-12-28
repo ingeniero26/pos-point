@@ -55,4 +55,24 @@ class CostCentersController extends Controller
         $category->save();
         return response()->json(['success' => 'Registro Eliminado con Exito']);
     }
+
+    /**
+     * Get all cost centers for select options
+     */
+    public function getAllCostCenters()
+    {
+        try {
+            $costCenters = CostCenterModel::where('is_delete', 0)
+                ->where('company_id', Auth::user()->company_id)
+                ->orderBy('name')
+                ->get(['id', 'name', 'code']);
+
+            return response()->json($costCenters);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al obtener los centros de costo: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }

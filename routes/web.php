@@ -71,6 +71,7 @@ use App\Http\Controllers\AssetLocationController;
 use App\Http\Controllers\NotesCreditDebitController;
 use App\Http\Controllers\ReceiptTypeController;
 use App\Http\Controllers\AdjustmentReasonController;
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\ArlProviderController;
 use App\Http\Controllers\BranchTypeController;
 use App\Http\Controllers\ContactSourceController;
@@ -297,6 +298,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/cost_center/update/{id}', [CostCentersController::class, 'update']);
     Route::delete('admin/cost_center/delete/{id}', [CostCentersController::class, 'destroy']);
     Route::get('admin/cost_center/{id}', [CostCentersController::class, 'show']);
+    Route::get('admin/cost_centers/all', [CostCentersController::class, 'getAllCostCenters'])->name('admin.cost_centers.all');
     // cash
     Route::get('admin/cash_register/list', [CashRegisterController::class, 'list']);
     Route::get('admin/cash_register/data', [CashRegisterController::class, 'getCashRegisters'])->name('admin.cash_register.fetch');
@@ -739,7 +741,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/warehouses/all', [WarehouseController::class, 'getAllWarehouses'])->name('admin.warehouses.all');
     //Route::get('admin/adjustment_types/all', [AdjustmentTypeController::class, 'getAllAdjustmentTypes'])->name('admin.adjustment_types.all');
     Route::get('admin/adjustment_reasons/all', [AdjustmentReasonController::class, 'getAllAdjustmentReasons'])->name('admin.adjustment_reasons.all');
-    // Route::get('admin/users/all', [UserController::class, 'getAllUsers'])->name('admin.users.all');
+    Route::get('admin/users/all', [UserController::class, 'getAllUsers'])->name('admin.users.all');
 
  // receipt_types
     Route::get('admin/receipt_types/list', [ReceiptTypeController::class, 'list'])->name('admin.receipt_types.list');
@@ -852,6 +854,17 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('admin/arl_providers/toggle-status/{id}', [ArlProviderController::class, 'toggleStatus'])->name('admin.arl_providers.toggle-status');
 
 
+    // area
+    Route::get('admin/areas/list', [AreaController::class, 'list'])->name('admin.areas.list');
+    Route::get('admin/areas/debug', [AreaController::class, 'debugAreas'])->name('admin.areas.debug');
+    Route::get('admin/areas/data', [AreaController::class, 'getAreas'])->name('admin.areas.fetch');
+    Route::get('admin/areas/create', [AreaController::class, 'create'])->name('admin.areas.create');
+    Route::post('admin/areas/store', [AreaController::class, 'store'])->name('admin.areas.store');
+    Route::get('admin/areas/show/{id}', [AreaController::class, 'show'])->name('admin.areas.show');
+    Route::get('admin/areas/edit/{id}', [AreaController::class, 'edit'])->name('admin.areas.edit');
+    Route::post('admin/areas/update/{id}', [AreaController::class, 'update'])->name('admin.areas.update');
+    Route::delete('admin/areas/delete/{id}', [AreaController::class, 'destroy'])->name('admin.areas.delete');
+    Route::get('admin/areas/hierarchy', [AreaController::class, 'getAreasHierarchy'])->name('admin.areas.hierarchy');
 });
 
 Route::group(['middleware' => 'user'], function () {

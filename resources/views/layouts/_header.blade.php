@@ -71,9 +71,9 @@
                     <li> <a href="{{url('admin/arl_providers/list')}}"class="dropdown-item">
                         ARL
                     </a> </li>
-                    
-                    <li> <a href="{{url('admin/branch/list')}}"class="dropdown-item">
-                        Caja de Compensación
+
+                    <li> <a href="{{url('admin/areas/list')}}"class="dropdown-item">
+                        Areas de la Empresa
                     </a> </li>
                 </ul>
               </div>
