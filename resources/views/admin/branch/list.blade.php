@@ -49,9 +49,8 @@
                                             <tr>
                                                 <th>ID</th>  
                                                 <th>Tipo Sucursal</th>
-                                               <th>Sucursal</th>  
-                                              
-                                               <th>Direccion</th>
+                                                <th>Sucursal</th>  
+                                                <th>Direccion</th>
                                                 <th>Teléfono</th>
                                                 <th>Correo Electrónico</th>
                                                 <th>País</th>                       
@@ -59,7 +58,6 @@
                                                 <th>Ciudad</th>
                                                 <th>Estado</th>
                                                  <th>Creado</th>
-                                               
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
@@ -94,7 +92,7 @@
                                     <label for="branch_type_id" class="form-label"><b>Tipo Sucursal</b></label>
                                     <select name="branch_type_id" id="branch_type_id" class="form-control">
                                         <option value="">Seleccione</option>
-                                       @foreach ($branchTypes as $key =>$item)
+                                       @foreach ($branch_types as $key =>$item)
                                        <option value="{{$key }}">{{$item}}</option>
                                            
                                        @endforeach
@@ -275,9 +273,6 @@
         }
     });
 
-
-        
-
         fechtCustomers();
         
         function formatCurrency(value) {
@@ -311,12 +306,10 @@
                 tableBody += `<tr>
                                 <td>${index + 1}</td>
                                 <td>${customer.branch_types ? customer.branch_types.name : 'N/A'}</td>
-                                
                                 <td>${customer.name}</td>
-                               <td>${customer.address}</td>
+                                <td>${customer.address}</td>
                                 <td>${customer.phone}</td>
                                 <td>${customer.email}</td>
-                              
                                 <td>${customer.countries ? customer.countries.country_name : 'N/A'}</td>
                                 <td>${customer.departments ? customer.departments.name_department : 'N/A'}</td>
                                 <td>${customer.cities ? customer.cities.city_name : 'N/A'}</td>
@@ -402,14 +395,13 @@ $(document).ready(function() {
           
             $('#branch_type_id').val(customer.branch_type_id);
             $('#identification_number').val(customer.identification_number);
-            $
             $('#name').val(customer.name);
         
             $('#department_id').val(customer.department_id);
             $('#city_id').val(customer.city_id);
             $('#address').val(customer.address);
             $('#phone').val(customer.phone);
-           $('#email').val(customer.email);
+            $('#email').val(customer.email);
             
                        
             $('#addCustomerModal').modal('show'); 

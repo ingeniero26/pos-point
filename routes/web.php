@@ -85,6 +85,7 @@ use App\Http\Controllers\OpportunityStageController;
 use App\Http\Controllers\OpportunityStateController;
 use App\Http\Controllers\PensionFoundController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\UserTypeController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -873,6 +874,15 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/positions/update/{id}', [PositionController::class, 'update'])->name('admin.positions.update');
     Route::delete('admin/positions/delete/{id}', [PositionController::class, 'destroy'])->name('admin.positions.delete');
     Route::put('admin/positions/toggle-status/{id}', [PositionController::class, 'toggleStatus'])->name('admin.positions.toggle-status');
+
+    // user_types
+    Route::get('admin/user_types/list', [UserTypeController::class, 'list'])->name('admin.user_types.list');
+    Route::get('admin/user_types/data', [UserTypeController::class, 'getUserTypes'])->name('admin.user_types.fetch');
+    Route::post('admin/user_types/store', [UserTypeController::class, 'store'])->name('admin.user_types.store');
+    Route::get('admin/user_types/edit/{id}', [UserTypeController::class, 'edit'])->name('admin.user_types.edit');
+    Route::post('admin/user_types/update/{id}', [UserTypeController::class, 'update'])->name('admin.user_types.update');
+    Route::delete('admin/user_types/delete/{id}', [UserTypeController::class, 'destroy'])->name('admin.user_types.delete');
+    Route::put('admin/user_types/toggle-status/{id}', [UserTypeController::class, 'toggleStatus'])->name('admin.user_types.toggle-status');
 });
 
 Route::group(['middleware' => 'user'], function () {

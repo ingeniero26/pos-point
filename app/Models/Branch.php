@@ -27,7 +27,7 @@ class Branch extends Model
         return $this->belongsTo(CityModel::class, 'city_id');
     }
 
-    public function branchTypes()
+    public function branch_types()
     {
         return $this->belongsTo(BranchType::class, 'branch_type_id');
     }

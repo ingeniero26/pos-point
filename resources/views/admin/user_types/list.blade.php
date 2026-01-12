@@ -1,0 +1,344 @@
+@extends('layouts.app')
+  
+    @section('content')
+    <main class="app-main"> 
+        <div class="app-content-header"> 
+            <div class="container-fluid"> 
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3 class="mb-0">Tipo Usuarios</h3>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-end">
+                            <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Inicio</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Tipo Usuario
+                            </li>
+                        </ol>
+                    </div>
+                </div> 
+            </div> 
+        </div>
+        <div class="app-content-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--search-->
+                   
+
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h3 class="card-title">Listado de Tipo Usuarios</h3>
+                                <div class="card-tools">
+                                    <ul class="pagination pagination-sm float-end">
+                                        <a href="" class="btn btn-sm btn-primary"
+                                         data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                                         Agregar Tipo Usuario
+                                        </a>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="table-responsive">
+                                    <table id="customer-table" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>                                                 
+                                                <th>Nombre</th>                                                
+                                                 <th>Descripción</th>
+                                                <th>Estado</th>
+                                                 <th>Creado</th>
+                                               
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main> 
+    {{-- modal crear  --}}
+    <div class="flashMessage alert alert-success" style="display: none;"></div>
+    <div class="modal fade" id="addCustomerModal" aria-labelledby="addCustomerModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCustomerModalLabel">Agregar Tipo Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="addCustomerForm">
+                        @csrf
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="contact_last_name" class="form-label"><b>Nombre</b></label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                            </div>
+                                                   
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="contact_name" class="form-label"><b>Descripción</b></label>
+                                    <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            
+                          
+                        </div>
+                      
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" id="submitButton">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+          
+    @endsection
+   @section('script')
+   
+   <script type="text/javascript">
+    $(document).ready(function(){
+        fechtCustomers();
+        
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
+        }
+     
+
+function fechtCustomers() {
+    $.ajax({
+        url: "{{route('admin.user_types.fetch')}}",
+        type: 'GET',
+        data: {
+       
+            // status: status,
+            
+        },
+        success: function(response){
+            let tableBody = '';
+            $.each(response, function(index, userTypes){
+                let createdAt = dayjs(userTypes.created_at).format('DD/MM/YYYY h:mm A');
+                let updatedAt = dayjs(userTypes.updated_at).format('DD/MM/YYYY h:mm A');
+                let statusText = userTypes.status == 0 ? 'Inactivo' : 'Activo';
+              
+                let toggleStatusText = userTypes.status == 0 ? 'Activar' : 'Desactivar';
+                let toggleIcon = userTypes.status == 1 ? 'fa-toggle-on' : 'fa-toggle-off';
+
+                tableBody += `<tr>
+                                <td>${index + 1}</td>
+                                                        
+                               <td>${userTypes.name}</td>
+                                <td>${userTypes.description}</td>
+                             
+                                <td>${statusText}</td>
+                                <td>${createdAt}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm edit-btn" data-id="${userTypes.id}"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn btn-danger btn-sm delete-btn" data-id="${userTypes.id}"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn btn-secondary btn-sm toggle-status-btn" data-id="${userTypes.id}" data-status="${userTypes.status}"><i class="fa ${toggleIcon}"></i> ${toggleStatusText}</button>
+                                    <button class="btn btn-info btn-sm view" data-id="${userTypes.id}"><i class="fa-regular fa-eye"></i></button>
+                                </td>
+                             </tr>`;
+            });
+            $('#customer-table tbody').html(tableBody);
+            $('.edit-btn').on('click', handleEdit);
+            $('.delete-btn').on('click', handleDelete);
+            $('.view').on('click', handleView);
+            $('.toggle-status-btn').on('click', handleToggleStatus);
+            $('#customer-table').DataTable();
+        },
+        error: function(xhr, status, error){
+            console.error('Error al leer los contactos: ', error);
+        }
+    });
+}
+
+$(document).ready(function() {
+    fechtCustomers();
+
+    $(' #filterStatus').change(function() {
+        fechtCustomers();
+    });
+  
+});
+
+function handleToggleStatus(e) {
+    e.preventDefault();
+        const button = $(this);
+        const customerId = button.data('id');
+        const currentStatus = button.data('status');
+        const newStatus = currentStatus == 1 ? 0 : 1;
+
+    $.ajax({
+            url: "{{ url('admin/user_types/toggle-status') }}/" + customerId,
+                type: 'PUT',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    status: newStatus
+                },
+                success: function(response) {
+                    Swal.fire(
+                        'Éxito!',
+                        response.success,
+                        'success'
+                    );
+                    fechtCustomers(); // Refrescar la lista de ciudades
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al cambiar el estado del tipo de usuario: ', error);
+        }
+    });
+}
+
+function handleView(e)
+    {
+            e.preventDefault(); 
+            const customerId = $(this).data('id'); 
+            window.location.href = "{{ url('admin/type_regimen') }}/" + customerId;
+    }
+
+
+        // edit
+function handleEdit(e) {
+    e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace o botón 
+    let customerId = $(this).data('id');
+    $.ajax({
+        url: "{{ url('admin/user_types/edit') }}/" + customerId,
+        type: 'GET',
+        success: function(customer) { 
+            // Establecer los valores en los campos del modal
+            $('#name').val(customer.name);
+            $('#description').val(customer.description);    
+            $('#addCustomerModal').modal('show'); 
+            
+            // Manejar el envío del formulario de edición
+            $('#addCustomerForm').off('submit').on('submit', function(e) {
+                e.preventDefault(); // Prevenir el envío del formulario 
+                const formData = $(this).serialize();
+                $.ajax({ 
+                    url: "{{ url('admin/user_types/update') }}/" + customerId,
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        $('#addCustomerModal').modal('hide');
+                        fechtCustomers(); // Actualiza la lista de productos
+                        $('#addCustomerForm')[0].reset();
+                        $('.flashMessage')
+                            .text(response.success)
+                            .fadeIn()
+                            .delay(3000)
+                            .fadeOut();
+                        setTimeout(function() { location.reload(); }, 2000);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error al actualizar el registro: ', error);
+                    }
+                });
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al editar el registro: ', error);
+        }
+    });
+}
+function handleDelete(e) {
+    e.preventDefault();
+        const customerId = $(this).data('id');
+
+        Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Esta acción eliminará permanentemente el registro.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ url('admin/user_types/delete') }}/" + customerId,
+                        type: 'DELETE',
+                        data: {
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            fechtCustomers();
+                            Swal.fire({
+                                title: 'Eliminado!',
+                                text: 'El registro ha sido eliminado.',
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            });
+                            $('.flashMessage')
+                                .text(response.success)
+                                .fadeIn()
+                                .delay(3000)
+                                .fadeOut();
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error al eliminar el registro: ', error);
+                        }
+                    });
+                }
+            });
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#addCustomerForm').on('submit', function (e){
+            e.preventDefault();
+            let formData = $(this).serialize();
+            $.ajax({
+                url: "{{route('admin.user_types.store')}}",
+                type: 'POST',
+                data: formData,
+                success: function(response){
+                    $('#addCustomerModal').modal('hide');
+                    $('#addCustomerForm')[0].reset();
+                    $('.flashMessage')
+                    .text(response.success)
+                    .fadeIn()
+                    .delay(3000)
+                    .fadeOut();
+                    setTimeout(function(){
+                        location.reload();
+                    }, 2000);
+                },
+                error: function(xhr, status, error){
+                    console.error('Error al agregar el registro: ', error);
+                }
+            });
+        });
+    
+      
+    });
+</script>
+
+
+@endsection
+
+
+                                        
+   

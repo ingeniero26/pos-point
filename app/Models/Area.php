@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Area extends Model
 {
     //
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     protected $table = 'areas';
 //     CREATE TABLE IF NOT EXISTS `areas` (
 //   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -43,7 +42,6 @@ protected $fillable = [
         'is_delete' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
     ];
 
     protected $attributes = [
@@ -53,12 +51,12 @@ protected $fillable = [
 
       public function parent()
     {
-        return $this->belongsTo(Area::class, 'parent_id')->withTrashed();
+        return $this->belongsTo(Area::class, 'parent_id');
     }
 
      public function children()
     {
-        return $this->hasMany(Area::class, 'parent_id')->withTrashed()->where('is_delete', 0);
+        return $this->hasMany(Area::class, 'parent_id')->where('is_delete', 0);
     }
 
     public function manager()

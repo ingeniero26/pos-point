@@ -21,12 +21,12 @@ class BranchController extends Controller
         $departments = DepartmentModel::all()->pluck('name_department','id');
         $cities = CityModel::all()->pluck('city_name', 'id');
         $countries = CountryModel::all()->pluck('country_name','id');
-        $branchTypes = BranchType::all()->pluck('name','id');
-        return view('admin.branch.list', compact('departments','cities','countries','branchTypes'));
+        $branch_types = BranchType::all()->pluck('name','id');
+        return view('admin.branch.list', compact('departments','cities','countries','branch_types'));
     }
 
     public function getBranches(){
-        $branches = Branch::with('departments','cities','countries','company','branchTypes')->get();
+        $branches = Branch::with('departments','cities','countries','company','branch_types')->get();
         // retornar json
         return response()->json($branches);
     }

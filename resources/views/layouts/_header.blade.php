@@ -5,7 +5,7 @@
             <li class="nav-item d-none d-md-block"> <a href="#" class="nav-link">Home</a> </li>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Configuración Contabilidad
+                    Conf. Contabilidad
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <li><a class="dropdown-item" href="{{url('admin/bank/list')}}">Entidades Bancarias</a></li>
@@ -20,7 +20,7 @@
             </div>
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Configuración Tesoreria
+                    Conf. Tesoreria
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <li><a class="dropdown-item" href="{{url('admin/payment_method/list')}}">Métodos de Pago</a></li>
@@ -56,7 +56,7 @@
               </div>
                <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Configuración Nómina
+                    Conf. Nómina
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                  
@@ -78,6 +78,19 @@
                     <li><a href="{{url('admin/positions/list')}}"class="dropdown-item">
                         Cargos
                     </a> </li>
+                </ul>
+              </div>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Contratos
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                 
+                    <li > <a href="{{url('admin/eps/list')}}" class="dropdown-item">
+                        
+                       Tipo de Contrato
+                    </a> </li>
+                    
                 </ul>
               </div>
                {{-- <div class="dropdown">

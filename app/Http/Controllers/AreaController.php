@@ -20,8 +20,8 @@ class AreaController extends Controller
     {
         try {
             // Cargar áreas incluyendo las "soft deleted" ya que el campo is_delete maneja la eliminación
-            $areas = Area::withTrashed() // Incluir registros soft deleted
-                ->with(['parent', 'manager', 'company', 'costCenter', 'creatorUser'])
+            $areas = Area:: // Incluir registros soft deleted
+                with(['parent', 'manager', 'company', 'costCenter', 'creatorUser'])
                 ->where('company_id', Auth::user()->company_id)
                 ->where('is_delete', 0) // Usar nuestro campo personalizado is_delete
                 ->orderBy('name')
@@ -36,8 +36,8 @@ class AreaController extends Controller
             \Log::error('Error loading areas: ' . $e->getMessage());
             
             // Fallback: cargar todas las áreas para debug
-            $areas = Area::withTrashed()
-                ->with(['parent', 'manager', 'company', 'costCenter', 'creatorUser'])
+            $areas = Area::
+                with(['parent', 'manager', 'company', 'costCenter', 'creatorUser'])
                 ->orderBy('name')
                 ->get();
                 
@@ -51,8 +51,8 @@ class AreaController extends Controller
      */
     public function getAreas(Request $request)
     {
-        $areas = Area::withTrashed()
-            ->with(['parent', 'manager', 'company', 'costCenter', 'creatorUser'])
+        $areas = Area::
+            with(['parent', 'manager', 'company', 'costCenter', 'creatorUser'])
             ->where('company_id', Auth::user()->company_id)
             ->where('is_delete', 0)
             ->orderBy('name')
@@ -67,8 +67,8 @@ class AreaController extends Controller
     public function create()
     {
         try {
-            $parentAreas = Area::withTrashed()
-                ->where('company_id', Auth::user()->company_id)
+            $parentAreas = Area::
+                where('company_id', Auth::user()->company_id)
                 ->where('is_delete', 0)
                 ->where('status', 1)
                 ->orderBy('name')
@@ -157,8 +157,8 @@ class AreaController extends Controller
      */
     public function show($id)
     {
-        $area = Area::withTrashed()
-            ->with(['parent', 'children', 'manager', 'company', 'costCenter', 'creatorUser'])
+        $area = Area::
+            with(['parent', 'children', 'manager', 'company', 'costCenter', 'creatorUser'])
             ->where('company_id', Auth::user()->company_id)
             ->findOrFail($id);
             
@@ -171,12 +171,12 @@ class AreaController extends Controller
     public function edit($id)
     {
         try {
-            $area = Area::withTrashed()
-                ->where('company_id', Auth::user()->company_id)
+            $area = Area::
+                where('company_id', Auth::user()->company_id)
                 ->findOrFail($id);
                 
-            $parentAreas = Area::withTrashed()
-                ->where('company_id', Auth::user()->company_id)
+            $parentAreas = Area::
+                where('company_id', Auth::user()->company_id)
                 ->where('id', '!=', $id) // Excluir el área actual para evitar referencias circulares
                 ->where('is_delete', 0)
                 ->where('status', 1)
@@ -215,8 +215,8 @@ class AreaController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $area = Area::withTrashed()
-                ->where('company_id', Auth::user()->company_id)
+            $area = Area::
+                where('company_id', Auth::user()->company_id)
                 ->findOrFail($id);
 
             $validator = Validator::make($request->all(), [
@@ -269,13 +269,13 @@ class AreaController extends Controller
     public function destroy($id)
     {
         try {
-            $area = Area::withTrashed()
-                ->where('company_id', Auth::user()->company_id)
+            $area = Area::
+                where('company_id', Auth::user()->company_id)
                 ->findOrFail($id);
 
             // Verificar si tiene áreas hijas
-            $childrenCount = Area::withTrashed()
-                ->where('parent_id', $id)
+            $childrenCount = Area::
+                where('parent_id', $id)
                 ->where('is_delete', 0)
                 ->count();
                 
@@ -313,8 +313,8 @@ class AreaController extends Controller
      */
     public function getAreasHierarchy()
     {
-        $areas = Area::withTrashed()
-            ->where('company_id', Auth::user()->company_id)
+        $areas = Area::
+            where('company_id', Auth::user()->company_id)
             ->where('is_delete', 0)
             ->where('status', 1)
             ->with('children')

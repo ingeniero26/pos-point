@@ -369,6 +369,9 @@
                         <li class="nav-item"> <a href="{{url('admin/company')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Mi Empresa</p>
                             </a> </li>
+                        <li class="nav-item"><a href="{{url('admin/user_types/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <p>Tipos de Usuario</p>
+                            </a> </li>
                      
 
                     </ul>
