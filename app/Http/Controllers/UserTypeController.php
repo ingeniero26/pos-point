@@ -42,6 +42,7 @@ class UserTypeController extends Controller
         $userType = new UserTypes();
         $userType->name = $request->name;
         $userType->description = $request->description;
+        $userType->is_system = $request->is_system;
         $userType->company_id = Auth::user()->company_id;
         $userType->created_by = Auth::user()->id;
         $userType->save();

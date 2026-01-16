@@ -47,6 +47,7 @@
                                                 <th>ID</th>                                                 
                                                 <th>Nombre</th>                                                
                                                  <th>Descripción</th>
+                                                <th>Es Sistema</th>
                                                 <th>Estado</th>
                                                  <th>Creado</th>
                                                
@@ -94,6 +95,16 @@
                                     <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
                                 </div>
                             </div>
+
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="is_system" class="form-label"><b>Es Sistema</b></label>
+                                    <select name="is_system" id="is_system" class="form-control" required>
+                                        <option value="0">No</option>
+                                        <option value="1">Sí</option>
+                                    </select>
+                                </div>
+                            </div>
                             
                           
                         </div>
@@ -136,6 +147,7 @@ function fechtCustomers() {
                 let createdAt = dayjs(userTypes.created_at).format('DD/MM/YYYY h:mm A');
                 let updatedAt = dayjs(userTypes.updated_at).format('DD/MM/YYYY h:mm A');
                 let statusText = userTypes.status == 0 ? 'Inactivo' : 'Activo';
+                let isSystemText = userTypes.is_system == 1 ? 'Sí' : 'No';
               
                 let toggleStatusText = userTypes.status == 0 ? 'Activar' : 'Desactivar';
                 let toggleIcon = userTypes.status == 1 ? 'fa-toggle-on' : 'fa-toggle-off';
@@ -145,7 +157,7 @@ function fechtCustomers() {
                                                         
                                <td>${userTypes.name}</td>
                                 <td>${userTypes.description}</td>
-                             
+                                <td>${isSystemText}</td>
                                 <td>${statusText}</td>
                                 <td>${createdAt}</td>
                                 <td>

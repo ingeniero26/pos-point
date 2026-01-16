@@ -86,6 +86,8 @@ use App\Http\Controllers\OpportunityStateController;
 use App\Http\Controllers\PensionFoundController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\UserTypeController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\UserRolePermissionController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -883,6 +885,38 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/user_types/update/{id}', [UserTypeController::class, 'update'])->name('admin.user_types.update');
     Route::delete('admin/user_types/delete/{id}', [UserTypeController::class, 'destroy'])->name('admin.user_types.delete');
     Route::put('admin/user_types/toggle-status/{id}', [UserTypeController::class, 'toggleStatus'])->name('admin.user_types.toggle-status');
+
+    // permissions
+    Route::get('admin/permissions/list', [PermissionController::class, 'list'])->name('permissions.list');
+    Route::get('permissions', [PermissionController::class, 'getPermissions'])->name('permissions.index');
+    Route::get('permissions/create', [PermissionController::class, 'create'])->name('permissions.create');
+    Route::post('permissions', [PermissionController::class, 'store'])->name('permissions.store');
+    Route::get('permissions/{id}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
+    Route::put('permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');
+    Route::delete('permissions/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
+    Route::post('permissions/bulk-delete', [PermissionController::class, 'bulkDelete'])->name('permissions.bulkDelete');
+    Route::get('permissions/grouped', [PermissionController::class, 'getPermissionsGrouped'])->name('permissions.grouped');
+    Route::get('permissions/category/{category}', [PermissionController::class, 'getPermissionsByCategory'])->name('permissions.byCategory');
+
+    // user roles and role permissions
+    Route::get('admin/user-roles/list', [UserRolePermissionController::class, 'listUserRoles'])->name('user-roles.list');
+    Route::get('user-roles/get-users', [UserRolePermissionController::class, 'getUsersWithRoles'])->name('user-roles.get-users');
+    Route::get('admin/user-roles/assign/{id}', [UserRolePermissionController::class, 'assignRolesToUser'])->name('user-roles.assign');
+    Route::post('user-roles/store/{id}', [UserRolePermissionController::class, 'storeUserRoles'])->name('user-roles.store');
+    Route::delete('user-roles/{user}/role/{role}', [UserRolePermissionController::class, 'removeRoleFromUser'])->name('user-roles.destroy');
+    Route::get('user-roles/permissions/{userId}', [UserRolePermissionController::class, 'getUserPermissions'])->name('user-roles.permissions');
+
+    // role permissions
+    Route::get('admin/role-permissions/list', [UserRolePermissionController::class, 'listRolePermissions'])->name('role-permissions.list');
+    Route::get('role-permissions/get-roles', [UserRolePermissionController::class, 'getRolesWithPermissions'])->name('role-permissions.get-roles');
+    Route::get('role-permissions/assign/{id}', [UserRolePermissionController::class, 'assignPermissionsToRole'])->name('role-permissions.assign');
+    Route::post('role-permissions/store/{id}', [UserRolePermissionController::class, 'storeRolePermissions'])->name('role-permissions.store');
+    Route::get('role-permissions/role-permissions/{roleId}', [UserRolePermissionController::class, 'getRolePermissions'])->name('role-permissions.get-permissions');
+    Route::get('role-permissions/available', [UserRolePermissionController::class, 'getAvailablePermissions'])->name('role-permissions.available');
+
+    // rbac dashboard
+    Route::get('admin/rbac/dashboard', [UserRolePermissionController::class, 'dashboard'])->name('rbac.dashboard');
+    Route::get('rbac/dashboard-stats', [UserRolePermissionController::class, 'getDashboardStats'])->name('rbac.stats');
 });
 
 Route::group(['middleware' => 'user'], function () {

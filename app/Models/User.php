@@ -64,6 +64,86 @@ class User extends Authenticatable
         return $this->belongsTo(Companies::class);
     }
 
+    /**
+     * Relación con roles (many-to-many)
+     */
+    public function roles()
+    {
+        return $this->hasMany(UserRole::class, 'user_id');
+    }
+
+    /**
+     * Obtener todos los permisos del usuario a través de sus roles
+     */
+    public function permissions()
+    {
+        return $this->hasManyThrough(
+            Permission::class,
+            UserRole::class,
+            'user_id',
+            'id',
+            'id',
+            'role_id'
+        )->join('role_permissions', 'permissions.id', '=', 'role_permissions.permission_id')
+         ->join('roles', 'role_permissions.role_id', '=', 'roles.id')
+         ->distinct();
+    }
+
+    /**
+     * Verificar si usuario tiene un permiso específico
+     */
+    public function hasPermission($module, $action)
+    {
+        return Permission::whereHas('rolePermissions', function ($query) {
+            $query->whereIn('role_id', $this->roles()->pluck('role_id'));
+        })
+        ->where('module', $module)
+        ->where('action', $action)
+        ->exists();
+    }
+
+    /**
+     * Verificar si usuario tiene alguno de los permisos
+     */
+    public function hasAnyPermission($permissions)
+    {
+        foreach ($permissions as $permission) {
+            if ($this->hasPermission($permission['module'], $permission['action'])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verificar si usuario tiene todos los permisos
+     */
+    public function hasAllPermissions($permissions)
+    {
+        foreach ($permissions as $permission) {
+            if (!$this->hasPermission($permission['module'], $permission['action'])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Obtener todos los roles del usuario
+     */
+    public function getRolesList()
+    {
+        return $this->roles()->with('role')->get();
+    }
+
+    /**
+     * Verificar si tiene un rol específico
+     */
+    public function hasRole($roleId)
+    {
+        return $this->roles()->where('role_id', $roleId)->exists();
+    }
+
     // Role helper methods
     public function isAdmin()
     {
