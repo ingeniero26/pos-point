@@ -310,8 +310,6 @@
                           </div> --}}
                           </div>
                           <div class="row">
-                        
-                        
                             <hr>
                             <div class="row" id='inventory_hide'>
                                  <h3 class="text-center">Detalle Inventario</h3>
@@ -323,7 +321,7 @@
                                         <option value="{{$key }}">{{$item}}</option>
                                             
                                         @endforeach
-                                        </select>
+                                    </select>
                                 </div>
                                 <div class="col-md-3" id="quantity_field">
                                     <div class="mb-3">
@@ -429,7 +427,7 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -447,7 +445,7 @@
     </div>
 </div>
           
-    @endsection
+@endsection
    @section('script')
    
    <script type="text/javascript">
@@ -467,8 +465,6 @@
 
     $(document).ready(function(){
          
-    // select2
-  
         let dataTable = $("#product-table").DataTable({
             "processing": true,
             "serverSide": false,
@@ -598,13 +594,11 @@
                         let costPrice = formatCurrency(items.cost_price);
                         let sellingPrice = formatCurrency(items.selling_price);
                         let price_total = formatCurrency(items.price_total);
-                        let statusText = items.status == 1 ? 'Inactivo' : 'Activo';
+                        let statusText = items.status == 1 ? 'Activo' : 'Inactivo';
                         let statusClass = items.status == 1 ? 'badge bg-danger' : 'badge bg-success';
                         let ganancia = (items.selling_price)-(items.cost_price);
                         let percentageProfit = formatCurrency(items.percentage_profit);
-                        
-                       
-                        
+                        let expiration_date = items.expiration_date ? dayjs(items.expiration_date).format('DD/MM/YYYY') : 'N/A';
                         let row = `
                             <tr>
                                 <td>${items.id}</td>
@@ -618,7 +612,7 @@
                                 <td>${items.category ? items.category.category_name : 'N/A'}</td>
                                 <td>${items.subcategory ? items.subcategory.name : 'N/A'}</td>
                                 <td>${items.currencies ? items.currencies.currency_name : 'N/A'}</td>
-                                <td>${items.expiration_date || 'N/A'}</td>
+                                <td>${expiration_date}</td>
                                 <td>${items.description || 'N/A'}</td>
                                 <td>${items.description_short || 'N/A'}</td>
                                 <td>${items.aditional_information || 'N/A'}</td>
@@ -634,12 +628,12 @@
                                 <td class="text-end">${price_total}</td>
                                 <td class="text-center">
                                     <button type="button" 
-                                            class="btn btn-sm status-btn ${items.status == 1 ? 'btn-danger' : 'btn-success'}" 
+                                            class="btn btn-sm status-btn ${items.status == 0 ? 'btn-danger' : 'btn-success'}" 
                                             data-id="${items.id}" 
                                             data-status="${items.status}"
                                             data-bs-toggle="tooltip" 
-                                            title="${items.status == 1 ? 'Activar' : 'Desactivar'}">
-                                        <i class="fas ${items.status == 1 ? 'fa-times' : 'fa-check'}"></i>
+                                            title="${items.status == 0 ? 'Activar' : 'Desactivar'}">
+                                        <i class="fas ${items.status == 0 ? 'fa-times' : 'fa-check'}"></i>
                                     </button>
                                 </td>
                                 <td>${createdAt}</td>
@@ -792,8 +786,6 @@
 
         // Cargar productos al iniciar
         loadProducts();
-
-        // Función para recargar los productos
         window.reloadProducts = function() {
             loadProducts();
         };
@@ -863,9 +855,6 @@
         function handleEdit(e) {
             e.preventDefault();
             let productId = $(this).data('id');
-           // console.log('Editando producto:', productId); // Debug log
-            
-            // Mostrar indicador de carga
             Swal.fire({
                 title: 'Cargando...',
                 allowOutsideClick: false,
@@ -965,15 +954,16 @@
             });
         }
 
-        function handleStatusChange(e) {
+    function handleStatusChange(e) {
             e.preventDefault();
+            const button = $(this);
             const productId = $(this).data('id');
             const currentStatus = $(this).data('status');
             const newStatus = currentStatus == 1 ? 0 : 1;
 
             $.ajax({
                 url: "{{ url('admin/items/toggle-status') }}/" + productId,
-                type: 'POST',
+                type: 'PUT',
                 data: {
                     _token: "{{ csrf_token() }}",
                     status: newStatus

@@ -34,6 +34,26 @@ class CashMovement extends Model
         'updated_at' => 'datetime'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Actualizar el saldo de la sesión cuando se guarda un movimiento
+        static::saved(function ($movement) {
+            if ($movement->cash_register_session_id) {
+                $session = CashRegisterSession::find($movement->cash_register_session_id);
+                if ($session) {
+                    // Recalcular el saldo actual basado en todos los movimientos
+                    $totalMovements = self::where('cash_register_session_id', $session->id)
+                        ->sum('amount');
+                    
+                    $session->current_balance = $session->opening_balance + $totalMovements;
+                    $session->saveQuietly(); // Evitar loop infinito
+                }
+            }
+        });
+    }
+
     public function cashRegisterSession()
     {
         return $this->belongsTo(CashRegisterSession::class);

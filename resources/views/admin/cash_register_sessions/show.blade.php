@@ -41,7 +41,11 @@
                     </div>
                     <div class="col-md-6">
                         <p><strong>Saldo Inicial:</strong> ${{ number_format($session->opening_balance, 2) }}</p>
-                        <p><strong>Saldo Actual:</strong> ${{ number_format($session->current_balance, 2) }}</p>
+                        <p><strong>Saldo Actual:</strong> 
+                            <span class="@if($session->current_balance >= $session->opening_balance) text-success @else text-danger @endif">
+                                ${{ number_format($session->current_balance, 2) }}
+                            </span>
+                        </p>
                         @if($session->status == 'Closed')
                             <p><strong>Saldo Final Esperado:</strong> ${{ number_format($session->expected_closing_balance, 2) }}</p>
                             <p><strong>Saldo Final Real:</strong> ${{ number_format($session->actual_closing_balance, 2) }}</p>
@@ -68,31 +72,93 @@
                                 <th>Fecha</th>
                                 <th>Tipo</th>
                                 <th>Descripción</th>
+                                <th>Usuario</th>
                                 <th>Entrada</th>
                                 <th>Salida</th>
                                 <th>Saldo</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>{{ \Carbon\Carbon::parse($session->opened_at)->format('d/m/Y H:i') }}</td>
-                                <td>Apertura</td>
-                                <td>Saldo inicial</td>
-                                <td class="text-end">${{ number_format($session->opening_balance, 2) }}</td>
-                                <td class="text-end">$0.00</td>
-                                <td class="text-end">${{ number_format($session->opening_balance, 2) }}</td>
-                            </tr>
-                            @foreach($session->cashMovements as $movement)
+                            <?php 
+                                $runningBalance = $session->opening_balance;
+                                $totalInflows = 0;
+                                $totalOutflows = 0;
+                            ?>
+                            @forelse($session->cashMovements as $movement)
+                                <?php 
+                                    $runningBalance += $movement->amount;
+                                    if($movement->amount > 0) {
+                                        $totalInflows += $movement->amount;
+                                    } else {
+                                        $totalOutflows += abs($movement->amount);
+                                    }
+                                ?>
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($movement->created_at)->format('d/m/Y H:i') }}</td>
-                                    <td>{{ $movement->type }}</td>
+                                    <td>
+                                        @if($movement->movementType)
+                                            <span class="badge {{ $movement->amount > 0 ? 'bg-success' : 'bg-danger' }}">
+                                                {{ $movement->movementType->name }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-secondary">-</span>
+                                        @endif
+                                    </td>
                                     <td>{{ $movement->description }}</td>
-                                    <td class="text-end">${{ $movement->type == 'income' ? number_format($movement->amount, 2) : '0.00' }}</td>
-                                    <td class="text-end">${{ $movement->type == 'expense' ? number_format($movement->amount, 2) : '0.00' }}</td>
-                                    <td class="text-end">${{ number_format($movement->balance_after, 2) }}</td>
+                                    <td>{{ $movement->user->name ?? '-' }}</td>
+                                    <td class="text-end text-success">
+                                        @if($movement->amount > 0)
+                                            ${{ number_format($movement->amount, 2) }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td class="text-end text-danger">
+                                        @if($movement->amount < 0)
+                                            ${{ number_format(abs($movement->amount), 2) }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td class="text-end"><strong>${{ number_format($runningBalance, 2) }}</strong></td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center text-muted">Sin movimientos registrados</td>
+                                </tr>
+                            @endforelse
                         </tbody>
+                        <tfoot>
+                            <tr class="table-secondary fw-bold">
+                                <td colspan="4" class="text-end">TOTALES:</td>
+                                <td class="text-end text-success">${{ number_format($totalInflows, 2) }}</td>
+                                <td class="text-end text-danger">${{ number_format($totalOutflows, 2) }}</td>
+                                <td class="text-end">
+                                    <span class="@if($runningBalance >= 0) text-success @else text-danger @endif">
+                                        ${{ number_format($runningBalance, 2) }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="table-info fw-bold">
+                                <td colspan="4" class="text-end">CÁLCULO:</td>
+                                <td colspan="3" class="text-end">
+                                    Inicial: ${{ number_format($session->opening_balance, 2) }} + 
+                                    Ingresos: ${{ number_format($totalInflows, 2) }} - 
+                                    Egresos: ${{ number_format($totalOutflows, 2) }} = 
+                                    <span>
+                                        ${{ number_format($runningBalance, 2) }}
+                                    </span>
+                                </td>
+                            </tr>
+                            @if($runningBalance != $session->current_balance)
+                            <tr class="table-warning fw-bold">
+                                <td colspan="7" class="text-center">
+                                    ⚠️ INCONSISTENCIA: Saldo Calculado (${{ number_format($runningBalance, 2) }}) ≠ Saldo Actual en Sistema (${{ number_format($session->current_balance, 2) }})
+                                    <br><small>Diferencia: ${{ number_format(abs($runningBalance - $session->current_balance), 2) }}</small>
+                                </td>
+                            </tr>
+                            @endif
+                        </tfoot>
                     </table>
                 </div>
             </div>

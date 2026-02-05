@@ -430,6 +430,10 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('admin/person/get-customers', [PersonController::class, 'getListPerson'])->name('admin.person.get-customers');
     Route::post('admin/person/update-email/{id}', [PersonController::class, 'updateEmail'])->name('person.update.email');
+    
+    Route::post('admin/person/bulk-status', [PersonController::class, 'bulkUpdateStatus'])->name('admin.person.bulk-status');
+    
+    
     // traslados entre bodegas
     Route::get('admin/transfer/list', [TransferController::class, 'list'])->name('transfer.list');
     Route::get('admin/transfer/create', [TransferController::class, 'create'])->name('admin.transfer.create');

@@ -375,5 +375,30 @@ public function storeAjax(Request $request)
     }
 }
 
+public function bulkUpdateStatus(Request $request)
+{
+    $validated = $request->validate([
+        'ids' => 'required|array',
+        'ids.*' => 'exists:persons,id',
+        'status' => 'required|in:0,1'
+    ]);
+
+    try {
+        $updated = PersonModel::whereIn('id', $validated['ids'])
+                        ->update(['status' => $validated['status']]);
+
+        return response()->json([
+            'success' => true,
+            'updated' => $updated,
+            'message' => 'Registros actualizados correctamente'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al actualizar registros'
+        ], 500);
+    }
+}
+
 }
 

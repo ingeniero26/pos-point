@@ -122,7 +122,7 @@ class ItemsController extends Controller
 
         return response()->json($items);
     }
-    public function store(Request $request)
+public function store(Request $request)
     {
         $request->validate([
             'product_name' => 'required|string|max:255',
@@ -272,7 +272,7 @@ class ItemsController extends Controller
         return response()->json($product);
     }
 
-    public function update(Request $request, $id)
+public function update(Request $request, $id)
     {
         $validated = $request->validate([
             'item_type_id' => 'required',

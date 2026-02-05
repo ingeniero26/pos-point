@@ -53,42 +53,6 @@ class CashRegisterSessionController extends Controller
                 'observations_opening' => $request->observations_opening,
             ]);
     
-            // Buscar el tipo de movimiento para saldo inicial
-            $movementType = \App\Models\TypeMovementCash::where('type', 'INGRESO')
-                ->where('is_system_generated', true)
-                ->where('name', 'Saldo Inicial')
-                ->where('company_id', $request->company_id)
-                ->where('is_delete', 0)
-                ->first();
-    
-            if (!$movementType) {
-                // Si no existe el tipo de movimiento, lo creamos
-                $movementType = \App\Models\TypeMovementCash::create([
-                    'name' => 'Saldo Inicial',
-                    'type' => 'INGRESO',
-                    'description' => 'Saldo inicial al abrir la caja',
-                    'requires_third_party' => false,
-                    'is_system_generated' => true,
-                    'company_id' => $request->company_id,
-                    'created_by' => Auth::id(),
-                    'status' => 1,
-                    'is_delete' => 0
-                ]);
-            }
-    
-            // Crear el movimiento de caja para el saldo inicial
-            $cashMovement = new \App\Models\CashMovement([
-                'cash_register_session_id' => $session->id,
-                'cash_movement_type_id' => $movementType->id,
-                'amount' => $request->opening_balance,
-                'description' => 'Saldo inicial de apertura de caja',
-                'transaction_time' => now(),
-                'user_id' => Auth::id(),
-                'company_id' => $request->company_id,
-                'created_by' => Auth::id()
-            ]);
-            $cashMovement->save();
-    
             return response()->json([
                 'success' => true,
                 'message' => 'Caja abierta correctamente.',
@@ -142,28 +106,15 @@ public function close(Request $request, $id)
         );
 
         // Actualizar la sesión con todos los campos necesarios
+        // NO actualizar current_balance aquí - se maneja automáticamente con el hook del modelo
         $session->update([
             'actual_closing_balance' => $request->actual_closing_balance,
             'expected_closing_balance' => $expected_closing_balance,
             'difference' => $request->actual_closing_balance - $expected_closing_balance,
             'closed_at' => now(),
             'status' => 'Closed',
-            'observations_closing' => $request->observations_closing,
-            'current_balance' => $request->actual_closing_balance // Actualizar el saldo actual
+            'observations_closing' => $request->observations_closing
         ]);
-
-        // Crear el movimiento de cierre
-        $cashMovement = new \App\Models\CashMovement([
-            'cash_register_session_id' => $session->id,
-            'cash_movement_type_id' => $movementType->id,
-            'amount' => $request->actual_closing_balance,
-            'description' => 'Cierre de caja - Saldo final',
-            'transaction_time' => now(),
-            'user_id' => Auth::id(),
-            'company_id' => $session->company_id,
-            'created_by' => Auth::id()
-        ]);
-        $cashMovement->save();
 
         return response()->json([
             'success' => true,
@@ -180,9 +131,13 @@ public function close(Request $request, $id)
      // Ver detalles
     public function show($id)
     {
-        $session = CashRegisterSession::with(['cashRegister', 'user', 'cashMovements' => function($query) {
-            $query->orderBy('created_at', 'asc');
-        }])->findOrFail($id);
+        $session = CashRegisterSession::with([
+            'cashRegister', 
+            'user', 
+            'cashMovements' => function($query) {
+                $query->with('movementType', 'user')->orderBy('created_at', 'asc');
+            }
+        ])->findOrFail($id);
         return view('admin.cash_register_sessions.show', compact('session'));
     }
 }

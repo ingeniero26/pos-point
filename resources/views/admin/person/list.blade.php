@@ -1,15 +1,14 @@
 @extends('layouts.app')
 
-  
     @section('content')
     @section('style')
     <style>
         .customer-card .card-actions {
-    display: none;
-}
-.customer-card:hover .card-actions {
-    display: block !important;
-}
+        display: none;
+        }
+        .customer-card:hover .card-actions {
+            display: block !important;
+        }
         </style>
     @endsection
     <main class="app-main"> 
@@ -90,11 +89,11 @@
                                             <tr>
                                                 <th>ID</th>  
                                                 <th>Tipo Persona</th>                                               
-                                                 <th>Tipo Documento</th>
-                                                 <th>Número</th>  
-                                                 <th>Digito Verificador</th>
-                                                 <th>Empresa</th>  
-                                                 <th>Razon Comercial</th>                                            
+                                                <th>Tipo Documento</th>
+                                                <th>Número</th>  
+                                                <th>Digito Verificador</th>
+                                                <th>Empresa</th>  
+                                                <th>Razon Comercial</th>                                            
                                                 <th>Tercero</th>
                                                 <th>Régimen</th>   
                                                 <th>Obligación</th>  
@@ -453,7 +452,7 @@
         </div>
     </div>
 </div>
-    @endsection
+@endsection
    @section('script')
    
    <script type="text/javascript">
@@ -577,10 +576,9 @@
             return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
         }
      
-
-    function fechtCustomers() {
-        let typeThird = $('#filter_type_third').val();
-        let typePerson = $('#filter_type_person').val();
+function fechtCustomers() {
+    let typeThird = $('#filter_type_third').val();
+    let typePerson = $('#filter_type_person').val();
         let status = $('#filterStatus').val();
         let startDate = $('#startDate').val(); 
         let endDate = $('#endDate').val();
@@ -598,10 +596,10 @@
             $.each(response, function(index, customer){
                 let createdAt = dayjs(customer.created_at).format('DD/MM/YYYY h:mm A');
                 let updatedAt = dayjs(customer.updated_at).format('DD/MM/YYYY h:mm A');
-                let statusText = customer.status == 1 ? 'Inactivo' : 'Activo';
+                let statusText = customer.status == 1 ? 'Activo' : 'Inactivo';
               
-                let toggleStatusText = customer.status == 1 ? 'Activar' : 'Desactivar';
-                let toggleIcon = customer.status == 1 ? 'fa-toggle-on' : 'fa-toggle-off';
+                let toggleStatusText = customer.status == 0 ? 'Activar' : 'Desactivar';
+                let toggleIcon = customer.status == 0 ? 'fa-toggle-on' : 'fa-toggle-off';
 
                 tableBody += `<tr>
                                 <td>${index + 1}</td>
@@ -661,7 +659,7 @@
             console.error('Error al leer los contactos: ', error);
         }
         });
-    }
+}
 
 $(document).ready(function() {
     fechtCustomers();
@@ -721,7 +719,6 @@ $('#saveEmailBtn').on('click', function() {
         }
         return;
     }
-    
     // Deshabilitar botón mientras se procesa
     $(this).prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin me-1"></i>Guardando...');
     
@@ -770,12 +767,12 @@ $('#saveEmailBtn').on('click', function() {
     });
 });
 
-    function handleToggleStatus(e) {
-            e.preventDefault();
-            const button = $(this);
-            const customerId = button.data('id');
-            const currentStatus = button.data('status');
-            const newStatus = currentStatus == 1 ? 0 : 1;
+function handleToggleStatus(e) {
+    e.preventDefault();
+        const button = $(this);
+        const customerId = button.data('id');
+        const currentStatus = button.data('status');
+        const newStatus = currentStatus == 1 ? 0 : 1;
 
             $.ajax({
                 url: "{{ url('admin/person/toggle-status') }}/" + customerId,
