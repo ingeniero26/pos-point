@@ -8,6 +8,17 @@ class TaxesModel extends Model
 {
     //
     protected $table = 'taxes';
+    protected $fillable = [
+        'tax_name',
+        'effective_date',
+        'end_date',
+        'rate',
+        'tax_type_id',
+        'description',
+        'legal_basis',
+        'company_id',
+        'created_by',
+    ];
 
     public  function taxesType()
     { 

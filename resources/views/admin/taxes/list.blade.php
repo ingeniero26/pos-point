@@ -43,8 +43,11 @@
                                                 <th>ID</th>
                                                 <th>Tipo Impuesto</th>
                                                 <th>Tarifa</th>
+                                                <th>Fecha Efectiva</th>
+                                                <th>Fecha de Finalización</th>
                                                 <th>Nombre</th>
                                                 <th>Descripción</th>
+                                                <th>Base Legal</th>
                                                  <th>Creado</th>
                                                  <th>Actualizado</th>
                                                 <th>Acciones</th>
@@ -92,10 +95,23 @@
                             <label for="taxName" class="form-label"><b>Nombre</b></label>
                             <input type="text" class="form-control" id="tax_name" name="tax_name" required>
                         </div>
+                            <div class="mb-3">
+                                <label for="effective_date" class="form-label"><b>Fecha Efectiva</b></label>
+                                <input type="date" class="form-control" id="effective_date" name="effective_date" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="end_date" class="form-label"><b>Fecha de Finalización</b></label>
+                                <input type="date" class="form-control" id="end_date" name="end_date">
+                            </div>
+
                         <div class="mb-3">
                             <label for="description" class="form-label"><b>Descripciòn</b></label>
                             <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="legal_basis" class="form-label"><b>Base Legal</b></label>
+                            <textarea class="form-control" id="legal_basis" name="legal_basis" rows="3"></textarea>
+                        </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-primary">Agregar</button>
@@ -125,8 +141,11 @@
                                         <td>${index + 1}</td>
                                         <td>${tax.taxes_type.name}</td>
                                         <td>${tax.rate}</td>
+                                        <td>${tax.effective_date}</td>
+                                        <td>${tax.end_date ? tax.end_date : 'N/A'}</td>
                                         <td>${tax.tax_name}</td>
                                         <td>${tax.description}</td>
+                                        <td>${tax.legal_basis ? tax.legal_basis : 'N/A'}</td>
                                         <td>${createdAt}</td>
                                         <td>${updatedAt}</td>
                                         <td>
@@ -151,10 +170,10 @@
             }
             // edit
          
-            function handleEdit(e) {
-                 e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace o botón 
-                let taxId = $(this).data('id');
-                 $.ajax({
+    function handleEdit(e) {
+        e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace o botón 
+            let taxId = $(this).data('id');
+                $.ajax({
                      url: "{{ url('admin/tax/edit') }}/" + taxId,
                   type: 'GET',
                    success: function(tax)
@@ -162,7 +181,10 @@
                      $('#tax_type_id').val(tax.tax_type_id);
                      $('#rate').val(tax.rate);
                      $('#tax_name').val(tax.tax_name);
+                     $('#effective_date').val(tax.effective_date);
+                        $('#end_date').val(tax.end_date);
                       $('#description').val(tax.description); 
+                        $('#legal_basis').val(tax.legal_basis);
                       $('#addTaxesModal').modal('show'); // Manejar el envío del formulario de edición
                        $('#addTaxesForm').off('submit').on('submit', function(e) {
                          e.preventDefault(); // Prevenir el envío del formulario 
@@ -186,10 +208,10 @@
                                  } });
                                  }); 
                                 }, error: function(xhr, status, error) {
-                                     console.error('Error al editar el impuesto: ', error);
-                                     } 
-                                    });
-            }
+                                 console.error('Error al editar el impuesto: ', error);
+                } 
+        });
+    }
             
             // delete
             function handleDelete(e) {
@@ -242,33 +264,6 @@ $(document).ready(function() {
     $('.deleteButton').on('click', handleDelete); // Asignar la función de manejo a los botones de eliminación
 });
 
-            // function handleDelete(e) {
-            //     e.preventDefault();
-            //     const categoryId = $(this).data('id');
-            //     if(confirm('Esta seguro de eliminar este registro?'))
-
-            //     {
-            //         $.ajax({
-            //             url: "{{ url('admin/category/delete') }}/" + categoryId,
-            //             type: 'DELETE',
-            //             data: {
-            //                 _token: "{{ csrf_token() }}",
-            //             },
-            //             success: function(response){
-            //                 fectCategories();
-            //                 $('.flashMessage')
-            //                 .text(response.success)
-            //                 .fadeIn()
-            //                 .delay(3000)
-            //                 .fadeOut();
-            //                 setTimeout(function(){
-            //                     location.reload();
-            //                 }, 2000);
-                        
-            //             },
-            //         })
-            //     }
-            // }
         });
    </script>
    <script type="text/javascript">

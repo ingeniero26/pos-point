@@ -28,6 +28,7 @@ class Quotation extends Model
         'iva_tax',
         'notes',
         'validity_days',
+        'branch_id',
         'approved_by',
         'approval_date',
         'status_quotation_id',
@@ -96,6 +97,11 @@ class Quotation extends Model
         return $this->belongsTo(WarehouseModel::class, 'warehouse_id');
     }
 
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id');
+    }
+
     // Status of the quotation
     public function statusQuotation()
     {
@@ -105,7 +111,7 @@ class Quotation extends Model
     // Related sale if converted to invoice
     public function sale()
     {
-        return $this->belongsTo(Sales::class, 'sale_id');
+        return $this->belongsTo(Invoices::class, 'sale_id');
     }
 
     // Company relationship

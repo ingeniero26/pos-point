@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\Invoices;
 use App\Models\Sale;
 use App\Models\Sales;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -16,7 +17,7 @@ class SalesExport implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        return Sales::with(['customers', 'payment_form', 'payment_method', 'state_types'])
+        return Invoices::with(['customers', 'payment_form', 'payment_method', 'state_types'])
             ->orderBy('id', 'desc')
             ->get();
     }

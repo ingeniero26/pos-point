@@ -8,6 +8,8 @@ use App\Models\CurrenciesModel;
 use App\Models\InventoryModel;
 use App\Models\InventoryMovementModel;
 use App\Models\InvoiceGroup;
+use App\Models\InvoiceItems;
+use App\Models\Invoices;
 use App\Models\ItemMovementModel;
 use App\Models\ItemsModel;
 use App\Models\ItemsTaxesModel;
@@ -283,7 +285,7 @@ public function update(Request $request, $id)
             'measure_id' => 'required',
             'cost_price' => 'required|numeric|min:0',
             'selling_price' => 'required|numeric|min:0',
-            'tax_id' => 'required',
+           
             'price_total' => 'required|numeric|min:0',
         ]);
 
@@ -340,9 +342,20 @@ public function update(Request $request, $id)
     public function destroy($id)
     {
         $product = ItemsModel::find($id);
+        if (!$product) {
+            return response()->json(['error' => 'Registro no Encontrado'], 404);
+        }
+        // consultar si el producto tiene movimientos de inventario o ventas asociadas antes de eliminar
+        $hasInventoryMovements = ItemMovementModel::where('item_id', $id)->exists();
+        $hasSales = InvoiceItems::where('item_id', $id)->exists();
+        if ($hasInventoryMovements || $hasSales) {
+            return response()->json([
+                'error' => 'No se puede eliminar el registro porque tiene movimientos de inventario o ventas asociadas.'
+            ], 409);
+        }
         $product->is_delete = 1;
         $product->save();
-        return response()->json(['success' => 'Registro Eliminado con Éxito']);
+        return response()->json(['success' => 'Registro Eliminado con Éxito'], 200);
     }
 
     public function show($id)

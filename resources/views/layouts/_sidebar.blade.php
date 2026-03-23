@@ -276,7 +276,7 @@
                 </li>
 
 
-                {{-- <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
+                 <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
                     <p>
                         Contabilidad
                         <i class="nav-arrow bi bi-chevron-right"></i>
@@ -291,8 +291,8 @@
                                 <p>Plan Contable</p>
                             </a> </li>
                             <li class="nav-item">
-                                <a href="{{url('admin/receipt_types/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                    <p>Tipo Comprobantes</p>
+                                <a href="{{url('admin/accounting_periods/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                    <p>Periodos Contables</p>
                                 </a> 
                             </li>
                             <li class="nav-item">
@@ -310,7 +310,7 @@
                             </a>
                             </li>
                     </ul>
-                </li> --}}
+                </li>
             
                 <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
                     <p>

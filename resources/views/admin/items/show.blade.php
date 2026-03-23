@@ -36,7 +36,12 @@
                         <p class="card-text">Categoría: {{ $item->category->category_name }}</p>
                         <p class="card-text">Marca: {{ $item->brand->brand_name }}</p>                  
                         <p class="card-text">Unidad: {{ $item->measure->measure_name }}</p> 
-                        <p class="card-text">Impuestos: {{ $item->tax->tax_name }}</p> 
+                        <!--validar si el item tiene impuesto asociado antes de mostrarlo-->
+                        @if($item->tax)
+                            <p class="card-text">Impuestos: {{ $item->tax->tax_name }}</p> 
+                        @else
+                            <p class="card-text">Impuestos: No tiene impuesto asociado</p>
+                        @endif
                         <p class="card-text">Moneda: {{ $item->currencies->currency_name }}</p>
                                                 
                         <p class="card-text">Descripción: {{ $item->description }}</p>

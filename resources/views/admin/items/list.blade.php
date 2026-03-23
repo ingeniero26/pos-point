@@ -933,20 +933,33 @@
                         data: {
                             _token: "{{ csrf_token() }}"
                         },
+
                         success: function(response) {
-                            Swal.fire({
-                                title: '¡Eliminado!',
-                                text: 'El producto ha sido eliminado exitosamente.',
-                                icon: 'success'
-                            });
-                            loadProducts(); // Recargar la tabla
+                            if (response.error) {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'No se puede eliminar',
+                                    text: response.error
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: '¡Eliminado!',
+                                    text: 'El producto ha sido eliminado exitosamente.',
+                                    icon: 'success'
+                                });
+                                loadProducts(); // Recargar la tabla
+                            }
                         },
                         error: function(xhr, status, error) {
                             console.error('Error al eliminar el producto:', error);
+                            let errorMessage = 'No se pudo eliminar el producto';
+                            if (xhr.responseJSON && xhr.responseJSON.error) {
+                                errorMessage = xhr.responseJSON.error;
+                            }
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
-                                text: 'No se pudo eliminar el producto'
+                                text: errorMessage
                             });
                         }
                     });

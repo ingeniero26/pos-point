@@ -102,7 +102,7 @@
         $(document).ready(function(){
             fetchBankEntity();
             
-            function fetchBankEntity() {
+function fetchBankEntity() {
     $.ajax({
         url: "{{ url('admin/account_document_source/data') }}",
         type: 'GET',

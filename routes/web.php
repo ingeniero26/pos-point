@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AccountBankController;
+use App\Http\Controllers\AccountChartTypesController;
 use App\Http\Controllers\AccountDocumentSourceController;
 use App\Http\Controllers\AccountingMovementController;
 use App\Http\Controllers\AccountingAccountTypeController;
 use App\Http\Controllers\AccountingDocumentController;
+use App\Http\Controllers\AccountingPeriodsController;
 use App\Http\Controllers\AccountsPayableController;
 use App\Http\Controllers\AccountsReceivableController;
 use Illuminate\Support\Facades\Route;
@@ -921,6 +923,38 @@ Route::group(['middleware' => 'admin'], function () {
     // rbac dashboard
     Route::get('admin/rbac/dashboard', [UserRolePermissionController::class, 'dashboard'])->name('rbac.dashboard');
     Route::get('rbac/dashboard-stats', [UserRolePermissionController::class, 'getDashboardStats'])->name('rbac.stats');
+
+    // tipo de cuentas contables
+    Route::get('admin/account_chart_types/list', [AccountChartTypesController::class, 'list'])->name('admin.account_chart_types.list');
+    Route::get('admin/account_chart_types/data', [AccountChartTypesController::class, 'fetch'])->name('admin.account_chart_types.fetch');
+    Route::get('admin/account_chart_types/parent-types', [AccountChartTypesController::class, 'getParentTypes'])->name('admin.account_chart_types.parent-types');
+    Route:: post('admin/account_chart_types/store', [AccountChartTypesController::class, 'store'])->name('admin.account_chart_types.store');
+    Route::get('admin/account_chart_types/edit/{id}', [AccountChartTypesController::class, 'edit'])->name('admin.account_chart_types.edit');
+    Route::post('admin/account_chart_types/update/{id}', [AccountChartTypesController::class, 'update'])->name('admin.account_chart_types.update');
+    Route::delete('admin/account_chart_types/delete/{id}', [AccountChartTypesController::class, 'destroy'])->name('admin.account_chart_types.delete');
+    Route::put('admin/account_chart_types/toggle-status/{id}', [AccountChartTypesController::class, 'toggleStatus'])->name('admin.account_chart_types.toggle-status');
+
+    //accounting_periods
+    Route::get('admin/accounting_periods/list', [AccountingPeriodsController::class, 'list'])->name('admin.accounting_periods.list');
+    Route::get('admin/accounting_periods/data', [AccountingPeriodsController::class, 'getAccountingPeriods'])->name('admin.accounting_periods.fetch');
+    
+    Route::get('admin/accounting_periods/create', [AccountingPeriodsController::class, 'create'])->name('admin.accounting-periods.create');
+    Route::post('admin/accounting_periods/store', [AccountingPeriodsController::class, 'store'])->name('admin.accounting_periods.store');
+    Route::get('admin/accounting_periods/{id}/edit', [AccountingPeriodsController::class, 'edit'])->name('admin.accounting_periods.edit');
+    Route::put('admin/accounting_periods/{id}', [AccountingPeriodsController::class, 'update'])->name('admin.accounting_periods.update');
+    Route::post('admin/accounting_periods/{id}/update', [AccountingPeriodsController::class, 'update'])->name('admin.accounting_periods.update.post');
+    Route::delete('admin/accounting_periods/{id}', [AccountingPeriodsController::class, 'destroy'])->name('admin.accounting_periods.delete');
+    Route::post('admin/accounting_periods/{id}/close', [AccountingPeriodsController::class, 'close'])->name('admin.accounting_periods.close');
+    Route::post('admin/accounting_periods/{id}/lock', [AccountingPeriodsController::class, 'lock'])->name('admin.accounting_periods.lock');
+    Route::post('admin/accounting_periods/{id}/unlock', [AccountingPeriodsController::class, 'unlock'])->name('admin.accounting_periods.unlock');
+    Route::post('admin/accounting_periods/{id}/reopen', [AccountingPeriodsController::class, 'reopen'])->name('admin.accounting_periods.reopen');
+    Route::get('admin/accounting_periods/{id}', [AccountingPeriodsController::class, 'show'])->name('admin.accounting_periods.show');
+
+
+
+
+
+
 });
 
 Route::group(['middleware' => 'user'], function () {

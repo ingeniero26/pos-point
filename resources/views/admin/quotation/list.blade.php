@@ -104,7 +104,8 @@
                                             <th>ID</th>
                                             <th>Fecha</th>
                                             <th>Cliente</th>
-                                            <th>No Factura</th>
+                                            <th>No Cotización</th>
+                                            <th>Sucursal</th>
                                             <th>Estado</th>
                                             <th>Pago</th>
                                             <th>Medio</th>
@@ -197,8 +198,9 @@
                     var row = `<tr>
                                 <td>${quotation.id}</td>
                                 <td>${issueDate}</td>
-                                <td>${quotation.customer ? quotation.customer.name : 'N/A'}</td>
+                                <td>${quotation.customer ? quotation.customer.company_name : 'N/A'}</td>
                                 <td>${invoiceNumber}</td>
+                                <td>${quotation.branch ? quotation.branch.name : 'N/A'}</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <span class="badge ${stateBadgeClass} me-2">
@@ -228,11 +230,6 @@
                                         <button class="btn btn-info btn-sm details-sale" data-id="${quotation.id}" title="Ver detalles">
                                             <i class="fa fa-eye"></i>
                                         </button>
-                                        <button class="btn btn-success btn-sm print-pdf" data-quotation-id="${quotation.id}" title="Imprimir">
-                                            <i class="fa-solid fa-print"></i>
-                                        </button>
-                                        <button class="btn btn-primary btn-sm send-email-btn" data-id="${quotation.id}">
-                                                <i class="fa-solid fa-envelope"></i></button>
                                         <button class="btn btn-danger btn-sm delete-btn" data-id="${quotation.id}" title="Eliminar">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>

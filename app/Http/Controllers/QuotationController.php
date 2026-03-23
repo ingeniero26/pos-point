@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\QuotationEmail;
+use App\Models\Branch;
 use App\Models\CurrenciesModel;
 use App\Models\IdentificationTypeModel;
 use App\Models\ItemsModel;
@@ -35,6 +36,7 @@ class QuotationController extends Controller
     public function create(){
         $data['voucherTypes'] = VoucherTypeModel::where('is_delete','=',0)->get();
         $data['warehouses'] = WarehouseModel::where('is_delete','=',0)->get();
+        $data['branches'] = Branch::where('is_delete','=',0)->get();
         $data['stateTypes'] = StatusQuotation::where('is_delete','=',0)->get();
         $data['formPayments'] = PaymentTypeModel::where('is_delete','=',0)->get();
         $data['currencies'] = CurrenciesModel::where('is_delete','=',0)->get();
@@ -59,6 +61,7 @@ class QuotationController extends Controller
             $quotation = Quotation::with([
                 'customer', 
                 'warehouse', 
+                'branch',
                 'statusQuotation',
                 'quotation_items.item.measure',
                 'quotation_items.item.tax',
@@ -95,6 +98,7 @@ class QuotationController extends Controller
             $quotation->validity_days = $request->validity_days;
             $quotation->customer_id = $request->customer_id;
             $quotation->warehouse_id = $request->warehouse_id;
+            $quotation->branch_id = $request->branch_id;
             $quotation->payment_conditions = $request->payment_conditions;
             $quotation->payment_form_id = $request->payment_form_id;
             $quotation->currency_id = $request->currency_id;
@@ -163,7 +167,7 @@ class QuotationController extends Controller
 
     }
     public function getQuotations(Request $request){
-        $query = Quotation::with(['customer', 'paymentForm', 'payment_method', 'statusQuotation','warehouse'])
+        $query = Quotation::with(['customer', 'paymentForm', 'payment_method', 'statusQuotation','warehouse','branch'])
         ->orderBy('id', 'desc');
     
     // Apply date from filter

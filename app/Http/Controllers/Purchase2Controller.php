@@ -122,7 +122,10 @@ private function applyFilters($query, $request)
         ->get();
         $session_id = session()->getId();
         $data['session_id'] = $session_id;
-        $tmp_purchase = TmpPurchaseModel::where('session_id','=',$session_id)->get();
+        $tmp_purchase = TmpPurchaseModel::where('session_id','=',$session_id)
+        ->with(['items' => function($q) {
+            $q->with('tax');
+        }])->get();
         $data['tmp_purchase'] = $tmp_purchase;
         $data['cashRegisters'] = \App\Models\CashRegister::where('is_delete', '=', 0)
         ->where('status', '=', 1)
@@ -289,7 +292,10 @@ private function applyFilters($query, $request)
             // // consultar la caja si esta abierta y su saldo y depue
           
 
-            $tmp_compras = TmpPurchaseModel::where('session_id','=',$session_id)->get();
+            $tmp_compras = TmpPurchaseModel::where('session_id','=',$session_id)
+            ->with(['items' => function($q) {
+                $q->with('tax');
+            }])->get();
             foreach ($tmp_compras as $tmp_compra) {
 
                 $purchase_items =  new PurchaseItemsModel();

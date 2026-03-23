@@ -48,8 +48,8 @@
                                                  <th>Dirección</th>
                                                  <th>Teléfono</th>
                                                  <th>Email</th>
-                                                 <th>Creado</th>
                                                  <th>Estado</th>
+                                                 <th>Creado</th>
                                                  <th>Actualizado</th>
                                                 <th>Acciones</th>
                                             </tr>
@@ -81,7 +81,7 @@
                         {{ @csrf_field() }}
                         <div class="mb-3">
                             <label for="dane_code" class="form-label"><b>Código</b></label>
-                            <input type="text" class="form-control" id="code" name="code" required>
+                            <input type="text" class="form-control" id="dane_code" name="dane_code" required>
                         </div>
                         <div class="mb-3">
                             <label for="dane_code" class="form-label"><b>Nit</b></label>
@@ -218,7 +218,7 @@ function handleEdit(e) {
         type: 'GET',
         success: function(departments) {
             // Establecer los valores en los campos del modal
-            $('#code').val(departments.code);
+            $('#dane_code').val(departments.dane_code);
             $('#nit').val(departments.nit);
             $('#city_id').val(departments.city_id);
             $('#name_eps').val(departments.name_eps);

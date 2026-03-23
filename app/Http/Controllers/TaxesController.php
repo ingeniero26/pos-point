@@ -29,10 +29,12 @@ class TaxesController extends Controller
 
         $taxes = new TaxesModel();
         $taxes->tax_type_id = $request->tax_type_id;
-        $taxes->tax_type = $request->tax_type;
+        $taxes->effective_date = $request->effective_date;
+        $taxes->end_date = $request->end_date;
         $taxes->rate = $request->rate;
         $taxes->tax_name = $request->tax_name;
         $taxes->description = $request->description;
+        $taxes->legal_basis = $request->legal_basis;
         $taxes->save();
 
         return response()->json(['success' => 'Registro Creado con Exito']);
@@ -51,10 +53,12 @@ class TaxesController extends Controller
         ]);
         $taxes = TaxesModel::find($id);
         $taxes->tax_type_id = $request->tax_type_id;
-        $taxes->tax_type = $request->tax_type;
+        $taxes->effective_date = $request->effective_date;
+        $taxes->end_date = $request->end_date;
         $taxes->rate = $request->rate;
         $taxes->tax_name = $request->tax_name;
         $taxes->description = $request->description;
+        $taxes->legal_basis = $request->legal_basis;
         $taxes->save();
 
         return response()->json(['success' => 'Registro Actualizado con Exito']);

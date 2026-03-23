@@ -273,14 +273,14 @@
                                                         $subtotal = $value->quantity * $value->cost_price;
                                                         $discount_amount = $subtotal * ($discount_percent / 100);
                                                         $subtotal_after_discount = $subtotal - $discount_amount;
-                                                        $tax_amount = $subtotal_after_discount * ($value->items->tax->rate ?? 0) / 100;
+                                                        $tax_amount = $subtotal_after_discount * (($value->items && $value->items->tax ? $value->items->tax->rate : 0) ?? 0) / 100;
                                                         $total = $subtotal_after_discount + $tax_amount;                                                    
 
                                                      ?>
                                                        <tr>
                                                         <td>{{$cont++}}</td>
-                                                        <td>{{$value->items->barcode}}</td>
-                                                        <td>{{$value->items->product_name}}</td>
+                                                        <td>{{ $value->items->barcode ?? 'N/A' }}</td>
+                                                        <td>{{ $value->items->product_name ?? 'N/A' }}</td>
                                                         {{-- <td>{{$value->quantity}}</td> --}}
                                                         <td>
                                                             <input type="number" min="1"  
@@ -299,7 +299,7 @@
                                                                data-id="{{$value->id}}" value="{{$discount_percent}}" style="width: 70px;">
                                                         </td>
                                                         <td>
-                                                           @if($value->items->tax)
+                                                           @if($value->items && $value->items->tax)
                                                                {{$value->items->tax->rate}}%
                                                            @else
                                                                0%
@@ -332,7 +332,7 @@
                                                             $subtotal = $value->quantity * $value->cost_price;
                                                             $discount_amount = $subtotal * ($discount_percent / 100);
                                                             $subtotal_after_discount = $subtotal - $discount_amount;
-                                                            $tax_amount = $subtotal_after_discount * ($value->items->tax->rate ?? 0) / 100;
+                                                            $tax_amount = $subtotal_after_discount * (($value->items && $value->items->tax ? $value->items->tax->rate : 0) ?? 0) / 100;
                                                             $total = $subtotal_after_discount + $tax_amount;
                                                             
                                                             $total_quantity += $value->quantity;

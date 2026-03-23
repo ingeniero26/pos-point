@@ -212,6 +212,19 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="branch_id" class="form-label">Sucursal</label>
+                                            <select class="form-select" id="branch_id" name="branch_id">
+                                                <option value="">Seleccione...</option>
+                                                @foreach($branches as $branch)
+                                                    @if($branch->id == 1)
+                                                        <option selected value="{{ $branch->id }}">{{ $branch->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                
                                 </div>
                              

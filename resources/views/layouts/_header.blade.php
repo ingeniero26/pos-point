@@ -12,7 +12,7 @@
                   <li><a class="dropdown-item" href="{{url('admin/cost_center/list')}}">Centro de Costos</a></li>
                   <li><a class="dropdown-item" href="{{url('admin/account_document_type/list')}}">Tipo Documento Contables</a></li>
                   <li><a class="dropdown-item" href="{{url('admin/account_document_source/list')}}">Fuentes  Contables</a></li>
-                  <li><a class="dropdown-item" href="{{url('admin/account/list')}}">Cuentas Contables</a></li>
+                 
                   <li><a class="dropdown-item" href="{{url('admin/tax/list')}}">Impuestos(IVA)</a></li>
                   <li><a class="dropdown-item" href="{{url('admin/type_regimen/list')}}">Tipo Régimen</a></li>
                   <li><a class="dropdown-item" href="{{url('admin/type_liability/list')}}">Tipo Obligación Tributaria</a></li>
@@ -82,13 +82,13 @@
               </div>
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Contratos
+                    Contabilidad General
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                  
-                    <li > <a href="{{url('admin/eps/list')}}" class="dropdown-item">
+                    <li > <a href="{{url('admin/account_chart_types/list')}}" class="dropdown-item">
                         
-                       Tipo de Contrato
+                       Tipo de Cuenta
                     </a> </li>
                     
                 </ul>
