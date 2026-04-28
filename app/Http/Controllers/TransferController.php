@@ -159,13 +159,14 @@ class TransferController extends Controller
                     $itemMovementFrom->item_id = $itemModel->id;
                     $itemMovementFrom->warehouse_id = $warehouseFrom->id;
                     $itemMovementFrom->movement_type_id = 3;
+                    $itemMovementFrom->movement_date = now()->format('Y-m-d');
                     $itemMovementFrom->quantity = -$item['quantity']; // Negativo porque es salida
                     $itemMovementFrom->previous_stock = 0;
                     $itemMovementFrom->new_stock = -$item['quantity'];
                     $itemMovementFrom->reason = 'Transferencia a bodega ' . $warehouseTo->warehouse_name;
                     $itemMovementFrom->reference_id = $transfer->id;
                     $itemMovementFrom->reference_type = 'Traslado';
-                    $itemMovementFrom->user_id = Auth::user()->id;
+                    $itemMovementFrom->created_by = Auth::user()->id;
                     $itemMovementFrom->company_id = Auth::user()->company_id;
                     $itemMovementFrom->is_delete = 0;
                     $itemMovementFrom->save();
@@ -186,13 +187,14 @@ class TransferController extends Controller
                     $itemMovementTo->item_id = $itemModel->id;
                     $itemMovementTo->warehouse_id = $warehouseTo->id;
                     $itemMovementTo->movement_type_id = 4;
+                    $itemMovementTo->movement_date = now()->format('Y-m-d');
                     $itemMovementTo->quantity = $item['quantity']; // Positivo porque es entrada
                     $itemMovementTo->previous_stock = $previousStockTo;
                     $itemMovementTo->new_stock = $inventoryTo->stock;
                     $itemMovementTo->reason = 'Transferencia desde bodega ' . $warehouseFrom->warehouse_name;
                     $itemMovementTo->reference_id = $transfer->id;
                     $itemMovementTo->reference_type = 'Traslado';
-                    $itemMovementTo->user_id = Auth::user()->id;
+                    $itemMovementTo->created_by = Auth::user()->id;
                     $itemMovementTo->company_id = Auth::user()->company_id;
                     $itemMovementTo->is_delete = 0;
                     $itemMovementTo->save();
@@ -210,6 +212,7 @@ class TransferController extends Controller
                     $itemMovementTo->item_id = $itemModel->id;
                     $itemMovementTo->warehouse_id = $warehouseTo->id;
                     $itemMovementTo->movement_type_id = 4;
+                    $itemMovementTo->movement_date = now()->format('Y-m-d');
                     $itemMovementTo->quantity = $item['quantity']; // Positivo porque es entrada
                     $itemMovementTo->previous_stock = 0;
                     $itemMovementTo->new_stock = $item['quantity'];
@@ -301,5 +304,10 @@ class TransferController extends Controller
 
   // por rango de fechas
    
+    public function getStatuses()
+    {
+        $statuses = StatusTransferModel::where('is_delete', 0)->get();
+        return response()->json($statuses);
+    }
     
 }

@@ -31,6 +31,7 @@ class PersonModel extends Model
         'address',
         'phone',
         'email',
+        'economic_activity',
         'status',
         'created_by',
         'updated_by'

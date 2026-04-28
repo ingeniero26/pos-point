@@ -26,6 +26,7 @@ class CostCentersController extends Controller
         $category = new CostCenterModel();
         $category->code = $request->code;
         $category->name = $request->name;
+        $category->description = $request->description;
         $category->budget = $request->budget;
         $category->created_by = Auth::user()->id;
         $category->company_id = Auth::user()->company_id;
@@ -45,7 +46,7 @@ class CostCentersController extends Controller
         $category->name = $request->name;
         $category->code = $request->code;
         $category->budget = $request->budget;
-
+        $category->description = $request->description;
         $category->save();
         return response()->json(['success' => 'Registro Actualizado con Exito']);
     }

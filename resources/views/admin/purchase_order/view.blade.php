@@ -74,6 +74,7 @@
                                                         </span>
                                                     </p>
                                                     <p class="mb-1"><strong>Bodega:</strong> {{ $purchaseOrder->warehouses->warehouse_name }}</p>
+                                                    <p class="mb-1"><strong>Sucursal:</strong> {{ $purchaseOrder->branches->name }}</p>
                                                     <p class="mb-1"><strong>Creado por:</strong> {{ $purchaseOrder->users->name }}</p>
                                                 </div>
                                             </div>
@@ -216,98 +217,6 @@
             e.preventDefault();
             window.location.href = "{{ route('admin.purchase_order.export.pdf', ['id' => $purchaseOrder->id]) }}";
         });
-        
-        // Enviar por email - Remove this duplicate handler
-        // $('#sendEmail').click(function(e) {
-        //     console.log('Send email button clicked'); // Debug log
-        //     e.preventDefault();
-        //     
-        //     // Ensure jQuery and SweetAlert2 are loaded
-        //     if (typeof $ === 'undefined' || typeof Swal === 'undefined') {
-        //         console.error('jQuery or SweetAlert2 not loaded');
-        //         alert('Error: Required libraries not loaded');
-        //         return;
-        //     }
-        //     
-        //     Swal.fire({
-        //         title: 'Enviar por Email',
-        //         html: `
-        //             <div class="mb-3">
-        //                 <label for="emailTo" class="form-label">Destinatario</label>
-        //                 <input type="email" class="form-control" id="emailTo" value="{{ $purchaseOrder->suppliers->email }}">
-        //             </div>
-        //             <div class="mb-3">
-        //                 <label for="emailSubject" class="form-label">Asunto</label>
-        //                 <input type="text" class="form-control" id="emailSubject" value="Orden de Compra {{ $purchaseOrder->prefix }}">
-        //             </div>
-        //             <div class="mb-3">
-        //                 <label for="emailMessage" class="form-label">Mensaje</label>
-        //                 <textarea class="form-control" id="emailMessage" rows="3">Adjunto encontrará la orden de compra {{ $purchaseOrder->prefix }}.</textarea>
-        //             </div>
-        //         `,
-        //         showCancelButton: true,
-        //         confirmButtonText: 'Enviar',
-        //         cancelButtonText: 'Cancelar',
-        //         preConfirm: () => {
-        //             return {
-        //                 to: document.getElementById('emailTo').value,
-        //                 subject: document.getElementById('emailSubject').value,
-        //                 message: document.getElementById('emailMessage').value
-        //             }
-        //         }
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             // Mostrar indicador de carga
-        //             Swal.fire({
-        //                 title: 'Enviando email...',
-        //                 text: 'Por favor espere mientras se envía el email',
-        //                 allowOutsideClick: false,
-        //                 didOpen: () => {
-        //                     Swal.showLoading();
-        //                 }
-        //             });
-        //             
-        //             // Enviar solicitud AJAX para enviar el email
-        //             $.ajax({
-        //                 url: "{{ url('admin/purchase_order/send-email') }}",
-        //                 method: 'POST',
-        //                 data: {
-        //                     _token: "{{ csrf_token() }}",
-        //                     purchase_order_id: {{ $purchaseOrder->id }},
-        //                     email_to: result.value.to,
-        //                     subject: result.value.subject,
-        //                     message: result.value.message
-        //                 },
-        //                 success: function(response) {
-        //                     console.log('Email sent response:', response); // Debug log
-        //                     if (response.success) {
-        //                         Swal.fire({
-        //                             icon: 'success',
-        //                             title: '¡Enviado!',
-        //                             text: 'La orden de compra ha sido enviada por email correctamente.',
-        //                             timer: 2000,
-        //                             showConfirmButton: false
-        //                         });
-        //                     } else {
-        //                         Swal.fire({
-        //                             icon: 'error',
-        //                             title: 'Error',
-        //                             text: response.message || 'Ocurrió un error al enviar el email.'
-        //                         });
-        //                     }
-        //                 },
-        //                 error: function(xhr, status, error) {
-        //                     console.error('Error al enviar email:', error);
-        //                     console.error('Response:', xhr.responseText); // Debug log
-        //                     Swal.fire({
-        //                         icon: 'error',
-        //                         title: 'Error',
-        //                         text: 'Ocurrió un error al enviar el email: ' + error
-        //                     });
-        //                 }
-        //             });
-        //         }
-        //     });
         
         // Editar orden
         $('#editOrder').click(function(e) {

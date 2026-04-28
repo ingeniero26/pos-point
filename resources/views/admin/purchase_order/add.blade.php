@@ -32,7 +32,7 @@
                                 <select class="form-select" id="supplier_id" name="supplier_id">
                                     <option value="">Seleccione un proveedor</option>
                                     @foreach($suppliers as $supplier)
-                                    <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                    <option value="{{ $supplier->id }}">{{ $supplier->company_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -48,6 +48,15 @@
                                         <option value="{{ $warehouse->id }}" {{ $warehouse->id == $defaultWarehouseId ? 'selected' : '' }}>
                                             {{ $warehouse->warehouse_name }}
                                         </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="branch_id" class="form-label">Sucursal</label>
+                                <select class="form-select" id="branch_id" name="branch_id">
+                                    <option value="">Seleccione una Sucursal</option>
+                                    @foreach($branches as $branch)
+                                        <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -448,6 +457,7 @@
                 _token: $('input[name="_token"]').val(),
                 supplier_id: $('#supplier_id').val(),
                 warehouse_id: $('#warehouse_id').val(),
+                branch_id: $('#branch_id').val(),
                 status_order_id: $('#status_order_id').val(),
                 currency_id: $('#currency_id').val(),
                 order_date: $('#order_date').val(),

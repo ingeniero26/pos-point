@@ -453,8 +453,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/transfer/{transferId}/pdf', [TransferController::class, 'printPdf'])->name('transfer.print-pdf');
 
 
-    Route::post('admin/transfer/update-status', [TransferController::class, 'updateStatus'])
-        ->name('admin.transfer.update-status');
+    Route::post('admin/transfer/update-status', [TransferController::class, 'updateStatus'])->name('admin.transfer.update-status');
+
+    Route::get('admin/transfer/get-statuses', [TransferController::class, 'getStatuses'])->name('admin.transfer.get-statuses');
 
     Route::get('admin/transfer/export_pdf', [TransferController::class, 'exportPdf']);
 

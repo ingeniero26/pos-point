@@ -41,8 +41,10 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
+                                                <th>Código</th>
                                                 <th>Nombre</th>
                                                 <th>Abreviatura</th>
+                                                <th>Estado</th>
                                                  <th>Creado</th>
                                                  <th>Actualizado</th>
                                                 <th>Acciones</th>
@@ -73,6 +75,10 @@
                 <div class="modal-body">
                     <form id="addTypeIdentificationForm">
                         {{ @csrf_field() }}
+                            <div class="mb-3">
+                                <label for="code" class="form-label"><b>Código</b></label>
+                                <input type="text" class="form-control" id="code" name="code" required>
+                            </div>
                         <div class="mb-3">
                             <label for="categoryName" class="form-label"><b>Nombre</b></label>
                             <input type="text" class="form-control" id="identification_name" name="identification_name" required>
@@ -103,13 +109,18 @@
                     type: 'GET',
                     success: function(response){
                         let tableBody='';
+                        
                         $.each(response, function(index,type_identification){
                             let createdAt = dayjs(type_identification.created_at).format('DD/MM/YYYY h:mm A');
                             let updatedAt = dayjs(type_identification.updated_at).format('DD/MM/YYYY h:mm A');
+                             let statusText = type_identification.status == 1 ? 'Activo' : 'Inactivo';
+                        let statusClass = type_identification.status == 1 ? 'badge bg-success' : 'badge bg-danger';
                             tableBody += `<tr>
                                         <td>${index + 1}</td>
+                                        <td>${type_identification.code}</td>
                                         <td>${type_identification.identification_name}</td>
                                         <td>${type_identification.abbreviation}</td>
+                                        <td><span class="${statusClass}">${statusText}</span></td>
                                         <td>${createdAt}</td>
                                         <td>${updatedAt}</td>
                                         <td>
@@ -140,6 +151,7 @@
                      url: "{{ url('admin/identification_type/edit') }}/" + type_identificationId,
                   type: 'GET', success: function(type_identification)
                    { // Establecer los valores en los campos del modal
+                    $('#code').val(type_identification.code);
                      $('#identification_name').val(type_identification.identification_name);
                       $('#abbreviation').val(type_identification.abbreviation); 
                       $('#addTypeIdentificationModal').modal('show'); // Manejar el envío del formulario de edición
@@ -217,33 +229,7 @@ $(document).ready(function() {
     $('.deleteButton').on('click', handleDelete); // Asignar la función de manejo a los botones de eliminación
 });
 
-            // function handleDelete(e) {
-            //     e.preventDefault();
-            //     const categoryId = $(this).data('id');
-            //     if(confirm('Esta seguro de eliminar este registro?'))
-
-            //     {
-            //         $.ajax({
-            //             url: "{{ url('admin/category/delete') }}/" + categoryId,
-            //             type: 'DELETE',
-            //             data: {
-            //                 _token: "{{ csrf_token() }}",
-            //             },
-            //             success: function(response){
-            //                 fectCategories();
-            //                 $('.flashMessage')
-            //                 .text(response.success)
-            //                 .fadeIn()
-            //                 .delay(3000)
-            //                 .fadeOut();
-            //                 setTimeout(function(){
-            //                     location.reload();
-            //                 }, 2000);
-                        
-            //             },
-            //         })
-            //     }
-            // }
+           
         });
    </script>
    <script type="text/javascript">

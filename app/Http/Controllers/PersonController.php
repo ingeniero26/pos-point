@@ -101,6 +101,7 @@ class PersonController extends Controller
         $customer->address = $request->address;
         $customer->phone = $request->phone;
         $customer->email = $request->email;
+        $customer->economic_activity = $request->economic_activity;
        
         $customer->created_by = Auth::user()->id;
         $customer->save();
@@ -181,6 +182,7 @@ class PersonController extends Controller
         $customer->address = $request->address;
         $customer->phone = $request->phone;
         $customer->email = $request->email;
+        $customer->economic_activity = $request->economic_activity;
         //$customer->updated_by = Auth::user()->id;
         $customer->save();
     }

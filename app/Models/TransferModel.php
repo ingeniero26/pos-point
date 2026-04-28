@@ -8,7 +8,7 @@ class TransferModel extends Model
 {
     //
     protected $table ='transfer';
-    protected $fillable = ['from_warehouse_id', 'to_warehouse_id', 'created_at', 'updated_at'];
+    protected $fillable = ['from_warehouse_id', 'to_warehouse_id', 'branch_id', 'created_at', 'updated_at'];
    
     public function item()
     {
@@ -27,6 +27,8 @@ class TransferModel extends Model
     {
         return $this->belongsTo(StatusTransferModel::class, 'status_transfer_id');
     }
+
+    
 
     public function details()
     {

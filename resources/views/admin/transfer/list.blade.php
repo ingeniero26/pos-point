@@ -110,6 +110,38 @@
         </div>
     </div>
 </div>
+
+<!-- Modal para cambiar estado -->
+<div class="modal fade" id="changeStatusModal" tabindex="-1" role="dialog" aria-labelledby="changeStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeStatusModalLabel">Cambiar Estado del Traslado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="changeStatusForm">
+                    <div class="form-group">
+                        <label for="transferId">ID Traslado:</label>
+                        <input type="text" class="form-control" id="transferId" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="newStatus">Nuevo Estado:</label>
+                        <select class="form-control" id="newStatus" required>
+                            <option value="">Seleccione un estado</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="confirmChangeStatus">Actualizar Estado</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
@@ -142,16 +174,19 @@
                                     <td>${transfer.transfer_date}</td>
                                     <td>${transfer.warehouse.warehouse_name}</td>
                                     <td>${transfer.warehouse_destination.warehouse_name}</td>
+                                   
                                      <td>${transfer.description}</td>
                                      <td>${transfer.status_transfer.name}</td>
                                      <td><button class="btn btn-sm btn-primary show-details" data-transfer-id="${transfer.id}">Detalles</button></td>
                                      <td>
                                         <button class="btn btn-info print-pdf" data-transfer-id=" ${transfer.id }">
                                             Descargar PDF
+                                        </button>&nbsp;
+                                        <button class="btn btn-warning btn-sm change-status" data-transfer-id="${transfer.id}" data-current-status="${transfer.status_transfer_id}">
+                                            Cambiar Estado
                                         </button>
                                         </td>
                                       
-                                   
                                    </tr>`;
                         tableBody.append(row);
                         //$('.print-pdf').on('click', handlePrintPdf);
@@ -274,6 +309,78 @@
         });
     }
 
+
+
+
+    // Cargar los estados disponibles cuando se abre el modal
+    function loadStatusOptions() {
+        $.ajax({
+            url: '{{url("admin/transfer/get-statuses")}}',
+            method: 'GET',
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(statuses) {
+                let statusSelect = $('#newStatus');
+                statusSelect.html('<option value="">Seleccione un estado</option>');
+                $.each(statuses, function(index, status) {
+                    statusSelect.append(`<option value="${status.id}">${status.name}</option>`);
+                });
+            },
+            error: function(xhr) {
+                console.error('Error al cargar estados:', xhr.responseText);
+            }
+        });
+    }
+
+    // Manejar el clic en el botón Cambiar Estado
+    $(document).on('click', '.change-status', function() {
+        const transferId = $(this).data('transfer-id');
+        $('#transferId').val(transferId);
+        
+        // Cargar los estados disponibles
+        loadStatusOptions();
+        
+        // Mostrar el modal
+        $('#changeStatusModal').modal('show');
+    });
+
+    // Confirmar el cambio de estado
+    $('#confirmChangeStatus').click(function() {
+        const transferId = $('#transferId').val();
+        const newStatus = $('#newStatus').val();
+
+        if (!newStatus) {
+            alert('Por favor seleccione un estado');
+            return;
+        }
+
+        $.ajax({
+            url: '{{url("admin/transfer/update-status")}}',
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                transfer_id: transferId,
+                new_status: newStatus,
+                '_token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert('Estado actualizado correctamente');
+                    $('#changeStatusModal').modal('hide');
+                    // Recargar la tabla
+                    $('#filtrar').click();
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function(xhr) {
+                alert('Error al actualizar el estado');
+                console.error('Error:', xhr.responseText);
+            }
+        });
+    });
 
 
 

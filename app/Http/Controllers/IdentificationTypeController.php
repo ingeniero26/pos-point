@@ -28,6 +28,7 @@ class IdentificationTypeController extends Controller
 
         // Create a new identification type
         $type = new IdentificationTypeModel();
+        $type->code = $request->code;
         $type->identification_name = $request->identification_name;
         $type->abbreviation = $request->abbreviation;
         $type->created_by = Auth::user()->id;
@@ -58,6 +59,7 @@ class IdentificationTypeController extends Controller
         }
 
         // Update the identification type
+        $type->code = $request->code;
         $type->identification_name = $request->identification_name;
         $type->abbreviation = $request->abbreviation;
         $type->save();

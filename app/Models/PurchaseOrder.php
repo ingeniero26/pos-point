@@ -12,6 +12,10 @@ class PurchaseOrder extends Model
     public function suppliers(){
         return $this->belongsTo(PersonModel::class,'supplier_id');
     }
+    // relacion con branches
+    public function branches()    {
+        return $this->belongsTo(Branch::class, 'branch_id');
+    }
     // sttus order
     public function status_order()
     {

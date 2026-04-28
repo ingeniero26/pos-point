@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PurchaseOrderEmail;
+use App\Models\Branch;
 use App\Models\CurrenciesModel;
 use App\Models\ItemsModel;
 use App\Models\PersonModel;
@@ -29,6 +30,7 @@ class PurchaseOrderController extends Controller
         $purchaseOrders = PurchaseOrder::with([
            'suppliers',
             'warehouses',
+            'branches',
            'status_order',
             'purchase_order_items.items.measure',
             'users'
@@ -45,6 +47,7 @@ class PurchaseOrderController extends Controller
         $data['status_order'] = StatusOrder::where('is_delete','=',0)->get();
         $data['currencies'] = CurrenciesModel::where('is_delete','=',0)->get();
         $data['warehouses'] = WarehouseModel::where('is_delete','=',0)->get();
+        $data['branches'] = Branch::where('is_delete', '=', 0)->get();
 
         return view('admin.purchase_order.add', $data);
     }
@@ -61,6 +64,7 @@ class PurchaseOrderController extends Controller
         $request->validate([
             'supplier_id' => 'required|exists:persons,id',
             'warehouse_id' => 'required|exists:warehouses,id',
+            'branch_id' => 'required|exists:branches,id',
             'order_date' => 'required|date',
             'expected_date' => 'nullable|date',
             'items' => 'required|array|min:1',
@@ -76,6 +80,7 @@ class PurchaseOrderController extends Controller
             $purchaseOrder = new PurchaseOrder();
             $purchaseOrder->supplier_id = $request->supplier_id;
             $purchaseOrder->warehouse_id = $request->warehouse_id;
+            $purchaseOrder->branch_id = $request->branch_id;
             // Remove this line as we'll set the prefix after saving
             // $purchaseOrder->prefix = 'OC-'. str_pad($purchaseOrder->id, 6, '0', STR_PAD_LEFT);
             $purchaseOrder->order_date = $request->order_date;
@@ -141,6 +146,7 @@ class PurchaseOrderController extends Controller
         $purchaseOrder = PurchaseOrder::with([
             'suppliers', 
             'warehouses', 
+            'branches',
             'status_order',
             'purchase_order_items.items.measure',
             'users'
@@ -159,6 +165,7 @@ class PurchaseOrderController extends Controller
         
         // Get warehouses
         $data['warehouses'] = WarehouseModel::where('is_delete', '=', 0)->get();
+        $data['branches'] = Branch::where('is_delete', '=', 0)->get();
         
         // Get all products for the dropdown
         $data['products'] = ItemsModel::where('is_delete', '=', 0)
@@ -171,6 +178,7 @@ class PurchaseOrderController extends Controller
             'purchase_order_items.items.tax',
             'suppliers',
             'warehouses',
+            'branches',
             'status_order',
             'users'
         ])->findOrFail($id);
@@ -192,6 +200,7 @@ class PurchaseOrderController extends Controller
             $purchaseOrder = PurchaseOrder::with([
                 'suppliers', 
                 'warehouses', 
+                'branches',
                 'purchase_order_items.items.measure',
                 'users',
                 'status_order',
@@ -250,6 +259,7 @@ class PurchaseOrderController extends Controller
             $purchaseOrder = PurchaseOrder::with([
                 'suppliers', 
                 'warehouses', 
+                'branches',
                 'status_order',
                 'purchase_order_items.items.measure',
                 'users'
@@ -288,6 +298,7 @@ class PurchaseOrderController extends Controller
             $purchaseOrder = PurchaseOrder::with([
                 'suppliers',
                 'warehouses',
+                'branches',
                 'purchase_order_items.items.measure',
                 'users',
                 'status_order',

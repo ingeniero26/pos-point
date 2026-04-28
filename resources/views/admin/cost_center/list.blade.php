@@ -44,6 +44,7 @@
                                                 <th>Código</th>
                                                 <th>Nombre</th>
                                                 <th>Presupuesto</th>
+                                                <th>Descripción</th>
                                                  <th>Creado</th>
                                                  <th>Actualizado</th>
                                                 <th>Acciones</th>
@@ -83,6 +84,10 @@
                             <label for="taxName" class="form-label"><b>Nombre</b></label>
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
+                            <div class="mb-3">
+                                <label for="taxName" class="form-label"><b>Descripción</b></label>
+                                <textarea class="form-control" id="description" name="description"></textarea>
+                            </div>
                         <div class="mb-3">
                             <label for="taxName" class="form-label"><b>Presupuesto</b></label>
                             <input type="text" class="form-control" id="budget" name="budget">
@@ -121,6 +126,7 @@
                                 <td>${costCenters.code}</td>
                                 <td>${costCenters.name}</td>
                                 <td>${costCenters.budget}</td>
+                                <td>${costCenters.description ? costCenters.description : 'N/A'}</td>
                                 <td>${createdAt}</td>
                                 <td>${updatedAt}</td>
                                 <td>
@@ -156,6 +162,7 @@
                      $('#code').val(bank.code);
                       $('#name').val(bank.name); 
                       $('#budget').val(bank.budget);
+                      $('#description').val(bank.description);
                       $('#addCostCenterModal').modal('show'); // Manejar el envío del formulario de edición
                        $('#addCostCenterForm').off('submit').on('submit', function(e) {
                          e.preventDefault(); // Prevenir el envío del formulario 

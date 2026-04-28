@@ -110,6 +110,7 @@
                                                 <th>Direccion</th>
                                                  <th>Teléfono</th>
                                                  <th>Correo Electrónico</th>
+                                                 <th>Actvidad Económica</th>
                                                 <th>Estado</th>
                                                  <th>Creado</th>
                                                
@@ -377,6 +378,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="mb-3">
+                            <label for="economic_activity" class="form-label"><b>Actividad Económica</b></label>
+                            <input type="text" class="form-control" id="economic_activity" name="economic_activity">
+                        </div>
 
                         <div class="row">
                             <div class="accordion" id="accordionExample">
@@ -636,6 +641,7 @@ function fechtCustomers() {
                                         ${customer.email}
                                     </span>
                                 </td>
+                                <td>${customer.economic_activity ? customer.economic_activity : 'N/A'}</td>
                                 <td>${statusText}</td>
                                 <td>${createdAt}</td>
                                 <td>
@@ -836,7 +842,8 @@ function handleToggleStatus(e) {
                 $('#city_id').val(customer.city_id);
                 $('#address').val(customer.address);
                 $('#phone').val(customer.phone);
-            $('#email').val(customer.email);
+                $('#email').val(customer.email);
+                $('#economic_activity').val(customer.economic_activity);
                 
                         
                 $('#addCustomerModal').modal('show'); 
