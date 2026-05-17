@@ -46,6 +46,12 @@ class PurchaseModel extends Model
         return $this->belongsTo(WarehouseModel::class, 'warehouse_id');
     }
 
+    // sucursales
+    public function branches()
+    {
+        return $this->belongsTo(Branch::class,'branch_id');
+    }
+
     public function company()
     {
         return $this->belongsTo(Companies::class,'company_id');

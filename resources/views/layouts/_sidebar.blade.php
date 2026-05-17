@@ -77,24 +77,23 @@
                         <li class="nav-item"> <a href="./layout/sidebar-mini.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Pagos</p>
                             </a> </li>
-                    
-                     
+                         
                       
                     </ul>
                 </li>
                 <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-clipboard-fill"></i>
                     <p>
-                        Anulaciones
+                        Devoluciones
                          <i class="nav-arrow bi bi-chevron-right"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    <li class="nav-item"> <a href="{{url('admin/notes_credit_debit/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                            <p> Notas Debito -Credito </p>
+                    <li class="nav-item"> <a href="{{url('admin/return_reasons/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                            <p> Razones </p>
                         </a> </li>
                       
-                        <li class="nav-item"> <a href="{{url('admin/notes_concept/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                            <p>Conceptos Notas</p>
+                        <li class="nav-item"> <a href="{{url('admin/purchase_returns/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                            <p>Devolución Compra</p>
                         </a> </li>
 
                                 

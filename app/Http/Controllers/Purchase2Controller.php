@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use App\Models\CurrenciesModel;
 use App\Models\DocumentTypeModel;
 use App\Models\InventoryModel;
@@ -110,6 +111,8 @@ private function applyFilters($query, $request)
     {
         $data['documentTypes'] = VoucherTypeModel::where('is_delete','=',0)->get();
         $data['warehouses'] = WarehouseModel::where('is_delete','=',0)->get();
+        
+        $data['branches'] = Branch::where('is_delete','=',0)->get();
         $data['stateTypes'] = StateTypeModel::where('is_delete','=',0)->get();
         $data['formPayments'] = PaymentTypeModel::where('is_delete','=',0)->get();
         $data['currencies'] = CurrenciesModel::where('is_delete','=',0)->get();
@@ -221,7 +224,7 @@ private function applyFilters($query, $request)
             $purchase->total_purchase = $request->total_purchase;
      // Save the warehouse ID to the purchase
             $purchase->warehouse_id = $request->warehouse_id;
-     
+        $purchase->branch_id = $request->branch_id;
             $purchase->observations = $request->observations;
             $purchase->company_id = Auth::user()->company_id;
             $purchase->save();

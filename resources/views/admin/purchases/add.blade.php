@@ -121,22 +121,39 @@
                                     </div>
                                 </div>
                             
-
-                            
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for=""><b>Bodega</b></label>
+                                        <label for="warehouse_id"><b>Bodega</b></label>
                                         <select class="form-select" id="warehouse_id" name="warehouse_id">
+                                            <option value="">Seleccione...</option>
+                                            @foreach($warehouses as $warehouse)
+                                                <option value="{{ $warehouse->id }}" 
+                                                    @selected($loop->first)>
+                                                    {{ $warehouse->warehouse_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for=""><b>Sucursal</b></label>
+                                        <select class="form-select" id="branch_id" name="branch_id">
                                              <option value="">Seleccione...</option>
-                                             @foreach($warehouses as $warehouse)
-                                                 <option value="{{$warehouse->id }}">{{ $warehouse->warehouse_name }}</option>
-                                             @endforeach
+                                        
+                                             @foreach($branches as $branch)
+                                                <option value="{{ $branch->id }}" 
+                                                    @selected($loop->first)>
+                                                    {{ $branch->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                               
                                 <div class="col-md-6">
-                                    <label for="">No Factura Proveedor</label>
+                                    <label for=""><b>No Factura Proveedor</b></label>
                                     <input type="text" class="form-control" id="invoice_no" name="invoice_no" required>
                                 </div>
                                 <div class="col-md-6">
@@ -501,11 +518,11 @@
                                     <button type="button" class="btn btn-primary" id="saveBtn">Guardar</button>
                                 </div>
                             </div>
-                            <div class="col-md-4 mt-2">
+                            {{-- <div class="col-md-4 mt-2">
                                 <div class="float-end">
                                     <button type="submit" class="btn btn-success" id="printBtn">Guardar y Enviar</button>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>
@@ -1035,6 +1052,11 @@ $(document).on('click', '.select-person', function() {
         // Check if warehouse is selected
         if (!$('#warehouse_id').val()) {
             errorMessage += '- Debe seleccionar una bodega<br>';
+            isValid = false;
+        }
+
+         if (!$('#branch_id').val()) {
+            errorMessage += '- Debe seleccionar una Sucursal<br>';
             isValid = false;
         }
         

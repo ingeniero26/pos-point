@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Mail\QuotationEmail;
 use App\Models\Branch;
+use App\Models\CashMovement;
+use App\Models\CashRegisterSession;
 use App\Models\CurrenciesModel;
 use App\Models\IdentificationTypeModel;
 use App\Models\ItemsModel;
@@ -11,8 +13,13 @@ use App\Models\PaymentMethodModel;
 use App\Models\PaymentTypeModel;
 use App\Models\PersonModel;
 use App\Models\Quotation;
-use App\Models\Sales;
+use App\Models\Invoices;
+use App\Models\InvoiceItems;
+use App\Models\Companies;
+use App\Models\InventoryModel;
+use App\Models\ItemMovementModel;
 use App\Models\StatusQuotation;
+use App\Models\AccountsReceivable;
 use App\Models\User;
 use App\Models\VoucherTypeModel;
 use App\Models\WarehouseModel;
@@ -167,7 +174,7 @@ class QuotationController extends Controller
 
     }
     public function getQuotations(Request $request){
-        $query = Quotation::with(['customer', 'paymentForm', 'payment_method', 'statusQuotation','warehouse','branch'])
+        $query = Quotation::with(['customer', 'paymentForm', 'payment_method', 'statusQuotation','warehouse','branch','quotation_items.item','quotation_items.item.measure','quotation_items.item.category'])
         ->orderBy('id', 'desc');
     
     // Apply date from filter
@@ -363,6 +370,188 @@ class QuotationController extends Controller
         ]);
     }
 
+   // convertToInvoice
+    public function convertToInvoice(Request $request, $id)
+    {
+        DB::beginTransaction();
 
+        try {
+            $quotation = Quotation::with(['quotation_items.item', 'company'])->findOrFail($id);
+
+            if ($quotation->converted_to_invoice) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Esta cotización ya fue convertida a factura.',
+                    'quotation_id' => $id
+                ], 400);
+            }
+
+            $company = $quotation->company ?? Companies::findOrFail(Auth::user()->company_id);
+            $nextConsecutive = $company->getNextConsecutive();
+            $series = $company->invoice_prefix ?? 'FV';
+
+            $sale = new Invoices();
+            $sale->voucher_type_id = $quotation->voucher_type_id;
+            $sale->customer_id = $quotation->customer_id;
+            $sale->state_type_id = 1;
+            $sale->warehouse_id = $quotation->warehouse_id;
+            $sale->payment_form_id = $quotation->payment_form_id;
+            $sale->payment_method_id = $quotation->payment_method_id;
+            $sale->date_of_issue = $quotation->date_of_issue;
+            $sale->date_of_due = $quotation->date_of_expiration ?? $quotation->date_of_issue;
+            $sale->time_of_issue = now()->format('H:i:s');
+            $sale->series = $series;
+            $sale->number = $nextConsecutive;
+            $sale->currency_id = $quotation->currency_id;
+            $sale->total_subtotal = $quotation->subtotal;
+            $sale->total_tax = $quotation->total_tax;
+            $sale->total_discount = $quotation->total_discount;
+            $sale->total_sale = $quotation->total;
+            $sale->delivery_status = 'pending';
+            $sale->shipping_method = null;
+            $sale->observations = $quotation->notes;
+            $sale->company_id = $company->id;
+            $sale->created_by = Auth::user()->id;
+            $sale->operation_type = '10';
+            $sale->uuid = \Illuminate\Support\Str::uuid()->toString();
+            $sale->save();
+
+            $sale->invoice_no = $company->getFormattedConsecutive($nextConsecutive);
+            $sale->save();
+
+            foreach ($quotation->quotation_items as $quotationItem) {
+                $product = $quotationItem->item;
+                if (! $product) {
+                    throw new \Exception('Producto no encontrado para el item de cotización ID: ' . $quotationItem->id);
+                }
+
+                $saleItem = new InvoiceItems();
+                $saleItem->invoice_id = $sale->id;
+                $saleItem->item_id = $quotationItem->item_id;
+                $saleItem->quantity = $quotationItem->quantity;
+                $saleItem->unit_price = $quotationItem->unit_price;
+                $saleItem->total_price = $quotationItem->quantity * $quotationItem->unit_price;
+                $saleItem->discount = $quotationItem->discount ?? 0;
+                $saleItem->tax_id = $quotationItem->tax_id;
+                $saleItem->tax_rate = $quotationItem->tax_rate ?? 0;
+                $saleItem->tax_amount = $quotationItem->total_tax ?? 0;
+                $saleItem->subtotal = $quotationItem->subtotal ?? ($quotationItem->quantity * $quotationItem->unit_price - ($quotationItem->discount ?? 0));
+                $saleItem->total = $quotationItem->total ?? ($saleItem->subtotal + $saleItem->tax_amount);
+                $saleItem->is_taxed = $quotationItem->tax_id ? 1 : 0;
+                $saleItem->is_exonerated = 0;
+                $saleItem->is_unaffected = 0;
+                $saleItem->created_by = Auth::user()->id;
+                $saleItem->company_id = Auth::user()->company_id;
+                $saleItem->save();
+
+                if ($quotation->warehouse_id) {
+                    $warehouseItem = InventoryModel::where('item_id', $quotationItem->item_id)
+                        ->where('warehouse_id', $quotation->warehouse_id)
+                        ->first();
+
+                    if ($warehouseItem) {
+                        $previousStock = $warehouseItem->stock;
+                        $warehouseItem->stock -= $quotationItem->quantity;
+                        $warehouseItem->save();
+
+                        $movement = new ItemMovementModel();
+                        $movement->item_id = $quotationItem->item_id;
+                        $movement->warehouse_id = $quotation->warehouse_id;
+                        $movement->movement_type_id = 6;
+                        $movement->movement_date = now()->format('Y-m-d');
+                        $movement->quantity = $quotationItem->quantity;
+                        $movement->previous_stock = $previousStock;
+                        $movement->new_stock = $warehouseItem->stock;
+                        $movement->reason = 'Venta #' . $sale->invoice_no;
+                        $movement->reference_id = $sale->id;
+                        $movement->reference_type = 'Salida';
+                        $movement->created_by = Auth::user()->id;
+                        $movement->company_id = Auth::user()->company_id;
+                        $movement->save();
+                    }
+                }
+            }
+
+            // Procesar pago en efectivo si aplica
+            if ($quotation->payment_method_id == 1) {
+                $cashSession = CashRegisterSession::where('user_id', Auth::id())
+                    ->where('status', 'Open')
+                    ->first();
+
+                if (!$cashSession) {
+                    throw new \Exception('No hay una sesión de caja abierta para el usuario ' . Auth::user()->name);
+                }
+
+                // Registrar movimiento de caja único para toda la factura
+                $cashMovement = new CashMovement([
+                    'cash_register_session_id' => $cashSession->id,
+                    'cash_movement_type_id' => 2, // Ingreso por venta
+                    'amount' => $quotation->total,
+                    'description' => 'Venta #' . $sale->invoice_no,
+                    'reference_document_type' => 'SALE',
+                    'reference_document_number' => $sale->invoice_no,
+                    'related_sale_id' => $sale->id,
+                    'related_third_party_id' => $sale->customer_id,
+                    'transaction_time' => now(),
+                    'user_id' => Auth::id(),
+                    'company_id' => Auth::user()->company_id,
+                    'created_by' => Auth::id()
+                ]);
+
+                if (!$cashMovement->save()) {
+                    throw new \Exception('Error al registrar el movimiento de caja');
+                }
+
+                // Actualizar saldo de caja
+                $cashSession->current_balance += $quotation->total;
+                $cashSession->expected_closing_balance += $quotation->total;
+                $cashSession->save();
+            }
+
+            // Registrar cuenta por cobrar si es crédito
+            if ($quotation->payment_form_id == 2) {
+                $accountsReceivable = new \App\Models\AccountsReceivable();
+                $accountsReceivable->sale_id = $sale->id;
+                $accountsReceivable->customer_id = $quotation->customer_id;
+                $accountsReceivable->voucher_type_id = $quotation->voucher_type_id;
+                $accountsReceivable->date_of_issue = $quotation->date_of_issue;
+                $accountsReceivable->date_of_due = $quotation->date_of_expiration ?? $quotation->date_of_issue;
+                $accountsReceivable->total_amount = $quotation->total;
+                $accountsReceivable->balance = $quotation->total;
+                $accountsReceivable->account_statuses_id = 1; // Pendiente
+                $accountsReceivable->currency_id = $quotation->currency_id;
+                $accountsReceivable->company_id = Auth::user()->company_id;
+                $accountsReceivable->created_by = Auth::user()->id;
+                $accountsReceivable->save();
+            }
+
+          
+
+            $convertedStatus = StatusQuotation::where('name', 'like', '%convertida%')->first();
+            if ($convertedStatus) {
+                $quotation->status_quotation_id = $convertedStatus->id;
+            }
+
+            $quotation->converted_to_invoice = 1;
+            $quotation->sale_id = $sale->id;
+            $quotation->save();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Cotización convertida a factura correctamente.',
+                'invoice_id' => $sale->id,
+                'invoice_no' => $sale->invoice_no
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error al convertir cotización en factura: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al convertir la cotización: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 
 }

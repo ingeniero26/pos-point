@@ -89,7 +89,10 @@ use App\Http\Controllers\PensionFoundController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PurchaseReturnController;
+use App\Http\Controllers\ReturnReasonController;
 use App\Http\Controllers\UserRolePermissionController;
+use App\Models\PurchaseReturn;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -635,6 +638,8 @@ Route::group(['middleware' => 'admin'], function () {
     //Route::post('admin/quotation/update_state', [QuotationController::class, 'updateState'])->name('admin.quotation.update_state');
     Route::post('admin/quotation/update-state', [QuotationController::class, 'updateState'])->name('admin.quotation.update_state');
     Route::post('admin/quotation/convert-to-sale', [QuotationController::class, 'convertToSale'])->name('admin.quotation.convert_to_sale');
+    // facturar cotizacion
+    Route::post('admin/quotation/convert-to-invoice/{id}', [QuotationController::class, 'convertToInvoice'])->name('admin.quotation.convert_to_invoice');
 
 
 
@@ -951,7 +956,19 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/accounting_periods/{id}/reopen', [AccountingPeriodsController::class, 'reopen'])->name('admin.accounting_periods.reopen');
     Route::get('admin/accounting_periods/{id}', [AccountingPeriodsController::class, 'show'])->name('admin.accounting_periods.show');
 
+// razones de devoluciones
+   Route::get('admin/return_reasons/list', [ReturnReasonController::class, 'list'])->name('admin.return_reasons.list');
+    Route::get('admin/return_reasons/data', [ReturnReasonController::class, 'getReturnReasons'])->name('admin.return_reasons.fetch');
+   // Route::get('admin/return_reasons/return_reasons-types', [ReturnReasonController::class, 'getReturnReasons'])->name('admin.return_reasons.types');
+    Route:: post('admin/return_reasons/store', [ReturnReasonController::class, 'store'])->name('admin.return_reasons.store');
+    Route::get('admin/return_reasons/edit/{id}', [ReturnReasonController::class, 'edit'])->name('admin.return_reasons.edit');
+    Route::post('admin/return_reasons/update/{id}', [ReturnReasonController::class, 'update'])->name('admin.return_reasons.update');
+    Route::delete('admin/return_reasons/delete/{id}', [ReturnReasonController::class, 'destroy'])->name('admin.return_reasons.delete');
+    Route::put('admin/return_reasons/toggle-status/{id}', [ReturnReasonController::class, 'toggleStatus'])->name('admin.return_reasons.toggle-status');
 
+    // return purchase
+
+    Route::get('admin/purchase_returns/list',[PurchaseReturnController::class, 'list'])->name('admin.purchase_returns.list');
 
 
 

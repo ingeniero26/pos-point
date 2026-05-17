@@ -233,7 +233,12 @@
                                         <button class="btn btn-danger btn-sm delete-btn" data-id="${quotation.id}" title="Eliminar">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
-                                       
+                                        
+                                        ${quotation.status_quotation_id == 3 ? `
+                                            <button class="btn btn-success btn-sm sales-btn" data-id="${quotation.id}" title="Facturar">
+                                                 <i class="fa-solid fa-file-invoice"></i>
+                                            </button>
+                                        ` : ''}
                                     </div>
                                 </td>
                             </tr>`;
@@ -475,6 +480,7 @@
                         });
                         // Actualizar el atributo data-current-state
                         $('.state-select[data-quotation-id="' + quotationId + '"]').data('current-state', newStateId);
+                        loadSales(); // Recargar la tabla para reflejar el cambio
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -583,6 +589,62 @@
             $('#date_from').focus();
         });
     });
+
+    //facturar cotización
+    $(document).on('click', '.sales-btn', function() {
+        var quotationId = $(this).data('id');
+        alert('Función de facturación para cotización ID: ' + quotationId);
+         // modal para el proceso de facturación
+            Swal.fire({
+                title: 'Facturar Cotización',
+                text: '¿Desea convertir esta cotización en una factura?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, facturar',
+                cancelButtonText: 'No, cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Aquí puedes agregar la lógica para convertir la cotización en factura
+                    // Por ejemplo, hacer una solicitud AJAX al servidor para realizar la conversión
+                    $.ajax({
+                        url: "{{ url('admin/quotation/convert-to-invoice') }}/" + quotationId,
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '¡Factura creada!',
+                                    text: 'La cotización ha sido convertida en factura correctamente.',
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                });
+                                // Recargar la tabla o redirigir a la página de la factura
+                                loadSales();
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: response.message || 'Ocurrió un error al convertir la cotización.'
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error al convertir cotización:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Ocurrió un error al convertir la cotización.'
+                            });
+                        }
+                    });
+                }
+            });
+    });
+        
 </script>
 
 @endsection
