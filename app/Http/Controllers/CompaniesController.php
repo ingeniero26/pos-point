@@ -52,6 +52,7 @@ class CompaniesController extends Controller
             'trade_name' => 'nullable|string|max:250',
             'ciiu_code' => 'nullable|string|max:250',
             'activity_description' => 'nullable|string|max:500',
+            'date_of_incorporation' => 'nullable|date',
             'cc_representative' => 'nullable|string|max:250',
             'email' => 'required|email|max:250',
             'legal_representative' => 'nullable|string|max:250',

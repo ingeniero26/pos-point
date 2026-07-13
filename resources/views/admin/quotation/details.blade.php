@@ -47,15 +47,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Cliente:</label>
-                                <p class="form-control-plaintext">{{ $quotation->customer->name }}</p>
+                                <p class="form-control-plaintext">{{ $quotation->customer->first_name }} {{ $quotation->customer->last_name }}</p>
                             </div>
                             <div class="form-group">
                                 <label>Almacén:</label>
                                 <p class="form-control-plaintext">{{ $quotation->warehouse->name }}</p>
-                            </div>
-                            <div class="form-group">
-                                <label>Moneda:</label>
-                                <p class="form-control-plaintext">{{ $quotation->currency->name }}</p>
                             </div>
                             <div class="form-group">
                                 <label>Tipo de Pago:</label>

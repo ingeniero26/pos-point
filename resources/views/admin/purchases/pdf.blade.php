@@ -109,7 +109,7 @@
             @if($purchase->company && $purchase->company->logo)
                 <img src="{{ public_path($purchase->company->logo) }}" alt="Logo" class="logo">
             @endif
-            <div class="title">FACTURA DE COMPRA</div>
+            <div class="title">FACTURA DE COMPRA <b> No.{{ $purchase->id }}</b></div> 
             <div class="subtitle">{{ $purchase->company ? $purchase->company->name : 'Empresa' }}</div>
             <div>{{ $purchase->company ? $purchase->company->address : '' }}</div>
             <div>Tel: {{ $purchase->company ? $purchase->company->phone : '' }}</div>

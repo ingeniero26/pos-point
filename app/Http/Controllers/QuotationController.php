@@ -175,7 +175,7 @@ class QuotationController extends Controller
     }
     public function getQuotations(Request $request){
         $query = Quotation::with(['customer', 'paymentForm', 'payment_method', 'statusQuotation','warehouse','branch','quotation_items.item','quotation_items.item.measure','quotation_items.item.category'])
-        ->orderBy('id', 'desc');
+        ->orderBy('id', 'asc');
     
     // Apply date from filter
     if ($request->has('date_from') && !empty($request->date_from)) {
@@ -196,8 +196,6 @@ class QuotationController extends Controller
     if ($request->has('status_quotation_id') && !empty($request->status_quotation_id)) {
         $query->where('status_quotation_id', $request->status_quotation_id);
     }
-    
-  
     
     $quotation = $query->get() ->where('is_delete', '=', 0);
     return response()->json($quotation);
@@ -222,6 +220,141 @@ class QuotationController extends Controller
                 'success' => false,
                 'message' => 'Error al obtener detalles de la cotización: ' . $e->getMessage()
             ], 500);
+        }
+    }
+    public function edit($id){
+        try {
+            $quotation = Quotation::with([
+                'customer', 
+                'warehouse', 
+                'branch',
+                'statusQuotation',
+                'quotation_items.item.measure',
+                'quotation_items.item.tax',
+                'quotation_items.item.category',
+                'user',
+                'company',
+                'currency',
+                'paymentForm',
+                'payment_method',
+                'voucherTypes'
+            ])->findOrFail($id);
+            
+            $data['voucherTypes'] = VoucherTypeModel::where('is_delete','=',0)->get();
+            $data['warehouses'] = WarehouseModel::where('is_delete','=',0)->get();
+            $data['branches'] = Branch::where('is_delete','=',0)->get();
+            $data['stateTypes'] = StatusQuotation::where('is_delete','=',0)->get();
+            $data['formPayments'] = PaymentTypeModel::where('is_delete','=',0)->get();
+            $data['currencies'] = CurrenciesModel::where('is_delete','=',0)->get();
+            $data['paymentMethods'] = PaymentMethodModel::where('is_delete','=',0)->get();
+           $data['identificationTypes'] = IdentificationTypeModel::where('is_delete','=',0)->get();
+           // usuarios de rol 2
+           $data['users'] = User::where('is_role', '=', 2)->get();
+
+           
+            $data['customers'] = PersonModel::where('is_delete', '=', 0)
+            ->where('type_third_id','=', 1)
+            ->get();
+            $data['products'] = ItemsModel::where('is_delete', '=', 0)
+            ->get();
+            $data['employees'] = PersonModel::where('is_delete', '=', 0)
+            ->where('type_third_id','=', 4)
+            ->get();
+
+            
+            return view('admin.quotation.edit', compact('quotation'),$data);
+        } catch (\Exception $e) {
+            return redirect()->route('admin.quotation.list')
+                ->with('error', 'Cotización no encontrada: ' . $e->getMessage());
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $quotation = Quotation::findOrFail($id);
+
+            $request->validate([
+                'voucher_type_id' => 'required|integer',
+                'status_quotation_id' => 'required|integer',
+                'customer_id' => 'required|integer',
+                'date_of_issue' => 'required|date',
+                'date_of_expiration' => 'required|date',
+                'validity_days' => 'required|integer',
+                'payment_form_id' => 'required|integer',
+                'currency_id' => 'required|integer',
+                'payment_method_id' => 'required|integer',
+                'product_ids' => 'nullable|array',
+                'product_ids.*' => 'integer|exists:items,id',
+                'quantities.*' => 'nullable|numeric|min:1',
+                'prices.*' => 'nullable|numeric|min:0',
+                'discount_amounts.*' => 'nullable|numeric|min:0',
+                'tax_rates.*' => 'nullable|numeric|min:0',
+                'tax_amounts.*' => 'nullable|numeric|min:0',
+                'subtotals.*' => 'nullable|numeric|min:0',
+            ]);
+
+            $quotation->voucher_type_id = $request->voucher_type_id;
+            $quotation->status_quotation_id = $request->status_quotation_id;
+            $quotation->customer_id = $request->customer_id;
+            $quotation->date_of_issue = $request->date_of_issue;
+            $quotation->date_of_expiration = $request->date_of_expiration;
+            $quotation->validity_days = $request->validity_days;
+            $quotation->payment_form_id = $request->payment_form_id;
+            $quotation->currency_id = $request->currency_id;
+            $quotation->payment_method_id = $request->payment_method_id;
+            $quotation->payment_conditions = $request->payment_conditions;
+            $quotation->notes = $request->notes;
+            $quotation->subtotal = $request->input('total_subtotal', $quotation->subtotal);
+            $quotation->total_discount = $request->input('total_discount', $quotation->total_discount);
+            $quotation->total_tax = $request->input('total_tax', $quotation->total_tax);
+            $quotation->total = $request->input('total', $quotation->total);
+            $quotation->save();
+
+            DB::table('quotation_items')->where('quotation_id', $quotation->id)->delete();
+
+            if ($request->has('product_ids') && is_array($request->product_ids)) {
+                $productCount = count($request->product_ids);
+                for ($i = 0; $i < $productCount; $i++) {
+                    $productId = $request->product_ids[$i];
+                    $product = ItemsModel::find($productId);
+                    if (! $product) {
+                        continue;
+                    }
+
+                    $quantity = isset($request->quantities[$i]) ? max(1, $request->quantities[$i]) : 1;
+                    $price = isset($request->prices[$i]) ? $request->prices[$i] : 0;
+                    $discountAmount = isset($request->discount_amounts[$i]) ? $request->discount_amounts[$i] : 0;
+                    $taxAmount = isset($request->tax_amounts[$i]) ? $request->tax_amounts[$i] : 0;
+                    $subtotal = isset($request->subtotals[$i]) ? $request->subtotals[$i] : ($quantity * $price - $discountAmount);
+
+                    DB::table('quotation_items')->insert([
+                        'quotation_id' => $quotation->id,
+                        'item_id' => $product->id,
+                        'company_id' => Auth::user()->company_id,
+                        'unit_type_id' => $product->measure_id ?? 1,
+                        'tax_id' => $product->tax_id,
+                        'total_tax' => $taxAmount,
+                        'subtotal' => $subtotal,
+                        'discount' => $discountAmount,
+                        'quantity' => $quantity,
+                        'unit_price' => $price,
+                        'total' => $subtotal,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return redirect()->route('admin.quotation.list')
+                ->with('success', 'Cotización actualizada correctamente.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()
+                ->with('error', 'Error actualizando cotización: ' . $e->getMessage());
         }
     }
     public function sendEmail(Request $request)

@@ -12,6 +12,7 @@ use App\Models\PaymentTypeModel;
 use App\Models\PersonModel;
 use App\Models\PurchaseItemsModel;
 use App\Models\PurchaseModel;
+use App\Models\PurchaseOrder;
 use App\Models\StateTypeModel;
 use App\Models\TmpPurchaseModel;
 use App\Models\VoucherTypeModel;
@@ -466,7 +467,7 @@ public function generateFromOrder(Request $request)
         ]);
 
         // Get the purchase order
-        $purchaseOrder = \App\Models\PurchaseOrder::with(['suppliers', 'purchase_order_items', 'purchase_order_items.items'])
+        $purchaseOrder = PurchaseOrder::with(['suppliers', 'purchase_order_items', 'purchase_order_items.items'])
             ->findOrFail($request->purchase_order_id);
             
         // Check if purchase order is in a valid state to generate purchase
@@ -496,7 +497,7 @@ public function generateFromOrder(Request $request)
         $purchase->supplier_id = $purchaseOrder->supplier_id;
         $purchase->voucher_type_id = 1; // Default type (e.g., Factura)
         $purchase->purchase_order_id = $purchaseOrder->id;
-        $purchase->invoice_no = $purchaseOrder->invoice_no;
+        $purchase->invoice_no = $purchaseOrder->prefix;
         $purchase->date_of_issue = now()->format('Y-m-d');
         $purchase->date_of_due = now()->addDays(30)->format('Y-m-d'); // Default 30 days due date
         $purchase->state_type_id = 1; // Default status (e.g., Registered)
@@ -509,10 +510,7 @@ public function generateFromOrder(Request $request)
         $purchase->observations = 'Generado automáticamente desde la orden de compra #' . $purchaseOrder->id;
         $purchase->company_id = Auth::user()->company_id;
         $purchase->created_by = Auth::user()->id;
-        $purchase->save();
-       
-        
-        
+        $purchase->save(); 
         // Create purchase items from purchase order items
         foreach ($purchaseOrder->purchase_order_items as $orderItem) {
             $purchaseItem = new PurchaseItemsModel();
@@ -599,6 +597,33 @@ public function generateFromOrder(Request $request)
             'message' => 'Error al generar la compra: ' . $e->getMessage()
         ]);
     }
+}
+
+public function view($id)
+{
+    $purchase = PurchaseModel::with([
+        'voucher_type', 
+        'suppliers', 
+        'state_type', 
+        'payment_types', 
+        'currencies', 
+        'payment_method',
+        'warehouses',
+        'company',
+        'users',
+        'purchase_items.item' // Incluir los items de la compra con sus detalles
+    ])
+    ->where('id', $id)
+    ->where('is_delete', 0)
+    ->firstOrFail();
+    
+    // Verificar si hay cuentas por pagar asociadas a esta compra
+    $accountsPayable = \App\Models\AccountsPayableModel::where('purchase_id', $id)
+        ->with('account_states')
+        ->first();
+    
+    // Pasar los datos a la vista
+    return view('admin.purchases.view', compact('purchase', 'accountsPayable'));
 }
 
 

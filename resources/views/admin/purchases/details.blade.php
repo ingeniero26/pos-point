@@ -5,14 +5,14 @@
         <div class="container-fluid"> 
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="mb-0">Detalles de Factura de Compra</h3>
+                    <h3 class="mb-0">Detalles de Factura de Compra No. {{ $purchase->id }}</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
                         <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Inicio</a></li>
                         <li class="breadcrumb-item"><a href="{{url('admin/purchase/list')}}">Facturas de Compras</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            Detalles de Factura
+                            Detalles de Factura No. {{ $purchase->id }}
                         </li>
                     </ol>
                 </div>
@@ -27,7 +27,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h4>Factura #{{ $purchase->invoice_no }}</h4>
+                                    <h4>Número de Factura Proveedor #{{ $purchase->invoice_no }}</h4>
                                 </div>
                                 <div class="col-md-6">
                                     <a href="{{ url('admin/purchase/list') }}" class="btn btn-secondary float-end ms-2">

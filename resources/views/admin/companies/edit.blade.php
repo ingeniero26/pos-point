@@ -37,7 +37,7 @@
 
                                 <div class="row mb-3">
                                     <div class="col-md-3">
-                                        <label for="busines_type_id" class="form-label">Tipo de Empresa</label>
+                                        <label for="busines_type_id" class="form-label"> <b>Tipo de Empresa</b></label>
                                         <select class="form-select @error('busines_type_id') is-invalid @enderror" name="busines_type_id" id="busines_type_id">
                                             <option value="">Seleccione...</option>
                                             @foreach($businessTypes as $id => $name)
@@ -49,7 +49,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="identification_type_id" class="form-label">Tipo de Identificación</label>
+                                        <label for="identification_type_id" class="form-label"> <b>Tipo de Identificación</b></label>
                                         <select class="form-select @error('identification_type_id') is-invalid @enderror" name="identification_type_id" id="identification_type_id">
                                             <option value="">Seleccione...</option>
                                             @foreach($identification_types as $id => $name)
@@ -62,14 +62,14 @@
                                     </div>
 
                                     <div class="col-md-3">
-                                        <label for="identification_number" class="form-label">Número de Identificación</label>
+                                        <label for="identification_number" class="form-label"> <b>Número de Identificación</b></label>
                                         <input type="text" class="form-control @error('identification_number') is-invalid @enderror" id="identification_number" name="identification_number" value="{{ old('identification_number', $company->identification_number) }}">
                                         @error('identification_number')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="dv" class="form-label">Dígito de Verificación</label>
+                                        <label for="dv" class="form-label"> <b>Dígito de Verificación</b></label>
                                         <input type="text" class="form-control @error('dv') is-invalid @enderror" id="dv" name="dv" value="{{ old('dv', $company->dv) }}">
                                         @error('dv')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -80,14 +80,14 @@
 
                                 <div class="row mb-3">
                                     <div class="col-md-3">
-                                        <label for="name" class="form-label">Nombre de la Empresa</label>
+                                        <label for="company_name" class="form-label"> <b>Nombre de la Empresa</b></label>
                                         <input type="text" class="form-control @error('company_name') is-invalid @enderror" id="company_name" name="company_name" value="{{ old('company_name', $company->company_name) }}">
                                         @error('company_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="name" class="form-label">Nombre Comercial</label>
+                                        <label for="trade_name" class="form-label"> <b>Nombre Comercial</b></label>
                                         <input type="text" class="form-control @error('trade_name') is-invalid @enderror" id="trade_name" name="trade_name" value="{{ old('trade_name', $company->trade_name) }}">
                                         @error('trade_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -95,14 +95,14 @@
                                     </div>
 
                                     <div class="col-md-3">
-                                        <label for="short_name" class="form-label">Nombre Corto</label>
+                                        <label for="short_name" class="form-label"> <b>Nombre Corto</b></label>
                                         <input type="text" class="form-control @error('short_name') is-invalid @enderror" id="short_name" name="short_name" value="{{ old('short_name', $company->short_name) }}">
                                         @error('short_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="">Código CIIU</label>
+                                        <label for="code_ciiu" class="form-label"> <b>Código CIIU</b></label>
                                         <input type="text" class="form-control @error('code_ciiu') is-invalid @enderror" id="code_ciiu" name="code_ciiu" value="{{ old('code_ciiu', $company->code_ciiu) }}">
                                         @error('code_ciiu')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-12">
-                                        <label for="activity_description" class="form-label">Descripción de la Actividad</label>
+                                        <label for="activity_description" class="form-label"> <b>Descripción de la Actividad</b></label>
                                         <input type="text" class="form-control @error('activity_description') is-invalid @enderror" id="activity_description" name="activity_description" value="{{ old('activity_description', $company->activity_description) }}">
                                         @error('activity_description')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -121,21 +121,21 @@
 
                                 <div class="row mb-3">
                                     <div class="col-md-3">
-                                        <label for="email" class="form-label">Correo Electrónico</label>
+                                        <label for="email" class="form-label"> <b>Correo Electrónico</b></label>
                                         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $company->email) }}">
                                         @error('email')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="legal_representative" class="form-label">Representante Legal</label>
+                                        <label for="legal_representative" class="form-label"> <b>Representante Legal</b></label>
                                         <input type="text" class="form-control @error('legal_representative') is-invalid @enderror" id="legal_representative" name="legal_representative" value="{{ old('legal_representative', $company->legal_representative) }}">
                                         @error('legal_representative')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="cc_representative" class="form-label">Cédula Representante Legal</label>
+                                        <label for="cc_representative" class="form-label"> <b>Cédula Representante Legal</b></label>
                                         <input type="text" class="form-control @error('cc_representative') is-invalid @enderror" id="cc_representative" name="cc_representative" value="{{ old('cc_representative', $company->cc_representative) }}">
                                         @error('cc_representative')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -144,7 +144,7 @@
 
 
                                     <div class="col-md-3">
-                                        <label for="logo" class="form-label">Logo</label>
+                                        <label for="logo" class="form-label"> <b>Logo</b></label>
                                         <input type="file" class="form-control @error('logo') is-invalid @enderror" id="logo" name="logo">
                                         @error('logo')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -159,7 +159,7 @@
 
                                 <div class="row mb-3">
                                     <div class="col-md-4">
-                                        <label for="country_id" class="form-label">País</label>
+                                        <label for="country_id" class="form-label"> <b>País</b></label>
                                         <select class="form-select @error('country_id') is-invalid @enderror" name="country_id" id="country_id">
                                             <option value="">Seleccione...</option>
                                             @foreach($countries as $id => $name)
@@ -172,7 +172,7 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label for="department_id" class="form-label">Departamento</label>
+                                        <label for="department_id" class="form-label"> <b>Departamento</b></label>
                                         <select class="form-select @error('department_id') is-invalid @enderror" name="department_id" id="department_id">
                                             <option value="">Seleccione...</option>
                                             @foreach($departments as $id => $name)
@@ -185,7 +185,7 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label for="city_id" class="form-label">Ciudad</label>
+                                        <label for="city_id" class="form-label"> <b>Ciudad</b></label>
                                         <select class="form-select @error('city_id') is-invalid @enderror" name="city_id" id="city_id">
                                             <option value="">Seleccione...</option>
                                             @foreach($cities as $id => $name)
@@ -200,7 +200,7 @@
 
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="address" class="form-label">Dirección</label>
+                                        <label for="address" class="form-label"> <b>Dirección</b></label>
                                         <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address', $company->address) }}">
                                         @error('address')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -208,7 +208,7 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="phone" class="form-label">Teléfono</label>
+                                        <label for="phone" class="form-label"> <b>Teléfono</b></label>
                                         <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone', $company->phone) }}">
                                         @error('phone')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -218,7 +218,7 @@
 
                                 <div class="row mb-3">
                                     <div class="col-md-4">
-                                        <label for="currency_id" class="form-label">Moneda</label>
+                                        <label for="currency_id" class="form-label"> <b>Moneda</b></label>
                                         <select class="form-select @error('currency_id') is-invalid @enderror" name="currency_id" id="currency_id">
                                             <option value="">Seleccione...</option>
                                             @foreach($currencies as $id => $name)
@@ -231,7 +231,7 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label for="type_regimen_id" class="form-label">Tipo de Régimen</label>
+                                        <label for="type_regimen_id" class="form-label"> <b>Tipo de Régimen</b></label>
                                         <select class="form-select @error('type_regimen_id') is-invalid @enderror" name="type_regimen_id" id="type_regimen_id">
                                             <option value="">Seleccione...</option>
                                             @foreach($type_regimens as $id => $name)
@@ -244,9 +244,18 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label for="economic_activity_code" class="form-label">Código de Actividad Económica</label>
+                                        <label for="economic_activity_code" class="form-label"> <b>Código de Actividad Económica</b></label>
                                         <input type="text" class="form-control @error('economic_activity_code') is-invalid @enderror" id="economic_activity_code" name="economic_activity_code" value="{{ old('economic_activity_code', $company->economic_activity_code) }}">
                                         @error('economic_activity_code')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="date_of_incorporation"> <b>Fecha de Creación</b></label>
+                                        <input type="date" class="form-control @error('date_of_incorporation') is-invalid @enderror" id="date_of_incorporation" name="date_of_incorporation" value="{{ old('date_of_incorporation', $company->date_of_incorporation ? \Carbon\Carbon::parse($company->date_of_incorporation)->format('Y-m-d') : '') }}">
+                                        @error('date_of_incorporation')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -254,7 +263,7 @@
 
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="ica_rate" class="form-label">Tarifa ICA</label>
+                                        <label for="ica_rate" class="form-label"> <b>Tarifa ICA</b></label>
                                         <input type="text" class="form-control @error('ica_rate') is-invalid @enderror" id="ica_rate" name="ica_rate" value="{{ old('ica_rate', $company->ica_rate) }}">
                                         @error('ica_rate')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -262,7 +271,7 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label for="type_obligation_id" class="form-label">Tipo de Régimen</label>
+                                        <label for="type_obligation_id" class="form-label"> <b>Tipo de Régimen</b></label>
                                         <select class="form-select @error('type_obligation_id') is-invalid @enderror" name="type_obligation_id" id="type_obligation_id">
                                             <option value="">Seleccione...</option>
                                             @foreach($type_obligation as $id => $name)
@@ -277,7 +286,7 @@
                                 <h3 class="mt-4 text-center">DATOS DIAN</h3>
                                 <div class="row mb-3">
                                     <div class="col-md-3">
-                                        <label for="dian_resolution" class="form-label">Resolución DIAN</label>
+                                        <label for="dian_resolution" class="form-label"> <b>Resolución DIAN</b></label>
                                         <input type="text" class="form-control @error('dian_resolution') is-invalid @enderror" id="dian_resolution" name="dian_resolution" value="{{ old('dian_resolution', $company->dian_resolution) }}">
                                         @error('dian_resolution')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -285,7 +294,7 @@
                                     </div>
 
                                     <div class="col-md-3">
-                                        <label for="invoice_prefix" class="form-label">Prefijo DIAN</label>
+                                        <label for="invoice_prefix" class="form-label"> <b>Prefijo DIAN</b></label>
                                         <input type="text" class="form-control @error('invoice_prefix') is-invalid @enderror" id="invoice_prefix" name="invoice_prefix" value="{{ old('invoice_prefix', $company->invoice_prefix) }}">
                                         @error('invoice_prefix')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -293,21 +302,21 @@
                                     </div>
 
                                     <div class="col-md-2">
-                                        <label for="current_consecutive" class="form-label">Consecutivo DIAN</label>
+                                        <label for="current_consecutive" class="form-label"> <b>Consecutivo DIAN</b></label>
                                         <input type="text" class="form-control @error('current_consecutive') is-invalid @enderror" id="dian_consecutive" name="dian_consecutive" value="{{ old('dian_consecutive', $company->dian_consecutive) }}">
                                         @error('current_consecutive')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="range_from" class="form-label">Rango Desde</label>
+                                        <label for="range_from" class="form-label"> <b>Rango Desde</b></label>
                                         <input type="text" class="form-control @error('range_from') is-invalid @enderror" id="range_from" name="range_from" value="{{ old('range_from', $company->range_from) }}">
                                         @error('range_from')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="range_to" class="form-label">Rango Hasta</label>
+                                        <label for="range_to" class="form-label"> <b>Rango Hasta</b></label>
                                         <input type="text" class="form-control @error('range_to') is-invalid @enderror" id="range_to" name="range_to" value="{{ old('range_to', $company->range_to) }}">
                                         @error('range_to')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -319,7 +328,7 @@
                                 <h3>Rangos de Fechas</h3>
                                 <div class="row mb-3">
                                     <div class="col-md-3">
-                                        <label for="resolution_date" class="form-label">Resolución  DIAN</label>
+                                        <label for="resolution_date" class="form-label"> <b>Resolución  DIAN</b></label>
                                         <input type="date" class="form-control @error('resolution_date') is-invalid @enderror" id="resolution_date" name="resolution_date" 
                                          value="{{ old('resolution_date', $company->resolution_date ? \Carbon\Carbon::parse($company->resolution_date)->format('Y-m-d') : '') }}">
 
@@ -329,7 +338,7 @@
                                     
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="date_from" class="form-label">Fecha Inicio  DIAN</label>
+                                        <label for="date_from" class="form-label"> <b>Fecha Inicio  DIAN</b></label>
                                         <input type="date" class="form-control @error('date_from') is-invalid @enderror" id="date_from" name="date_from" 
                                          value="{{ old('date_from', $company->date_from ? \Carbon\Carbon::parse($company->date_from)->format('Y-m-d') : '') }}">
 
@@ -339,7 +348,7 @@
                                     
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="date_to" class="form-label">Fecha Fin  DIAN</label>
+                                        <label for="date_to" class="form-label"> <b>Fecha Fin  DIAN</b></label>
                                         <input type="date" class="form-control @error('date_to') is-invalid @enderror" id="date_to" name="date_to" 
                                          value="{{ old('date_to', $company->date_to ? \Carbon\Carbon::parse($company->date_to)->format('Y-m-d') : '') }}">
 
@@ -348,7 +357,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="environment" class="form-label">Ambiente</label>
+                                        <label for="environment" class="form-label"> <b>Ambiente</b></label>
                                         <input type="text" class="form-control @error('environment') is-invalid @enderror" id="environment" name="environment" disabled value="{{ old('environment', $company->environment) }}">
                                         @error('environment')
                                             <div class="invalid-feedback">{{ $message }}</div>

@@ -45,8 +45,8 @@
                         <li class="nav-item"> <a href="{{url('admin/quotation/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Cotizaciones</p>
                             </a> </li>
-                            <li class="nav-item"> <a href="{{url('admin/orders/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
-                                <p>Pedidos</p>
+                            <li class="nav-item"> <a href="{{url('admin/pos/dashboard')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <p>POS</p>
                             </a> </li>
                           
                       
@@ -68,7 +68,7 @@
                         <li class="nav-item"> <a href="{{url('admin/accounts_payable/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Cuentas x  Pagar</p>
                             </a> </li>
-                        <li class="nav-item"> <a href="./layout/fixed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                        {{-- <li class="nav-item"> <a href="./layout/fixed-sidebar.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Documento Soporte</p>
                             </a> </li>
                         <li class="nav-item"> <a href="./layout/layout-custom-area.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
@@ -76,7 +76,7 @@
                             </a> </li>
                         <li class="nav-item"> <a href="./layout/sidebar-mini.html" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Pagos</p>
-                            </a> </li>
+                            </a> </li> --}}
                          
                       
                     </ul>
@@ -95,9 +95,7 @@
                         <li class="nav-item"> <a href="{{url('admin/purchase_returns/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                             <p>Devolución Compra</p>
                         </a> </li>
-
-                                
-                  
+        
                 </ul>
             </li>
                 <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-clipboard-fill"></i>
@@ -132,7 +130,6 @@
                                 <p>Mis Contáctos(Clientes-Proveedores)</p>
                             </a> </li>
                       
-                       
                     </ul>
                 </li>
                 <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-pencil-square"></i>
@@ -241,9 +238,9 @@
                     </ul>
                 </li>
 
-                <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
+                {{-- <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
                     <p>
-                        Activos Fjos
+                        CRM
                         <i class="nav-arrow bi bi-chevron-right"></i>
                     </p>
                     </a>
@@ -272,7 +269,7 @@
                     
                     
                     </ul>
-                </li>
+                </li> 
 
 
                  <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
@@ -310,7 +307,7 @@
                             </li>
                     </ul>
                 </li>
-            
+            --}}
                 <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-tree-fill"></i>
                     <p>
                         Tesorería
@@ -342,8 +339,6 @@
 
                     </ul>
                 </li>
-     
-
                 {{-- <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-table"></i>
                         <p>
                             Comunicaciones
@@ -368,11 +363,13 @@
                         <li class="nav-item"> <a href="{{url('admin/company')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Mi Empresa</p>
                             </a> </li>
+                            
                         <li class="nav-item"><a href="{{url('admin/user_types/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Tipos de Usuario</p>
                             </a> </li>
-                     
-
+                        <li class="nav-item"><a href="{{url('admin/users/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <p>Usuarios</p>
+                            </a> </li>
                     </ul>
                 </li>
                 <!--Vendedor-->
@@ -466,14 +463,7 @@
                     </ul>
                 </li>
             
-            
                     @endif
-               
-            
-            
-                
-         
-             
             </ul> <!--end::Sidebar Menu-->
         </nav>
     </div> <!--end::Sidebar Wrapper-->

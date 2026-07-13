@@ -11,6 +11,27 @@ class AdminController extends Controller
     {
         return view('admin.admin.list');
     }
+    //metodo para listar los usuarios 
+    public function getUsers()
+    {
+        try {
+            $users = \App\Models\User::where('is_role', '!=', '1')
+                ->where('is_delete', 0)
+                ->orderBy('name')
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => $users,
+                'total' => $users->count(),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error fetching users: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
     public function getAdmins()
     {
         try {

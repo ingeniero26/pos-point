@@ -228,9 +228,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="printPaymentHistory">
+                {{-- <button type="button" class="btn btn-primary" id="printPaymentHistory">
                     <i class="fas fa-print me-1"></i>Imprimir Ticket
-                </button>
+                </button> --}}
                 <button type="button" class="btn btn-info" id="printPaymentTicketPDF">
                     <i class="fas fa-file-pdf me-1"></i>Ticket PDF
                 </button>

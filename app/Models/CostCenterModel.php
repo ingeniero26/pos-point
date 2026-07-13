@@ -13,6 +13,7 @@ class CostCenterModel extends Model
         'name',
         'description',
         'budget',
+        'is_department',
         'created_by',
         'company_id',
         'is_delete'

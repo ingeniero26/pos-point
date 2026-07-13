@@ -189,7 +189,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::delete('admin/tax/delete/{id}', [TaxesController::class, 'destroyTax']);
     Route::get('admin/tax/{id}', [TaxesController::class, 'getTaxRate'])->name('admin.tax.rate');
 
-
     //product
     Route::get('admin/items/list', [ItemsController::class, 'productList'])->name('admin.items.list');
     Route::get('admin/items/data', [ItemsController::class, 'getProducts'])->name('product.fetch');
@@ -240,8 +239,6 @@ Route::group(['middleware' => 'admin'], function () {
     //Route::get('admin/sales/fe')
     // data
     //Route::get('admin/sales/data',[SalesController::class, 'getSales']);
-
-
     // prevew
     Route::post('admin/sales/preview', [InvoicesController::class, 'preview']);
     Route::post('admin/sales/send-email/{id}', [InvoicesController::class, 'sendEmail'])->name('admin.sales.send-email');
@@ -387,18 +384,12 @@ Route::group(['middleware' => 'admin'], function () {
     // cuentas por pagar
     Route::get('admin/accounts_payable/list', [AccountsPayableController::class, 'list']);
     Route::get('admin/accounts_payable/data', [AccountsPayableController::class, 'getAccountsPayable'])->name('admin.accounts_payable.fetch');
-
     Route::post('admin/payment_purchase/store', [PaymentsPurchasesController::class, 'store'])->name('admin.payment_purchases.payment');
-
     // datos de los pagos
     Route::get('admin/accounts_payable/{purchasePaymentId}/pdf', [AccountsPayableController::class, 'printPdf'])->name('payment_purchase.pdf');
-
     // Ruta para obtener detalles de pagos de una cuenta por pagar
     Route::get('admin/accounts_payable/{id}/details', [AccountsPayableController::class, 'getPaymentDetails'])->name('admin.accounts_payable.details');
     Route::get('admin/accounts_payable/{id}/pdf', [AccountsPayableController::class, 'printPdf'])->name('admin.accounts_payable.pdf');
-
-
-
     //Route::get('/admin/payment_purchase/pdf/{id}', [PaymentsPurchasesController::class, 'printPdf'])->name('admin.payment_purchase.pdf');
 
     //tipo items
@@ -454,10 +445,7 @@ Route::group(['middleware' => 'admin'], function () {
     // Route::get('admin/transfer/{id}',[TransferController::class,'printPdf']);
 
     Route::get('admin/transfer/{transferId}/pdf', [TransferController::class, 'printPdf'])->name('transfer.print-pdf');
-
-
     Route::post('admin/transfer/update-status', [TransferController::class, 'updateStatus'])->name('admin.transfer.update-status');
-
     Route::get('admin/transfer/get-statuses', [TransferController::class, 'getStatuses'])->name('admin.transfer.get-statuses');
 
     Route::get('admin/transfer/export_pdf', [TransferController::class, 'exportPdf']);
@@ -480,6 +468,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/purchase/store', [Purchase2Controller::class, 'store'])->name('admin.purchase.store');
     Route::get('admin/purchase/{id}', [Purchase2Controller::class, 'show']);
     Route::delete('admin/purchase/delete', [Purchase2Controller::class, 'destroy'])->name('admin.purchase.delete');
+   // admin/purchase/view
+    Route::get('admin/purchase/view/{id}', [Purchase2Controller::class, 'view'])->name('admin.purchase.view');
     Route::post('admin/purchase/update_state', [App\Http\Controllers\Purchase2Controller::class, 'updateState'])->name('admin.purchase.update_state');
     // ocompra desde la orden de compras 
     // Add this route for generating purchase from purchase order
@@ -717,8 +707,6 @@ Route::group(['middleware' => 'admin'], function () {
 
     // notes_credit_debit
     Route::get('admin/notes_credit_debit/list', [NotesCreditDebitController::class, 'list'])->name('admin.notes_credit_debit.list');
-
-
     // adjustment_reason
     Route::get('admin/adjustment_reason/list', [AdjustmentReasonController::class, 'list'])->name('admin.adjustment_reason.list');
     Route::get('admin/adjustment_reason/data', [AdjustmentReasonController::class, 'getAdjustmentReasons'])->name('admin.adjustment_reason.fetch');
@@ -744,9 +732,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/inventory_ajusts/pdf/{id}', [InventoryAjustmentController::class, 'printPdf'])->name('admin.inventory_ajusts.pdf');
 
     Route::get('admin/inventory_ajusts/get_items_with_cache', [InventoryAjustmentController::class, 'getItemsWithCache'])->name('admin.inventory_ajusts.get_items_with_cache');
-
-
-
     Route::post('admin/inventory_ajusts/bulk_delete', [InventoryAjustmentController::class, 'bulkDelete'])->name('admin.inventory_ajusts.bulk_delete');
     Route::post('admin/inventory_ajusts/bulk_approve', [InventoryAjustmentController::class, 'bulkApprove'])->name('admin.inventory_ajusts.bulk_approve');
     Route::post('admin/inventory_ajusts/destroy', [InventoryAjustmentController::class, 'destroy'])->name('admin.inventory_ajusts.destroy');
@@ -786,8 +771,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/contact_types/update/{id}', [ContactTypesController::class, 'update'])->name('admin.contact_type.update');
     Route::delete('admin/contact_types/delete/{id}', [ContactTypesController::class, 'destroy'])->name('admin.contact_type.delete');
     Route::put('admin/contact_types/toggle-status/{id}', [ContactTypesController::class, 'toggleStatus'])->name('admin.contact_type.toggle-status');
-
-
      // fuentes contact
     Route::get('admin/contact_sources/list', [ContactSourceController::class, 'list'])->name('admin.contact_source.list');
     Route::get('admin/contact_sources/data', [ContactSourceController::class, 'getContactSources'])->name('admin.contact_source.fetch');
@@ -796,7 +779,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/contact_sources/update/{id}', [ContactSourceController::class, 'update'])->name('admin.contact_source.update');
     Route::delete('admin/contact_sources/delete/{id}', [ContactSourceController::class, 'destroy'])->name('admin.contact_source.delete');
     Route::put('admin/contact_sources/toggle-status/{id}', [ContactSourceController::class, 'toggleStatus'])->name('admin.contact_source.toggle-status');
- 
 
     //opportunity_stages
     Route::get('admin/opportunity_stages/list', [OpportunityStageController::class, 'index'])->name('admin.opportunity_stage.list');
@@ -815,9 +797,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/opportunity_priority/update/{id}', [OpportunityPriorityController::class, 'update'])->name('admin.opportunity_priority.update');
     Route::delete('admin/opportunity_priority/delete/{id}', [OpportunityPriorityController::class, 'destroy'])->name('admin.opportunity_priority.delete');
     Route::put('admin/opportunity_priority/toggle-status/{id}', [OpportunityPriorityController::class, 'toggleStatus'])->name('admin.opportunity_priority.toggle-status');
-
- 
-
     // opportunity states
     Route::get('admin/opportunity_state/list', [OpportunityStateController::class, 'list'])->name('admin.opportunity_state.list');
     Route::get('admin/opportunity_state/data', [OpportunityStateController::class, 'getStates'])->name('admin.opportunity_state.fetch');
@@ -838,7 +817,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/opportunity/{id}', [OpportunityController::class, 'show'])->name('admin.opportunity.show');
     Route::post('admin/opportunity/add-comment/{id}', [OpportunityController::class, 'addComment'])->name('admin.opportunity.add_comment');
     Route::post('admin/opportunity/change-stage/{id}', [OpportunityController::class, 'changeStage'])->name('admin.opportunity.change_stage');
-
 
     // ... existing routes ...
     Route::get('admin/eps/list', [EpsController::class, 'list'])->name('admin.eps.list');
@@ -866,8 +844,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/arl_providers/update/{id}', [ArlProviderController::class, 'update'])->name('admin.arl_providers.update');
     Route::delete('admin/arl_providers/delete/{id}', [ArlProviderController::class, 'destroy'])->name('admin.arl_providers.delete');
     Route::put('admin/arl_providers/toggle-status/{id}', [ArlProviderController::class, 'toggleStatus'])->name('admin.arl_providers.toggle-status');
-
-
     // area
     Route::get('admin/areas/list', [AreaController::class, 'list'])->name('admin.areas.list');
     Route::get('admin/areas/debug', [AreaController::class, 'debugAreas'])->name('admin.areas.debug');
@@ -969,10 +945,6 @@ Route::group(['middleware' => 'admin'], function () {
     // return purchase
 
     Route::get('admin/purchase_returns/list',[PurchaseReturnController::class, 'list'])->name('admin.purchase_returns.list');
-
-
-
-
 });
 
 Route::group(['middleware' => 'user'], function () {

@@ -43,7 +43,12 @@
                             <p class="card-text">Impuestos: No tiene impuesto asociado</p>
                         @endif
                         <p class="card-text">Moneda: {{ $item->currencies->currency_name }}</p>
-                                                
+
+                            <p class="card-text">Fecha de Vencimiento:
+                                 {{ $item->expiration_date ? \Carbon\Carbon::parse($item->expiration_date)->format('d/m/Y') : 'N/A' }}
+                                </p>
+                        <p class="card-text">Creado el: {{ $item->created_at->format('d/m/Y') }}</p>
+
                         <p class="card-text">Descripción: {{ $item->description }}</p>
                         
                         <p class="card-text">Vendido por: @if($item->user) {{ $item->user->name }} @else No hay vendedor @endif</p>
@@ -62,7 +67,8 @@
                 </div>
          
     </div>
-    <script>
+    <script type="text/javascript">
+    $(document).ready(function(){
         function toggleStatus(itemId, currentStatus) {
             let newStatus = currentStatus == 1 ? 0 : 1;
            Swal.fire({
@@ -137,6 +143,18 @@
                    });
                }
            }
+
+           // format date to dd/mm/yyyy
+           function formatDate(dateString) {
+               const date = new Date(dateString);
+               const day = String(date.getDate()).padStart(2, '0');
+               const month = String(date.getMonth() + 1).padStart(2, '0');
+               const year = date.getFullYear();
+               return `${day}/${month}/${year}`;
+           }
+        });
        </script>
+
+       
     @endsection
    

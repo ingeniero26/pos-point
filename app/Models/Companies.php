@@ -17,6 +17,7 @@ class Companies extends Model
         'trade_name', // New field added for trade name
         'code_ciiu', // New field added for CIIU code
         'activity_description',
+        'date_of_incorporation',
         'legal_representative',
         'cc_representative',
         'email',

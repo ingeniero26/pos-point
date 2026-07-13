@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="date_of_issue" class="form-label">Fecha de Expiraciòn *</label>
+                                            <label for="date_of_expiration" class="form-label">Fecha de Expiración *</label>
                                             <input type="date" class="form-control" id="date_of_expiration"
                                              name="date_of_expiration" value="{{ date('Y-m-d') }}" required>
                                         </div>

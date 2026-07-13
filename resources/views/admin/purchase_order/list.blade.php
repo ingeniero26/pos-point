@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <a href="{{url('admin/purchase_order/add')}}" class="btn btn-primary float-end">
-                                    Nueva Nota
+                                    Nueva Orden de Compra
                                 </a>
                                 </div>
                             </div>
@@ -306,6 +306,8 @@
                                             timer: 2000,
                                             showConfirmButton: false
                                         });
+                                        // refresh the page to show updated status
+                                        location.reload();
                                     } else {
                                         Swal.fire({
                                             icon: 'error',

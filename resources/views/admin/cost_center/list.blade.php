@@ -45,6 +45,7 @@
                                                 <th>Nombre</th>
                                                 <th>Presupuesto</th>
                                                 <th>Descripción</th>
+                                                <th>Departamento</th>
                                                  <th>Creado</th>
                                                  <th>Actualizado</th>
                                                 <th>Acciones</th>
@@ -88,6 +89,13 @@
                                 <label for="taxName" class="form-label"><b>Descripción</b></label>
                                 <textarea class="form-control" id="description" name="description"></textarea>
                             </div>
+                            <div class="mb-3">
+                                <label for="taxName" class="form-label"><b>Departamento</b></label>
+                                <select class="form-control" id="is_department" name="is_department">
+                                    <option value="0">No</option>
+                                    <option value="1">Sí</option>
+                                </select>
+                            </div>
                         <div class="mb-3">
                             <label for="taxName" class="form-label"><b>Presupuesto</b></label>
                             <input type="text" class="form-control" id="budget" name="budget">
@@ -127,6 +135,7 @@
                                 <td>${costCenters.name}</td>
                                 <td>${costCenters.budget}</td>
                                 <td>${costCenters.description ? costCenters.description : 'N/A'}</td>
+                                <td>${costCenters.is_department ? 'Sí' : 'No'}</td>
                                 <td>${createdAt}</td>
                                 <td>${updatedAt}</td>
                                 <td>
@@ -163,6 +172,7 @@
                       $('#name').val(bank.name); 
                       $('#budget').val(bank.budget);
                       $('#description').val(bank.description);
+                      $('#is_department').val(bank.is_department);
                       $('#addCostCenterModal').modal('show'); // Manejar el envío del formulario de edición
                        $('#addCostCenterForm').off('submit').on('submit', function(e) {
                          e.preventDefault(); // Prevenir el envío del formulario 

@@ -84,7 +84,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label for="supplier_name"><b>Nombre</b></label>
-                                                        <input type="text" class="form-control" id="supplier_name" name="supplier_name" readonly>
+                                                        <input type="text" class="form-control" id="name_trade" name="name_trade" readonly>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label for="supplier_last_name"><b>Apellido</b></label>
@@ -831,7 +831,7 @@ $(document).on('click', '.select-person', function() {
                                 <td>${index + 1}</td>
                                  <td>
                                             <button type="button" class="btn btn-success select-person" data-id="${customer.id}" 
-                                            data-name="${customer.name}"
+                                            data-name="${customer.company_name ? customer.company_name : customer.name}"
                                              data-last_name="${customer.last_name}"
                                              data-company_name="${customer.company_name}"
                                              data-identification_number="${customer.identification_number}"

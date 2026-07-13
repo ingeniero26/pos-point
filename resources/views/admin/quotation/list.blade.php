@@ -42,9 +42,9 @@
                                 <div class="col-md-3">
                                     <label for="customer_id" class="form-label">Cliente</label>
                                     <select class="form-select" id="customer_id" name="customer_id">
-                                        <option value="">Seleciione un cliente</option>
+                                        <option value="">Seleccione un cliente</option>
                                         @foreach($customers as $customer)
-                                        <option value="{{ $customer->id }}">{{ $customer->name }} - {{ $customer->identification_number }}</option>
+                                        <option value="{{ $customer->id }}"> {{ $customer->first_name }} {{ $customer->last_name }} - {{ $customer->identification_number }}</option>
                                     @endforeach
                                         
                                        
@@ -143,15 +143,11 @@
 <script>
     let salesTable;
     let customers = [];
-    
-    
-    
     // Función para cargar las ventas con filtros
     function loadSales(filters = {}) {
         if (salesTable) {
             salesTable.destroy();
         }
-        
         $.ajax({
             url: '{{route("admin.quotation.fetch")}}',
             method: 'GET',
@@ -233,6 +229,10 @@
                                         <button class="btn btn-danger btn-sm delete-btn" data-id="${quotation.id}" title="Eliminar">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
+                                            <button class="btn btn-primary btn-sm send-email-btn" data-id="${quotation.id}" title="Enviar por email">
+                                                <i class="fa-solid fa-envelope"></i>
+                                            </button>
+                                        
                                         
                                         ${quotation.status_quotation_id == 3 ? `
                                             <button class="btn btn-success btn-sm sales-btn" data-id="${quotation.id}" title="Facturar">
@@ -283,7 +283,7 @@
         
         // Get quotation details for email
         $.ajax({
-            url: "{{ url('admin/quotation/get-details') }}/" + quotationId,
+            url: "{{ url('admin/quotation/details') }}/" + quotationId,
             method: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -508,21 +508,7 @@
         }
     };
     
-    // Manejar impresión de PDF
-    $(document).on('click', '.print-pdf', function() {
-        var saleId = $(this).data('sale-id');
-        
-        if (!saleId) {
-            console.error('ID de la venta no encontrado');
-            alert('Error: No se pudo identificar la venta');
-            return;
-        }
-        
-        // Usar la ruta correcta para generar el PDF
-        var url = "{{ route('admin.sales.pdf', ['id' => ':id']) }}".replace(':id', saleId);
-        console.log('Abriendo URL:', url);
-        window.open(url, '_blank');
-    });
+ 
     
     // Manejar eliminación de venta
     function handleDelete() {

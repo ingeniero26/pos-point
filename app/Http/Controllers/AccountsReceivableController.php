@@ -116,7 +116,7 @@ class AccountsReceivableController extends Controller
                     'date_of_due' => $account->date_of_due,
                     'total_amount' => $account->total_amount,
                     'customers' => [
-                        'name' => $account->customers->name ?? 'N/A'
+                        'name' => $account->customers->first_name ?? 'N/A'
                     ],
                     'sales' => [
                         'invoice_no' => $account->sales->invoice_no ?? 'N/A'

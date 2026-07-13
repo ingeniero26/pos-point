@@ -599,6 +599,37 @@
                         let ganancia = (items.selling_price)-(items.cost_price);
                         let percentageProfit = formatCurrency(items.percentage_profit);
                         let expiration_date = items.expiration_date ? dayjs(items.expiration_date).format('DD/MM/YYYY') : 'N/A';
+                       
+                        let expirationHTML = 'N/A';
+                if (items.expiration_date) {
+                    let expirationDate = dayjs(items.expiration_date);
+                    let today = dayjs().startOf('day');
+                    
+                    if (expirationDate.isBefore(today)) {
+                        // Producto vencido
+                        expirationHTML = `
+                            <div>
+                                <span>${expiration_date}</span>
+                                <span class="badge bg-danger ms-2">
+                                    <i class="fas fa-exclamation-triangle"></i> Vencido
+                                </span>
+                            </div>
+                        `;
+                    } else if (expirationDate.diff(today, 'day') <= 30) {
+                        // Próximo a vencer (dentro de 30 días)
+                        expirationHTML = `
+                            <div>
+                                <span>${expiration_date}</span>
+                                <span class="badge bg-warning ms-2">
+                                    <i class="fas fa-clock"></i> Próximo a vencer
+                                </span>
+                            </div>
+                        `;
+                    } else {
+                        // Vigente
+                        expirationHTML = expiration_date;
+                    }
+                }
                         let row = `
                             <tr>
                                 <td>${items.id}</td>
@@ -612,7 +643,7 @@
                                 <td>${items.category ? items.category.category_name : 'N/A'}</td>
                                 <td>${items.subcategory ? items.subcategory.name : 'N/A'}</td>
                                 <td>${items.currencies ? items.currencies.currency_name : 'N/A'}</td>
-                                <td>${expiration_date}</td>
+                                <td>${expirationHTML}</td>
                                 <td>${items.description || 'N/A'}</td>
                                 <td>${items.description_short || 'N/A'}</td>
                                 <td>${items.aditional_information || 'N/A'}</td>
