@@ -78,6 +78,12 @@
                     <li><a href="{{url('admin/positions/list')}}"class="dropdown-item">
                         Cargos
                     </a> </li>
+                    <li> <a href="{{url('admin/compensation_funds/list')}}"class="dropdown-item">
+                        Cajas de Compensación
+                    </a> </li>
+                    <li> <a href="{{url('admin/contract_types/list')}}"class="dropdown-item">
+                        Tipo de Contrato
+                    </a> </li>
                 </ul>
               </div>
               <div class="dropdown">

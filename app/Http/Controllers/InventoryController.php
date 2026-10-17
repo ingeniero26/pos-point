@@ -320,11 +320,11 @@ class InventoryController extends Controller
                 ->where('company_id', Auth::user()->company_id)
                 ->with([
                     'item:id,product_name,sku,reference,barcode,cost_price,selling_price,category_id,tax_id,measure_id',
-                    'item.category:id,name',
+                    'item.category:id,category_name',
                     'item.tax:id,name,percentage',
-                    'item.measure:id,name',
+                    'item.measure:id,measure_name',
                     'warehouse:id,warehouse_name',
-                    'company:id,name'
+                    'company:id,company_name'
                 ])
                 ->orderBy('id', 'asc');
 

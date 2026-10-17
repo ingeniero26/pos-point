@@ -19,6 +19,7 @@ use App\Models\VoucherTypeModel;
 use App\Models\WarehouseModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Log;
 
@@ -150,7 +151,45 @@ private function applyFilters($query, $request)
     public function updateState(Request $request)
 {
     try {
-        $purchase = PurchaseModel::findOrFail($request->purchase_id);
+        $request->validate([
+            'state_id' => 'required|integer',
+        ]);
+
+        $purchaseId = $request->input('purchase_id');
+        $purchaseOrderId = $request->input('purchase_order_id');
+
+        if ($purchaseOrderId) {
+            $record = PurchaseOrder::where('id', $purchaseOrderId)
+                ->where('is_delete', 0)
+                ->first();
+
+            if (!$record) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No se encontró la orden de compra solicitada.'
+                ], 404);
+            }
+
+            $record->status_order_id = $request->state_id;
+            $record->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Estado actualizado correctamente'
+            ]);
+        }
+
+        $purchase = PurchaseModel::where('id', $purchaseId)
+            ->where('is_delete', 0)
+            ->first();
+
+        if (!$purchase) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No se encontró la compra solicitada.'
+            ], 404);
+        }
+
         $purchase->state_type_id = $request->state_id;
         // si es recahzado, anulada o por anular, que efectos tiene en el inventario
         if ($request->state_id == 5 || $request->state_id == 6 || $request->state_id == 7) {
@@ -490,7 +529,7 @@ public function generateFromOrder(Request $request)
         }
         
         // Begin transaction
-        \DB::beginTransaction();
+        DB::beginTransaction();
         
         // Create new purchase
         $purchase = new PurchaseModel();
@@ -579,7 +618,7 @@ public function generateFromOrder(Request $request)
         $purchaseOrder->save();
         
         // Commit transaction
-        \DB::commit();
+        DB::commit();
         
         return response()->json([
             'success' => true,
@@ -590,7 +629,7 @@ public function generateFromOrder(Request $request)
         
     } catch (\Exception $e) {
         // Rollback transaction
-        \DB::rollBack();
+        DB::rollBack();
         
         return response()->json([
             'success' => false,

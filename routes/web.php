@@ -76,7 +76,9 @@ use App\Http\Controllers\AdjustmentReasonController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\ArlProviderController;
 use App\Http\Controllers\BranchTypeController;
+use App\Http\Controllers\CompensationFundController;
 use App\Http\Controllers\ContactSourceController;
+use App\Http\Controllers\ContractTypeController;
 use App\Http\Controllers\EpsController;
 use App\Http\Controllers\InventoryAjustmentController;
 use App\Http\Controllers\UserController;
@@ -945,6 +947,24 @@ Route::group(['middleware' => 'admin'], function () {
     // return purchase
 
     Route::get('admin/purchase_returns/list',[PurchaseReturnController::class, 'list'])->name('admin.purchase_returns.list');
+
+    //compesation found
+    Route::get('admin/compensation_funds/list', [CompensationFundController::class, 'list'])->name('admin.compensation_funds.list');
+    Route::get('admin/compensation_funds/fetch', [CompensationFundController::class, 'getCompensationFunds'])->name('admin.compensation_funds.fetch');
+    Route::post('admin/compensation_funds/store', [CompensationFundController::class, 'store'])->name('admin.compensation_funds.store');
+    Route::get('admin/compensation_funds/edit/{id}', [CompensationFundController::class, 'edit'])->name('admin.compensation_funds.edit');
+    Route::post('admin/compensation_funds/update/{id}', [CompensationFundController::class, 'update'])->name('admin.compensation_funds.update');
+    Route::delete('admin/compensation_funds/delete/{id}', [CompensationFundController::class, 'destroy'])->name('admin.compensation_funds.delete');
+    Route::put('admin/compensation_funds/toggle-status/{id}', [CompensationFundController::class, 'toggleStatus'])->name('admin.compensation_funds.toggle-status');
+
+    //contract_types
+    Route::get('admin/contract_types/list', [ContractTypeController::class, 'list'])->name('admin.contract_types.list');
+    Route::get('admin/contract_types/fetch', [ContractTypeController::class, 'getContractTypes'])->name('admin.contract_types.fetch');
+    Route::post('admin/contract_types/store', [ContractTypeController::class, 'store'])->name('admin.contract_types.store');
+    Route::get('admin/contract_types/edit/{id}', [ContractTypeController::class, 'edit'])->name('admin.contract_types.edit');
+    Route::post('admin/contract_types/update/{id}', [ContractTypeController::class, 'update'])->name('admin.contract_types.update');
+    Route::delete('admin/contract_types/delete/{id}', [ContractTypeController::class, 'destroy'])->name('admin.contract_types.delete');
+    Route::put('admin/contract_types/toggle-status/{id}', [ContractTypeController::class, 'toggleStatus'])->name('admin.contract_types.toggle-status');
 });
 
 Route::group(['middleware' => 'user'], function () {
@@ -968,6 +988,9 @@ Route::group(['middleware' => 'super'], function () {
     Route::put('super/users/{id}', [SuperAdminController::class, 'updateUser'])->name('super.users.update');
     Route::delete('super/users/{id}', [SuperAdminController::class, 'deleteUser'])->name('super.users.delete');
     Route::post('super/users/{id}/toggle-status', [SuperAdminController::class, 'toggleUserStatus'])->name('super.users.toggle_status');
+
+    
+
 });
 
 

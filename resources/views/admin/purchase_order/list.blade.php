@@ -156,7 +156,7 @@
                 dataType: 'json',
                 data: {
                     _token: "{{ csrf_token() }}",
-                    purchase_id: purchaseId,
+                    purchase_order_id: purchaseId,
                     state_id: newStateId
                 },
                 success: function(response) {
