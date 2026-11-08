@@ -26,7 +26,7 @@
                   <li><a class="dropdown-item" href="{{url('admin/payment_method/list')}}">Métodos de Pago</a></li>
                   <li><a class="dropdown-item" href="{{url('admin/payment_type/list')}}">Tipo de Pago</a></li>
                   <li><a class="dropdown-item" href="{{url('admin/bank/list')}}">Bancos</a></li>
-                  <li><a class="dropdown-item" href="{{url('admin/account_plan/list')}}">Cuentas Bancarias</a></li>
+                  <li><a class="dropdown-item" href="{{url('admin/account_bank/list')}}">Cuentas Bancarias</a></li>
 
                 </ul>
               </div>
@@ -52,6 +52,7 @@
                     <li> <a href="{{url('admin/branch/list')}}"class="dropdown-item">
                         Sucursales
                     </a> </li>
+                    
                 </ul>
               </div>
                <div class="dropdown">

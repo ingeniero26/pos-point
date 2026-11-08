@@ -79,6 +79,7 @@ use App\Http\Controllers\BranchTypeController;
 use App\Http\Controllers\CompensationFundController;
 use App\Http\Controllers\ContactSourceController;
 use App\Http\Controllers\ContractTypeController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EpsController;
 use App\Http\Controllers\InventoryAjustmentController;
 use App\Http\Controllers\UserController;
@@ -965,6 +966,26 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/contract_types/update/{id}', [ContractTypeController::class, 'update'])->name('admin.contract_types.update');
     Route::delete('admin/contract_types/delete/{id}', [ContractTypeController::class, 'destroy'])->name('admin.contract_types.delete');
     Route::put('admin/contract_types/toggle-status/{id}', [ContractTypeController::class, 'toggleStatus'])->name('admin.contract_types.toggle-status');
+
+    //employees
+    Route::get('admin/employees/list', [EmployeeController::class, 'list'])->name('admin.employees.list');
+    route::get('admin/employees/fetch', [EmployeeController::class, 'getEmployees'])->name('admin.employees.fetch');
+    Route::get('admin/employees/create', [EmployeeController::class, 'create'])->name('admin.employees.create');
+    Route::post('admin/employees/store', [EmployeeController::class, 'store'])->name('admin.employees.store');
+    Route::get('admin/employees/edit/{id}', [EmployeeController::class, 'edit'])->name('admin.employees.edit');
+    Route::post('admin/employees/update/{id}', [EmployeeController::class, 'update'])->name('admin.employees.update');
+    Route::delete('admin/employees/delete/{id}', [EmployeeController::class, 'destroy'])->name('admin.employees.delete');
+    Route::put('admin/employees/toggle-status/{id}', [EmployeeController::class, 'toggleStatus'])->name('admin.employees.toggle-status');
+    Route::get('admin/employees/{id}', [EmployeeController::class, 'show'])->name('admin.employees.show');
+    Route::get('admin/employees/{id}/pdf', [EmployeeController::class, 'generatePdf'])->name('admin.employees.pdf');
+    Route::get('admin/employees/{id}/excel', [EmployeeController::class, 'generateExcel'])->name('admin.employees.excel');
+    Route::get('admin/employees/{id}/csv', [EmployeeController::class, 'generateCsv'])->name('admin.employees.csv');
+    Route::get('admin/employees/{id}/print', [EmployeeController::class, 'print'])->name('admin.employees.print');
+    Route::get('admin/employees/{id}/history', [EmployeeController::class, 'history'])->name('admin.employees.history');
+    Route::get('admin/employees/{id}/history/pdf', [EmployeeController::class, 'historyPdf'])->name('admin.employees.history.pdf');
+    Route::get('admin/employees/{id}/history/excel', [EmployeeController::class, 'historyExcel'])->name('admin.employees.history.excel');
+    Route::get('admin/employees/{id}/history/csv', [EmployeeController::class, 'historyCsv'])->name('admin.employees.history.csv');
+    Route::get('admin/employees/{id}/history/print', [EmployeeController::class, 'historyPrint'])->name('admin.employees.history.print');
 });
 
 Route::group(['middleware' => 'user'], function () {

@@ -112,7 +112,7 @@ class PersonController extends Controller
 
        ]); 
        }
-       //comment
+       // 
 
        return response()->json(['success' => 'Registro Creado con Éxito']);
     }

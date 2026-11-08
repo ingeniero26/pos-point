@@ -419,7 +419,7 @@
                                                                 data-email="{{ $customer->email }}"
                                                                 data-address="{{ $customer->address }}"
                                                                 {{ $customer->id == 16 ? 'selected' : '' }}>
-                                                            {{ $customer->name }} - {{ $customer->identification_number }}
+                                                            {{ $customer->first_name }} - {{ $customer->identification_number }}
                                                         </option>
                                                         @endforeach
                                                     </select>

@@ -123,14 +123,20 @@
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview">
                       
-                        <li class="nav-item">
-                             <a href="{{url('admin/person/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                    <li class="nav-item">
+                        <a href="{{url('admin/person/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
                                 <p>Mis Contáctos(Clientes-Proveedores)</p>
-                            </a> </li>
+                        </a> 
+                    </li>
+                     <li class="nav-item">
+                        <a href="{{url('admin/employees/list')}}" class="nav-link"> <i class="nav-icon bi bi-circle"></i>
+                                <p>Empleados</p>
+                        </a> 
+                    </li>
                       
-                    </ul>
+                </ul>
                 </li>
                 <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-pencil-square"></i>
                     <p>
